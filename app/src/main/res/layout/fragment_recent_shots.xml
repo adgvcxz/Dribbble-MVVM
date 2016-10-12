@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-</android.support.v7.widget.RecyclerView>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="com.adgvcxz.adgble.model.RecentShotsViewModel"/>
+
+        <import type="com.adgvcxz.adgble.util.LayoutManager"/>
+    </data>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        app:layoutManager="@{LayoutManager.linear()}"
+        app:itemView="@{model.itemView}"
+        app:items="@{model.items}"/>
+
+</layout>

@@ -2,12 +2,9 @@ package com.adgvcxz.adgble.data;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.net.Uri;
 
 import com.android.databinding.library.baseAdapters.BR;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 
 /**
