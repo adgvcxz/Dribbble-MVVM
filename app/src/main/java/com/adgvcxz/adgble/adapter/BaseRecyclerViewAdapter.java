@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.adgvcxz.adgble.binding.ItemView;
+
 import java.util.ArrayList;
 
 /**
@@ -15,9 +17,11 @@ import java.util.ArrayList;
 
 public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<T> values;
+    private ArrayList<T> items;
     private ItemView itemView;
     private LayoutInflater inflater;
+    private boolean loadMore;
+    private boolean isLoadAll;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,16 +35,23 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewDataBinding binding = DataBindingUtil.getBinding(holder.itemView);
-        binding.setVariable(itemView.bindingVariable(), values.get(position));
+        binding.setVariable(itemView.bindingVariable(), items.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return values == null? 0 : values.size();
+        if (items == null) {
+            return 0;
+        } else {
+            if (loadMore && !isLoadAll) {
+                return items.size() + 1;
+            }
+        }
+        return items.size();
     }
 
-    public void setValues(ArrayList<T> values) {
-        this.values = values;
+    public void setItems(ArrayList<T> items) {
+        this.items = items;
         notifyDataSetChanged();
     }
 
@@ -51,5 +62,13 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     @Override
     public int getItemViewType(int position) {
         return itemView.layoutRes();
+    }
+
+    public void setLoadMore(boolean loadMore) {
+        this.loadMore = loadMore;
+    }
+
+    public void setLoadAll(boolean loadAll) {
+        isLoadAll = loadAll;
     }
 }

@@ -1,4 +1,4 @@
-package com.adgvcxz.adgble.adapter;
+package com.adgvcxz.adgble.binding;
 
 import android.support.annotation.LayoutRes;
 

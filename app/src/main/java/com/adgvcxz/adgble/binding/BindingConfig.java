@@ -1,13 +1,10 @@
-package com.adgvcxz.adgble.model;
+package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
-import com.adgvcxz.adgble.adapter.ItemView;
-import com.adgvcxz.adgble.util.LayoutManager;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -39,11 +36,20 @@ public class BindingConfig {
         BaseRecyclerViewAdapter<T> adapter = (BaseRecyclerViewAdapter<T>) recyclerView.getAdapter();
         if (adapter == null) {
             adapter = new BaseRecyclerViewAdapter();
-            adapter.setValues(items);
+            adapter.setItems(items);
             adapter.setItemView(itemView);
             recyclerView.setAdapter(adapter);
         } else {
-            adapter.setValues(items);
+            adapter.setItems(items);
         }
     }
+
+    @BindingAdapter(value = {"loadMore", "isLoadAll"}, requireAll = false)
+    public static void setLoadMore(RecyclerView recyclerView, boolean loadMore, boolean isLoadAll) {
+        if (loadMore) {
+
+        }
+    }
+
+
 }

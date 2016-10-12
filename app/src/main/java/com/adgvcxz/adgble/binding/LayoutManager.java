@@ -1,4 +1,4 @@
-package com.adgvcxz.adgble.util;
+package com.adgvcxz.adgble.binding;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
