@@ -8,7 +8,7 @@
             name="model"
             type="com.adgvcxz.adgble.model.RecentShotsViewModel"/>
 
-        <import type="com.adgvcxz.adgble.util.LayoutManager"/>
+        <import type="com.adgvcxz.adgble.binding.LayoutManager"/>
     </data>
 
     <android.support.v7.widget.RecyclerView
@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
+        app:adapter="@{model.adapter}"
         app:layoutManager="@{LayoutManager.linear()}"
         app:itemView="@{model.itemView}"
         app:items="@{model.items}"/>

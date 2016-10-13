@@ -1,6 +1,7 @@
 package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
+import android.databinding.BindingConversion;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 
@@ -8,6 +9,7 @@ import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * zhaowei
@@ -27,15 +29,14 @@ public class BindingConfig {
     }
 
     @SuppressWarnings("unchecked")
-    @BindingAdapter({"itemView", "items"})
-    public static <T> void setAdapter(RecyclerView recyclerView, ItemView itemView, ArrayList<T> items) {
+    @BindingAdapter({"itemView", "items", "adapter"})
+    public static <T> void setAdapter(RecyclerView recyclerView, ItemViewSelector<T> itemView, ArrayList<T> items, BaseRecyclerViewAdapter adapter) {
         if (itemView == null) {
             throw new IllegalArgumentException("itemView must not be null");
         }
 
-        BaseRecyclerViewAdapter<T> adapter = (BaseRecyclerViewAdapter<T>) recyclerView.getAdapter();
-        if (adapter == null) {
-            adapter = new BaseRecyclerViewAdapter();
+        RecyclerView.Adapter oldAdapter = recyclerView.getAdapter();
+        if (oldAdapter == null) {
             adapter.setItems(items);
             adapter.setItemView(itemView);
             recyclerView.setAdapter(adapter);
@@ -49,6 +50,15 @@ public class BindingConfig {
         if (loadMore) {
 
         }
+    }
+
+    @BindingConversion
+    public static ItemViewSelector toItemViewSelector(ItemView itemView) {
+        return new SingleItemViewSelector(itemView);
+    }
+
+    public static ItemViewSelector toItemViewSelector(List<ItemView> itemViews) {
+        return new MutliItemViewSelector(itemViews);
     }
 
 

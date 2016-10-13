@@ -6,7 +6,6 @@ package com.adgvcxz.adgble.binding;
  */
 
 public interface ItemViewSelector<T> {
-
-
-
+    int layoutRes(int position, T item);
+    int bindingVariable(int position, T item);
 }
