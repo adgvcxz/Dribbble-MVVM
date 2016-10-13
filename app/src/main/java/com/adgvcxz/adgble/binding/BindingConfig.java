@@ -6,10 +6,19 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.DraweeView;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * zhaowei
@@ -20,7 +29,34 @@ public class BindingConfig {
 
     @BindingAdapter({"imageUrl"})
     public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl) {
-        simpleDraweeView.setImageURI(Uri.parse(imageUrl));
+        ImageRequest imageRequest = ImageRequestBuilder
+                .newBuilderWithSource(Uri.parse(imageUrl))
+                //.setResizeOptions(new ResizeOptions(parent.getWidth(),150))
+                .setProgressiveRenderingEnabled(true)
+                .setLocalThumbnailPreviewsEnabled(true)
+                .build();
+
+
+
+
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(imageRequest)
+                .setOldController(simpleDraweeView.getController())
+                .setAutoPlayAnimations(false)
+                .build();
+
+
+
+//        holder.draweeView.setController(controller);
+//
+//
+//
+//        DraweeController controller = Fresco.newDraweeControllerBuilder()
+//                .setOldController(simpleDraweeView.getController())
+//                .setUri(Uri.parse(imageUrl))
+//                .setAutoPlayAnimations(true)
+//                .build();
+        simpleDraweeView.setController(controller);
     }
 
     @BindingAdapter({"layoutManager"})
@@ -47,9 +83,13 @@ public class BindingConfig {
 
     @BindingAdapter(value = {"loadMore", "isLoadAll"}, requireAll = false)
     public static void setLoadMore(RecyclerView recyclerView, boolean loadMore, boolean isLoadAll) {
-        if (loadMore) {
-
-        }
+        Observable.just(recyclerView.getAdapter()).ofType(BaseRecyclerViewAdapter.class)
+                .filter(adapter -> adapter.isLoadMore() != loadMore || adapter.isLoadAll() != isLoadAll)
+                .subscribe(adapter -> {
+                    adapter.setLoadMore(loadMore);
+                    adapter.setLoadAll(isLoadAll);
+//                    adapter.notifyDataSetChanged();
+                });
     }
 
     @BindingConversion

@@ -1,5 +1,6 @@
 package com.adgvcxz.adgble.model;
 
+import android.databinding.ObservableBoolean;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -10,8 +11,9 @@ import android.support.v7.widget.RecyclerView;
 
 public class BaseRecyclerViewModel extends BaseViewModel {
 
-    private boolean isLoadAll;
-    private boolean loading;
+    public ObservableBoolean isLoadAll = new ObservableBoolean(false);
+    public ObservableBoolean loadMore = new ObservableBoolean(true);
+    private ObservableBoolean loading;
 
     /**
      * 实现加载更多
@@ -21,12 +23,13 @@ public class BaseRecyclerViewModel extends BaseViewModel {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            if (recyclerView.getAdapter() != null && isLoadAll) {
+            if (recyclerView.getAdapter() != null && isLoadAll.get()) {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 int lastPosition = linearLayoutManager.findLastVisibleItemPosition();
                 int count = linearLayoutManager.getItemCount();
-                if (!loading && (count == lastPosition + 1)) {
-                    loading = true;
+                if (!loading.get() && (count == lastPosition + 1)) {
+                    loading.set(true);
+//                    loading. = true;
 //                    if (mOnLoadMoreListener != null && mAdapter.isLoadSuccess()) {
 //                        mOnLoadMoreListener.loadMore();
 //                    }

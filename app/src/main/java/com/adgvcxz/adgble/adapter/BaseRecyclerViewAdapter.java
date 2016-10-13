@@ -23,8 +23,8 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     private ArrayList<T> items;
     private ItemViewSelector<T> itemView;
     private LayoutInflater inflater;
-    private boolean loadMore = true;
-    private boolean isLoadAll = false;
+    private boolean loadMore;
+    private boolean isLoadAll;
 
     private ItemView loadMoreItemView = ItemView.of(BR.item, R.layout.item_load_more);
 
@@ -82,5 +82,13 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
 
     public void setLoadAll(boolean loadAll) {
         isLoadAll = loadAll;
+    }
+
+    public boolean isLoadMore() {
+        return loadMore;
+    }
+
+    public boolean isLoadAll() {
+        return isLoadAll;
     }
 }

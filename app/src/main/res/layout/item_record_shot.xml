@@ -17,7 +17,8 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:imageUrl="@{item.imageUrl}"/>
+            android:onClick="@{item.onClick}"
+            app:imageUrl="@{item.imageUrl}" />
 
     </LinearLayout>
 </layout>
