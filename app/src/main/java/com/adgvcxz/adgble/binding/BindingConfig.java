@@ -4,6 +4,8 @@ import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -29,33 +31,31 @@ public class BindingConfig {
 
     @BindingAdapter({"imageUrl"})
     public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl) {
-        ImageRequest imageRequest = ImageRequestBuilder
-                .newBuilderWithSource(Uri.parse(imageUrl))
-                //.setResizeOptions(new ResizeOptions(parent.getWidth(),150))
-                .setProgressiveRenderingEnabled(true)
-                .setLocalThumbnailPreviewsEnabled(true)
-                .build();
-
-
-
-
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(imageRequest)
-                .setOldController(simpleDraweeView.getController())
-                .setAutoPlayAnimations(false)
-                .build();
-
-
-
-//        holder.draweeView.setController(controller);
+//        ImageRequest imageRequest = ImageRequestBuilder
+//                .newBuilderWithSource(Uri.parse(imageUrl))
+//                //.setResizeOptions(new ResizeOptions(parent.getWidth(),150))
+//                .setProgressiveRenderingEnabled(true)
+//                .setLocalThumbnailPreviewsEnabled(true)
+//                .build();
+//
 //
 //
 //
 //        DraweeController controller = Fresco.newDraweeControllerBuilder()
+//                .setImageRequest(imageRequest)
 //                .setOldController(simpleDraweeView.getController())
-//                .setUri(Uri.parse(imageUrl))
 //                .setAutoPlayAnimations(true)
 //                .build();
+
+
+
+//
+//
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setOldController(simpleDraweeView.getController())
+                .setUri(Uri.parse(imageUrl))
+                .setAutoPlayAnimations(true)
+                .build();
         simpleDraweeView.setController(controller);
     }
 
@@ -88,8 +88,25 @@ public class BindingConfig {
                 .subscribe(adapter -> {
                     adapter.setLoadMore(loadMore);
                     adapter.setLoadAll(isLoadAll);
-//                    adapter.notifyDataSetChanged();
                 });
+    }
+
+    @BindingAdapter({"onItemClickListener"})
+    public static void setOnItemClickListener(RecyclerView recyclerView, OnRecyclerViewItemClickListener listener) {
+        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                view.setOnClickListener(v -> {
+                    RecyclerView.ViewHolder holder = recyclerView.getChildViewHolder(view);
+                    listener.onClick(recyclerView, holder.getAdapterPosition(), view);
+                });
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+
+            }
+        });
     }
 
     @BindingConversion

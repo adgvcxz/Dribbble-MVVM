@@ -2,28 +2,57 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
-
+        <variable
+            name="model"
+            type="com.adgvcxz.adgble.model.MainActivityViewModel"/>
+        <import type="android.os.Build" />
+        <import type="android.view.View" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/status_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/status_bar_height"
+                    android:background="@color/color_primary_status_bar_light"
+                    android:visibility="@{Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT ? View.VISIBLE : View.GONE}" />
+
+                <include layout="@layout/include_toolbar" />
+
+                <FrameLayout
+                    android:id="@+id/main_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <android.support.design.widget.NavigationView
+                android:id="@+id/navigation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/navigation_bg_light"
+                android:fitsSystemWindows="true" />
+        </android.support.v4.widget.DrawerLayout>
+
+        <ImageView
+            android:id="@+id/change_mode_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/include_toolbar" />
-
-            <FrameLayout
-                android:id="@+id/main_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </FrameLayout>
-        </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
+            android:visibility="@{model.changeMode ? View.VISIBLE : View.GONE}"/>
+    </FrameLayout>
 </layout>

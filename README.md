@@ -1,4 +1,4 @@
 # Dribbble-Android
-Dribbble Android客户端
+Dribbble Android MVVM
 
 尝试着去学习ConstraintLayout, DataBinding, RxJava

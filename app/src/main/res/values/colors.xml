@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="color_primary_light">#3F51B5</color>
+    <color name="color_primary_status_bar_light">#303F9F</color>
+    <color name="color_accent_light">#ff4081</color>
+    <color name="navigation_bg_light">#FFFFFF</color>
+
+
+    <color name="color_primary_teal">#009688</color>
+    <color name="color_primary_status_bar_teal">#00796B</color>
+    <color name="color_accent_teal">#009688</color>
+    <color name="navigation_bg_teal">#FFFFFF</color>
 </resources>

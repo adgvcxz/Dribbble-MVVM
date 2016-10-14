@@ -20,6 +20,7 @@
         app:itemView="@{model.itemView}"
         app:items="@{model.items}"
         app:loadMore="@{model.loadMore}"
-        app:isLoadAll="@{model.isLoadAll}"/>
+        app:isLoadAll="@{model.isLoadAll}"
+        app:onItemClickListener="@{model.clickListener}"/>
 
 </layout>
