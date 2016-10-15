@@ -14,6 +14,8 @@ import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 import com.android.databinding.library.baseAdapters.BR;
 
+import rx.Observable;
+
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/12.

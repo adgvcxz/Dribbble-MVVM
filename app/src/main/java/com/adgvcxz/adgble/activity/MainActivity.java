@@ -4,12 +4,11 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.databinding.ActivityMainBinding;
@@ -18,9 +17,15 @@ import com.adgvcxz.adgble.fragment.RecentShotsFragment;
 import com.adgvcxz.adgble.model.MainActivityViewModel;
 import com.adgvcxz.adgble.rxbus.RxBus;
 import com.adgvcxz.adgble.rxbus.RxBusChangeTheme;
+import com.adgvcxz.adgble.util.ThemeUtil;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 
 
-public class MainActivity extends AppCompatActivity implements Animation.AnimationListener {
+public class MainActivity extends BaseActivity {
 
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
@@ -37,33 +42,26 @@ public class MainActivity extends AppCompatActivity implements Animation.Animati
         binding.setModel(viewModel);
         getSupportFragmentManager().beginTransaction().replace(binding.mainContent.getId(), new RecentShotsFragment()).commit();
         getSupportFragmentManager().beginTransaction().replace(binding.navigationView.getId(), new DrawerMenuFragment()).commit();
-        RxBus.getDefault().toObservable(RxBusChangeTheme.class).map(drawerLayout -> {
+        initChangeTheme();
+    }
+
+    private void initChangeTheme() {
+        Subscription subscription = RxBus.getDefault().toObservable(RxBusChangeTheme.class).map(changeTheme -> {
             binding.drawerLayout.setDrawingCacheEnabled(true);
-            return Bitmap.createBitmap(binding.drawerLayout.getDrawingCache());
-        }).subscribe(bitmap -> {
-            binding.changeModeImage.setImageBitmap(bitmap);
+            viewModel.theme.set(changeTheme.getTheme());
+            ThemeUtil.sTheme = changeTheme.getTheme();
+            ImageView imageView = new ImageView(MainActivity.this);
+            binding.frameLayout.addView(imageView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            imageView.setImageBitmap(Bitmap.createBitmap(binding.drawerLayout.getDrawingCache()));
             binding.drawerLayout.setDrawingCacheEnabled(false);
-            viewModel.changeMode.set(true);
-            Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.change_theme);
-            animation.setAnimationListener(MainActivity.this);
-            binding.changeModeImage.startAnimation(animation);
-            binding.statusBar.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.color_primary_status_bar_teal));
-            findViewById(R.id.toolbar).setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.color_primary_teal));
+            imageView.animate().alpha(0).setDuration(350).start();
+            imageView.setOnTouchListener((v, event) -> true);
+            return imageView;
+        }).debounce(400, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(imageView -> {
+            binding.frameLayout.removeView(imageView);
+            System.gc();
+            Runtime.getRuntime().gc();
         });
-    }
-
-    @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-        viewModel.changeMode.set(false);
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation animation) {
-
+        subscriptions.add(subscription);
     }
 }

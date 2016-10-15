@@ -2,10 +2,9 @@ package com.adgvcxz.adgble;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.v4.graphics.ColorUtils;
 
-import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -25,7 +24,9 @@ public class AdgbleApp extends Application {
             return;
         }
         refWatcher = LeakCanary.install(this);
-        Fresco.initialize(this);
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setDownsampleEnabled(true).build();
+        Fresco.initialize(this, config);
     }
 
     public static RefWatcher getRefWatcher(Context context) {

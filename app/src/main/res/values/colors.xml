@@ -9,5 +9,5 @@
     <color name="color_primary_teal">#009688</color>
     <color name="color_primary_status_bar_teal">#00796B</color>
     <color name="color_accent_teal">#009688</color>
-    <color name="navigation_bg_teal">#FFFFFF</color>
+    <color name="navigation_bg_teal">#263238</color>
 </resources>
