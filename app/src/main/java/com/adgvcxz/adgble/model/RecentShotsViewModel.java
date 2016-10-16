@@ -14,8 +14,6 @@ import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 import com.android.databinding.library.baseAdapters.BR;
 
-import rx.Observable;
-
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/12.
@@ -43,6 +41,7 @@ public class RecentShotsViewModel extends BaseRecyclerViewModel {
     public static class RecentShotsItemViewModel extends BaseItemViewModel {
 
         public final ObservableField<String> imageUrl = new ObservableField<>();
+        public final ObservableField<String> thumbnail = new ObservableField<>();
 
         @Override
         public String toString() {

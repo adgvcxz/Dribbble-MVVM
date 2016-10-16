@@ -4,14 +4,15 @@ import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.DraweeView;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ImageDecodeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
@@ -19,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * zhaowei
@@ -29,34 +28,25 @@ import rx.functions.Func1;
 
 public class BindingConfig {
 
-    @BindingAdapter({"imageUrl"})
-    public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl) {
-//        ImageRequest imageRequest = ImageRequestBuilder
-//                .newBuilderWithSource(Uri.parse(imageUrl))
-//                //.setResizeOptions(new ResizeOptions(parent.getWidth(),150))
-//                .setProgressiveRenderingEnabled(true)
-//                .setLocalThumbnailPreviewsEnabled(true)
-//                .build();
-//
-//
-//
-//
-//        DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                .setImageRequest(imageRequest)
-//                .setOldController(simpleDraweeView.getController())
-//                .setAutoPlayAnimations(true)
-//                .build();
-
-
-
-//
-//
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
+    @BindingAdapter(value = {"imageUrl", "thumbnail"}, requireAll = false)
+    public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl, String thumbnail) {
+        ImageDecodeOptions decodeOptions = ImageDecodeOptions.newBuilder().setDecodePreviewFrame(true).build();
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))
+                .setImageDecodeOptions(decodeOptions)
+                .setProgressiveRenderingEnabled(true)
+                .build();
+        ImageRequest lowRequest = null;
+        if (!TextUtils.isEmpty(thumbnail)) {
+            lowRequest = ImageRequest.fromUri(thumbnail);
+        }
+        DraweeController draweeController = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(imageRequest)
+                .setLowResImageRequest(lowRequest)
                 .setOldController(simpleDraweeView.getController())
-                .setUri(Uri.parse(imageUrl))
                 .setAutoPlayAnimations(true)
                 .build();
-        simpleDraweeView.setController(controller);
+
+        simpleDraweeView.setController(draweeController);
     }
 
     @BindingAdapter({"layoutManager"})

@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="item"
-            type="com.adgvcxz.adgble.model.RecentShotsViewModel.RecentShotsItemViewModel"/>
+            type="com.adgvcxz.adgble.model.RecentShotsViewModel.RecentShotsItemViewModel" />
     </data>
 
     <LinearLayout
@@ -17,7 +18,9 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:imageUrl="@{item.imageUrl}" />
+            app:actualImageScaleType="focusCrop"
+            app:imageUrl="@{item.imageUrl}"
+            app:thumbnail="@{item.thumbnail}" />
 
     </LinearLayout>
 </layout>

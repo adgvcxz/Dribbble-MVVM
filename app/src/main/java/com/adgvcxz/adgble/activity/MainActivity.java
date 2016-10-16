@@ -2,6 +2,7 @@ package com.adgvcxz.adgble.activity;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction().replace(binding.mainContent.getId(), new RecentShotsFragment()).commit();
         getSupportFragmentManager().beginTransaction().replace(binding.navigationView.getId(), new DrawerMenuFragment()).commit();
         initChangeTheme();
+        AnimationDrawable animationDrawable = new AnimationDrawable();
     }
 
     private void initChangeTheme() {

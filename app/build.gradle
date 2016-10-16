@@ -44,6 +44,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.facebook.fresco:fresco:0.14.1'
     compile 'com.facebook.fresco:animated-gif:0.14.1'
+    compile "com.facebook.fresco:imagepipeline-okhttp3:0.14.1"
     //rxjava
     compile 'io.reactivex:rxjava:1.1.8'
     compile 'io.reactivex:rxandroid:1.2.1'

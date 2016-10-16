@@ -27,7 +27,8 @@ public class RecentShotsFragment extends BaseFragment {
         RetrofitSingleton.getInstance().getShots(0, "recent").subscribe(shots -> {
             for (Shot shot : shots) {
                 RecentShotsViewModel.RecentShotsItemViewModel item = new RecentShotsViewModel.RecentShotsItemViewModel();
-                item.imageUrl.set(shot.images.normal);
+                item.imageUrl.set(shot.images.hidpi);
+                item.thumbnail.set(shot.images.teaser);
                 model.items.add(item);
             }
         }, throwable -> {
