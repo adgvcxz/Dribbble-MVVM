@@ -1,7 +1,10 @@
 package com.adgvcxz.adgble.util;
 
+import java.util.List;
+
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -16,4 +19,7 @@ public class RxUtil {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static <T, R> Observable.Transformer<List<T>, List<R>> rxTransformList(Func1<T, R> func1) {
+        return listObservable -> listObservable.flatMapIterable(ts -> ts).map(func1).toList();
+    }
 }

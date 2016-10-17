@@ -28,7 +28,7 @@ import rx.Observable;
  * Created by zhaowei on 2016/10/11.
  */
 
-public class BindingConfig {
+public class RecyclerViewBindingConfig {
 
     @BindingAdapter(value = {"imageUrl", "thumbnail"}, requireAll = false)
     public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl, String thumbnail) {

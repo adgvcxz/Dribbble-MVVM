@@ -19,38 +19,4 @@ public class ThemeUtil {
 
     public static int sTheme = Day;
 
-    @BindingAdapter({"colorPrimaryBg"})
-    public static void colorPrimaryBg(View view, int theme) {
-        switch (theme) {
-            case Night:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_teal));
-                break;
-            case Day:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_light));
-                break;
-        }
-    }
-
-    @BindingAdapter({"colorPrimaryStatusBg"})
-    public static void colorPrimaryStatusBg(View view, int theme) {
-        switch (theme) {
-            case Night:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_status_bar_teal));
-                break;
-            case Day:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_status_bar_light));
-                break;
-        }
-    }
-    @BindingAdapter({"navigationBg"})
-    public static void colorNavigationBg(NavigationView navigationView, int theme) {
-        switch (theme) {
-            case Night:
-                navigationView.setBackgroundColor(ContextCompat.getColor(navigationView.getContext(), R.color.navigation_bg_teal));
-                break;
-            case Day:
-                navigationView.setBackgroundColor(ContextCompat.getColor(navigationView.getContext(), R.color.navigation_bg_light));
-                break;
-        }
-    }
 }

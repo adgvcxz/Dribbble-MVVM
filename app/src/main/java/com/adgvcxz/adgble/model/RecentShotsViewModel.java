@@ -12,11 +12,12 @@ import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.BaseItemViewModel;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
-import com.adgvcxz.adgble.content.Shot;
+import com.adgvcxz.adgble.util.RxUtil;
 import com.android.databinding.library.baseAdapters.BR;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * zhaowei
@@ -24,7 +25,6 @@ import java.util.List;
  */
 
 public class RecentShotsViewModel extends BaseRecyclerViewModel<RecentShotsViewModel.RecentShotsItemViewModel> {
-
 
 
     public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot);
@@ -41,27 +41,14 @@ public class RecentShotsViewModel extends BaseRecyclerViewModel<RecentShotsViewM
         }
     };
 
-
     @Override
-    public void loadData(int page) {
-        super.loadData(page);
-        RetrofitSingleton.getInstance().getShots(page, "recent").subscribe(shots -> {
-            List<RecentShotsItemViewModel> models = new ArrayList<>();
-            for (Shot shot : shots) {
-                RecentShotsViewModel.RecentShotsItemViewModel item = new RecentShotsViewModel.RecentShotsItemViewModel();
-                item.imageUrl.set(shot.images.getHeightImageUri());
-                item.thumbnail.set(shot.images.teaser);
-                models.add(item);
-            }
-            items.addAll(models);
-            loadSuccess.set(true);
-            loading = false;
-            this.page += 1;
-        }, throwable -> {
-            throwable.printStackTrace();
-            loadSuccess.set(false);
-            loading = false;
-        });
+    public Observable<List<RecentShotsItemViewModel>> request(int page) {
+        return RetrofitSingleton.getInstance().getShots(page, "recent").compose(RxUtil.rxTransformList(shot -> {
+            RecentShotsItemViewModel model = new RecentShotsItemViewModel();
+            model.imageUrl.set(shot.images.getHeightImageUri());
+            model.thumbnail.set(shot.images.teaser);
+            return model;
+        }));
     }
 
     public static class RecentShotsItemViewModel extends BaseItemViewModel {

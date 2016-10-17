@@ -5,27 +5,47 @@ import android.databinding.ObservableBoolean;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.List;
+
+import rx.Observable;
+
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/11.
  */
 
-public class BaseRecyclerViewModel<T> extends BaseViewModel {
+public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
 
     public ObservableArrayList<T> items = new ObservableArrayList<>();
     public final ObservableBoolean isLoadAll = new ObservableBoolean(false);
     public final ObservableBoolean loadMore = new ObservableBoolean(true);
     public final ObservableBoolean loadSuccess = new ObservableBoolean(true);
     boolean loading = false;
-    int page = 0;
+    private int page = 0;
 
     public BaseRecyclerViewModel() {
-        loadData(page);
+        loadData();
     }
 
-    /**
-     * 实现加载更多
-     */
+    private void loadData() {
+        loading = true;
+        request(page).subscribe(ts -> {
+            if (page == 0) {
+                items.clear();
+            }
+            items.addAll(ts);
+            loadSuccess.set(true);
+            loading = false;
+            page += 1;
+            if (page == 3) {
+                isLoadAll.set(true);
+            }
+        }, throwable -> {
+            loadSuccess.set(false);
+            loading = false;
+        });
+    }
+
     public final RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
 
         @Override
@@ -37,7 +57,7 @@ public class BaseRecyclerViewModel<T> extends BaseViewModel {
                 int count = linearLayoutManager.getItemCount();
                 if (!loading && (count == lastPosition + 1)) {
                     if (loadSuccess.get()) {
-                        loadData(page);
+                        loadData();
                     }
                 }
             }
@@ -45,7 +65,5 @@ public class BaseRecyclerViewModel<T> extends BaseViewModel {
     };
 
 
-    public void loadData(int page){
-        loading = true;
-    }
+    public abstract Observable<List<T>> request(int page);
 }

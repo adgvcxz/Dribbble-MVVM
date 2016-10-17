@@ -9,7 +9,6 @@
             type="com.adgvcxz.adgble.model.MainActivityViewModel" />
 
         <import type="android.os.Build" />
-
         <import type="android.view.View" />
 
     </data>
@@ -17,7 +16,8 @@
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:themeAnim="@{model.theme}">
 
         <android.support.v4.widget.DrawerLayout
             android:id="@+id/drawer_layout"
@@ -27,14 +27,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <View
-                    android:id="@+id/status_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/status_bar_height"
-                    android:visibility="@{Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT ? View.VISIBLE : View.GONE}"
-                    app:colorPrimaryStatusBg="@{model.theme}" />
+                android:orientation="vertical"
+                app:osVersion="@{Build.VERSION.SDK_INT}"
+                app:appTheme="@{model.theme}">
 
                 <android.support.design.widget.AppBarLayout
                     android:layout_width="match_parent"

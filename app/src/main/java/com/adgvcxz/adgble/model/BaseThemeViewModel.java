@@ -10,5 +10,5 @@ import com.adgvcxz.adgble.util.ThemeUtil;
  */
 
 public class BaseThemeViewModel extends BaseViewModel {
-    public final ObservableInt theme = new ObservableInt(ThemeUtil.Day);
+    public final ObservableInt theme = new ObservableInt(ThemeUtil.sTheme);
 }
