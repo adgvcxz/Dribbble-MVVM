@@ -1,6 +1,7 @@
 package com.adgvcxz.adgble.adapter;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.ItemViewSelector;
+import com.adgvcxz.adgble.util.Util;
 import com.android.databinding.library.baseAdapters.BR;
 
-import java.util.ArrayList;
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 /**
  * zhaowei
@@ -20,13 +23,32 @@ import java.util.ArrayList;
 
 public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<T> items;
+    private List<T> items;
     private ItemViewSelector<T> itemView;
     private LayoutInflater inflater;
     private boolean loadMore;
     private boolean isLoadAll;
+    private RecyclerView recyclerView;
+    private final WeakReferenceOnListChangedCallback<T> callback = new WeakReferenceOnListChangedCallback<>(this);
 
     private ItemView loadMoreItemView = ItemView.of(BR.item, R.layout.item_load_more);
+
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        if (this.recyclerView == null && items != null && items instanceof ObservableList) {
+            ((ObservableList<T>) items).addOnListChangedCallback(callback);
+        }
+        this.recyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        if (this.recyclerView != null && items != null && items instanceof ObservableList) {
+            ((ObservableList<T>) items).removeOnListChangedCallback(callback);
+        }
+        this.recyclerView = null;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,7 +56,8 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
             inflater = LayoutInflater.from(parent.getContext());
         }
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
-        return new RecyclerView.ViewHolder(binding.getRoot()) {};
+        return new RecyclerView.ViewHolder(binding.getRoot()) {
+        };
     }
 
     @Override
@@ -67,9 +90,22 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         return itemView.layoutRes(position, items.get(position));
     }
 
-    public void setItems(ArrayList<T> items) {
+    public void setItems(List<T> items) {
+//        if (this.items == items) {
+//            return;
+//        }
+//        // If a recyclerview is listening, set up listeners. Otherwise wait until one is attached.
+//        // No need to make a sound if nobody is listening right?
+//        if (recyclerView != null) {
+//            if (this.items instanceof ObservableList) {
+//                ((ObservableList<T>) this.items).removeOnListChangedCallback(callback);
+//            }
+//            if (items instanceof ObservableList) {
+//                ((ObservableList<T>) items).addOnListChangedCallback(callback);
+//            }
+//        }
         this.items = items;
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
     }
 
     public void setItemView(ItemViewSelector<T> itemView) {
@@ -90,5 +126,66 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
 
     public boolean isLoadAll() {
         return isLoadAll;
+    }
+
+
+    private static class WeakReferenceOnListChangedCallback<T> extends ObservableList.OnListChangedCallback<ObservableList<T>> {
+        final WeakReference<BaseRecyclerViewAdapter<T>> adapterRef;
+
+        WeakReferenceOnListChangedCallback(BaseRecyclerViewAdapter<T> adapter) {
+            this.adapterRef = new WeakReference<>(adapter);
+        }
+
+        @Override
+        public void onChanged(ObservableList sender) {
+            BaseRecyclerViewAdapter<T> adapter = adapterRef.get();
+            if (adapter == null) {
+                return;
+            }
+            Util.ensureChangeOnMainThread();
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onItemRangeChanged(ObservableList sender, final int positionStart, final int itemCount) {
+            BaseRecyclerViewAdapter<T> adapter = adapterRef.get();
+            if (adapter == null) {
+                return;
+            }
+            Util.ensureChangeOnMainThread();
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onItemRangeInserted(ObservableList sender, final int positionStart, final int itemCount) {
+            BaseRecyclerViewAdapter<T> adapter = adapterRef.get();
+            if (adapter == null) {
+                return;
+            }
+            Util.ensureChangeOnMainThread();
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onItemRangeMoved(ObservableList sender, final int fromPosition, final int toPosition, final int itemCount) {
+            BaseRecyclerViewAdapter<T> adapter = adapterRef.get();
+            if (adapter == null) {
+                return;
+            }
+            Util.ensureChangeOnMainThread();
+            for (int i = 0; i < itemCount; i++) {
+                adapter.notifyItemMoved(fromPosition + i, toPosition + i);
+            }
+        }
+
+        @Override
+        public void onItemRangeRemoved(ObservableList sender, final int positionStart, final int itemCount) {
+            BaseRecyclerViewAdapter<T> adapter = adapterRef.get();
+            if (adapter == null) {
+                return;
+            }
+            Util.ensureChangeOnMainThread();
+            adapter.notifyItemRangeRemoved(positionStart, itemCount);
+        }
     }
 }

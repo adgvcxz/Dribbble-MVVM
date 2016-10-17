@@ -3,6 +3,7 @@ package com.adgvcxz.adgble;
 import android.app.Application;
 import android.content.Context;
 
+import com.adgvcxz.adgble.api.OkHttpUtil;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
@@ -26,7 +27,7 @@ public class AdgbleApp extends Application {
             return;
         }
         refWatcher = LeakCanary.install(this);
-        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(this, RetrofitSingleton.getInstance().getOkHttpClient())
+        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(this, OkHttpUtil.generateOkHttpClient().build())
                 .setDownsampleEnabled(true).build();
         Fresco.initialize(this, config);
     }

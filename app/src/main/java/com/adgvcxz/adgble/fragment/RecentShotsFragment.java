@@ -24,15 +24,6 @@ public class RecentShotsFragment extends BaseFragment {
         FragmentRecentShotsBinding binding = FragmentRecentShotsBinding.inflate(inflater, container, false);
         RecentShotsViewModel model = new RecentShotsViewModel();
         binding.setModel(model);
-        RetrofitSingleton.getInstance().getShots(0, "recent").subscribe(shots -> {
-            for (Shot shot : shots) {
-                RecentShotsViewModel.RecentShotsItemViewModel item = new RecentShotsViewModel.RecentShotsItemViewModel();
-                item.imageUrl.set(shot.images.hidpi);
-                item.thumbnail.set(shot.images.teaser);
-                model.items.add(item);
-            }
-        }, throwable -> {
-        });
         return binding.getRoot();
     }
 }

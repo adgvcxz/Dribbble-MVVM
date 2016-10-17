@@ -12,7 +12,8 @@ import rx.schedulers.Schedulers;
 public class RxUtil {
 
     public static <T> Observable.Transformer<T, T> rxScheduleHelper() {
-        return tObservable -> tObservable.subscribeOn(Schedulers.io());
+        return tObservable -> tObservable.subscribeOn(Schedulers.io()).unsubscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

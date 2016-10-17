@@ -9,10 +9,15 @@ import android.widget.Toast;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
+import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.BaseItemViewModel;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
+import com.adgvcxz.adgble.content.Shot;
 import com.android.databinding.library.baseAdapters.BR;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * zhaowei
@@ -23,7 +28,7 @@ public class RecentShotsViewModel extends BaseRecyclerViewModel {
 
     public ObservableArrayList<RecentShotsItemViewModel> items = new ObservableArrayList<>();
 
-    public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot);
+    public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot_text);
 //    public final MutliItemViewSelector itemView = MutliItemViewSelector.add(ItemView.of(BR.item, R.layout.item_record_shot)
 //        , ItemView.of(BR.item, R.layout.item_record_shot_text));
 
@@ -37,6 +42,28 @@ public class RecentShotsViewModel extends BaseRecyclerViewModel {
         }
     };
 
+
+    @Override
+    public void loadData(int page) {
+        super.loadData(page);
+        RetrofitSingleton.getInstance().getShots(page, "recent").subscribe(shots -> {
+            List<RecentShotsItemViewModel> models = new ArrayList<>();
+            for (Shot shot : shots) {
+                RecentShotsViewModel.RecentShotsItemViewModel item = new RecentShotsViewModel.RecentShotsItemViewModel();
+                item.imageUrl.set(shot.images.getHeightImageUri());
+                item.thumbnail.set(shot.images.teaser);
+                models.add(item);
+            }
+            items.addAll(models);
+            loadSuccess.set(true);
+            loading = false;
+            this.page += 1;
+        }, throwable -> {
+            throwable.printStackTrace();
+            loadSuccess.set(false);
+            loading = false;
+        });
+    }
 
     public static class RecentShotsItemViewModel extends BaseItemViewModel {
 

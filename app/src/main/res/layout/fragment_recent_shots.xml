@@ -21,6 +21,7 @@
         app:items="@{model.items}"
         app:loadMore="@{model.loadMore}"
         app:isLoadAll="@{model.isLoadAll}"
+        app:onScrollListener="@{model.onScrollListener}"
         app:onItemClickListener="@{model.clickListener}"/>
 
 </layout>

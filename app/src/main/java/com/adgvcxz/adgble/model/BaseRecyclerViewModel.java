@@ -11,32 +11,39 @@ import android.support.v7.widget.RecyclerView;
 
 public class BaseRecyclerViewModel extends BaseViewModel {
 
-    public ObservableBoolean isLoadAll = new ObservableBoolean(false);
-    public ObservableBoolean loadMore = new ObservableBoolean(true);
-    private ObservableBoolean loading;
+    public final ObservableBoolean isLoadAll = new ObservableBoolean(false);
+    public final ObservableBoolean loadMore = new ObservableBoolean(true);
+    public final ObservableBoolean loadSuccess = new ObservableBoolean(true);
+    boolean loading = false;
+    int page = 0;
+
+    public BaseRecyclerViewModel() {
+        loadData(page);
+    }
 
     /**
      * 实现加载更多
      */
-    protected RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+    public final RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            if (recyclerView.getAdapter() != null && isLoadAll.get()) {
+            if (recyclerView.getAdapter() != null && !isLoadAll.get()) {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 int lastPosition = linearLayoutManager.findLastVisibleItemPosition();
                 int count = linearLayoutManager.getItemCount();
-                if (!loading.get() && (count == lastPosition + 1)) {
-                    loading.set(true);
-//                    loading. = true;
-//                    if (mOnLoadMoreListener != null && mAdapter.isLoadSuccess()) {
-//                        mOnLoadMoreListener.loadMore();
-//                    }
+                if (!loading && (count == lastPosition + 1)) {
+                    if (loadSuccess.get()) {
+                        loadData(page);
+                    }
                 }
             }
         }
     };
 
-    public void loadMore(){}
+
+    public void loadData(int page){
+        loading = true;
+    }
 }

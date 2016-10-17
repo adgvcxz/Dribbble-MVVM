@@ -2,17 +2,19 @@ package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
+import android.databinding.adapters.ListenerUtil;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
+import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ImageDecodeOptions;
+import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
@@ -33,6 +35,7 @@ public class BindingConfig {
         ImageDecodeOptions decodeOptions = ImageDecodeOptions.newBuilder().setDecodePreviewFrame(true).build();
         ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))
                 .setImageDecodeOptions(decodeOptions)
+                .setResizeOptions(new ResizeOptions(240, 240))
                 .setProgressiveRenderingEnabled(true)
                 .build();
         ImageRequest lowRequest = null;
@@ -56,7 +59,7 @@ public class BindingConfig {
 
     @SuppressWarnings("unchecked")
     @BindingAdapter({"itemView", "items", "adapter"})
-    public static <T> void setAdapter(RecyclerView recyclerView, ItemViewSelector<T> itemView, ArrayList<T> items, BaseRecyclerViewAdapter adapter) {
+    public static <T> void setAdapter(RecyclerView recyclerView, ItemViewSelector<T> itemView, List<T> items, BaseRecyclerViewAdapter adapter) {
         if (itemView == null) {
             throw new IllegalArgumentException("itemView must not be null");
         }
@@ -97,6 +100,15 @@ public class BindingConfig {
 
             }
         });
+    }
+
+    @BindingAdapter({"onScrollListener"})
+    public static void setOnScrollListener(RecyclerView recyclerView, RecyclerView.OnScrollListener listener) {
+        RecyclerView.OnScrollListener oldValue = ListenerUtil.trackListener(recyclerView, listener, R.id.onScrollListener);
+        if (oldValue != null) {
+            recyclerView.removeOnScrollListener(oldValue);
+        }
+        recyclerView.addOnScrollListener(listener);
     }
 
     @BindingConversion
