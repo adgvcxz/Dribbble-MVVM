@@ -4,24 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="model"
-            type="com.adgvcxz.adgble.model.RecentShotsViewModel"/>
+            type="com.adgvcxz.adgble.model.RecentShotsViewModel" />
 
-        <import type="com.adgvcxz.adgble.binding.LayoutManager"/>
+        <import type="com.adgvcxz.adgble.binding.LayoutManager" />
     </data>
 
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:adapter="@{model.adapter}"
-        app:layoutManager="@{LayoutManager.linear()}"
-        app:itemView="@{model.itemView}"
-        app:items="@{model.items}"
-        app:loadMore="@{model.loadMore}"
-        app:isLoadAll="@{model.isLoadAll}"
-        app:onScrollListener="@{model.onScrollListener}"
-        app:onItemClickListener="@{model.clickListener}"/>
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:adapter="@{model.adapter}"
+            app:isLoadAll="@{model.isLoadAll}"
+            app:itemView="@{model.itemView}"
+            app:items="@{model.items}"
+            app:layoutManager="@{LayoutManager.linear()}"
+            app:loadMore="@{model.loadMore}"
+            app:onItemClickListener="@{model.clickListener}"
+            app:onScrollListener="@{model.onScrollListener}" />
+    </LinearLayout>
 
 </layout>

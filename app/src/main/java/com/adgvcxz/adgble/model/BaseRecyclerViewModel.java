@@ -1,5 +1,6 @@
 package com.adgvcxz.adgble.model;
 
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,8 +10,9 @@ import android.support.v7.widget.RecyclerView;
  * Created by zhaowei on 2016/10/11.
  */
 
-public class BaseRecyclerViewModel extends BaseViewModel {
+public class BaseRecyclerViewModel<T> extends BaseViewModel {
 
+    public ObservableArrayList<T> items = new ObservableArrayList<>();
     public final ObservableBoolean isLoadAll = new ObservableBoolean(false);
     public final ObservableBoolean loadMore = new ObservableBoolean(true);
     public final ObservableBoolean loadSuccess = new ObservableBoolean(true);

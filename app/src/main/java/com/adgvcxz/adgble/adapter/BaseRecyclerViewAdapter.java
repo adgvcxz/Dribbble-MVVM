@@ -68,6 +68,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         } else {
             binding.setVariable(itemView.bindingVariable(position, items.get(position)), items.get(position));
         }
+        binding.executePendingBindings();
     }
 
     @Override
@@ -91,21 +92,21 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void setItems(List<T> items) {
-//        if (this.items == items) {
-//            return;
-//        }
-//        // If a recyclerview is listening, set up listeners. Otherwise wait until one is attached.
-//        // No need to make a sound if nobody is listening right?
-//        if (recyclerView != null) {
-//            if (this.items instanceof ObservableList) {
-//                ((ObservableList<T>) this.items).removeOnListChangedCallback(callback);
-//            }
-//            if (items instanceof ObservableList) {
-//                ((ObservableList<T>) items).addOnListChangedCallback(callback);
-//            }
-//        }
+        if (this.items == items) {
+            return;
+        }
+        // If a recyclerview is listening, set up listeners. Otherwise wait until one is attached.
+        // No need to make a sound if nobody is listening right?
+        if (recyclerView != null) {
+            if (this.items instanceof ObservableList) {
+                ((ObservableList<T>) this.items).removeOnListChangedCallback(callback);
+            }
+            if (items instanceof ObservableList) {
+                ((ObservableList<T>) items).addOnListChangedCallback(callback);
+            }
+        }
         this.items = items;
-//        notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public void setItemView(ItemViewSelector<T> itemView) {
