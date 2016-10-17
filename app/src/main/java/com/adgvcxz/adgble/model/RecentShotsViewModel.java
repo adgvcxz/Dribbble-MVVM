@@ -31,7 +31,7 @@ public class RecentShotsViewModel extends BaseRecyclerViewModel<RecentShotsViewM
 //    public final MutliItemViewSelector itemView = MutliItemViewSelector.add(ItemView.of(BR.item, R.layout.item_record_shot)
 //        , ItemView.of(BR.item, R.layout.item_record_shot_text));
 
-    public final BaseRecyclerViewAdapter adapter = new BaseRecyclerViewAdapter();
+    public final BaseRecyclerViewAdapter adapter = new BaseRecyclerViewAdapter(loadMoreViewModel);
 
     public final OnRecyclerViewItemClickListener clickListener = new OnRecyclerViewItemClickListener() {
         @Override

@@ -27,6 +27,7 @@
             app:items="@{model.items}"
             app:layoutManager="@{LayoutManager.linear()}"
             app:loadMore="@{model.loadMore}"
+            app:onClickLoadMore="@{model.onLoadMoreClickListener}"
             app:onItemClickListener="@{model.clickListener}"
             app:onScrollListener="@{model.onScrollListener}" />
     </LinearLayout>

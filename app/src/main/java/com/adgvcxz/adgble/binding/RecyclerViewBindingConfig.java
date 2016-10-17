@@ -2,6 +2,8 @@ package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.databinding.adapters.ListenerUtil;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.view.View;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
+import com.adgvcxz.adgble.databinding.ItemLoadMoreBinding;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -18,7 +21,6 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -84,14 +86,23 @@ public class RecyclerViewBindingConfig {
                 });
     }
 
-    @BindingAdapter({"onItemClickListener"})
-    public static void setOnItemClickListener(RecyclerView recyclerView, OnRecyclerViewItemClickListener listener) {
+    @BindingAdapter(value = {"onItemClickListener", "onClickLoadMore"}, requireAll = false)
+    public static void setOnItemClickListener(RecyclerView recyclerView, OnRecyclerViewItemClickListener listener, OnRecyclerViewItemClickListener loadMoreListener) {
         recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
                 view.setOnClickListener(v -> {
                     RecyclerView.ViewHolder holder = recyclerView.getChildViewHolder(view);
-                    listener.onClick(recyclerView, holder.getAdapterPosition(), view);
+                    ViewDataBinding binding = DataBindingUtil.getBinding(holder.itemView);
+                    if (!(binding instanceof ItemLoadMoreBinding)) {
+                        if (listener != null) {
+                            listener.onClick(recyclerView, holder.getAdapterPosition(), view);
+                        }
+                    } else {
+                        if (loadMoreListener != null) {
+                            loadMoreListener.onClick(recyclerView, holder.getAdapterPosition(), view);
+                        }
+                    }
                 });
             }
 

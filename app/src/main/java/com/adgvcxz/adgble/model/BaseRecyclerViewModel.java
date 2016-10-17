@@ -2,8 +2,12 @@ package com.adgvcxz.adgble.model;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 
 import java.util.List;
 
@@ -19,30 +23,26 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
     public ObservableArrayList<T> items = new ObservableArrayList<>();
     public final ObservableBoolean isLoadAll = new ObservableBoolean(false);
     public final ObservableBoolean loadMore = new ObservableBoolean(true);
-    public final ObservableBoolean loadSuccess = new ObservableBoolean(true);
-    boolean loading = false;
-    private int page = 0;
+    public final LoadMoreViewModel loadMoreViewModel = new LoadMoreViewModel();
+    private int page = 1;
 
     public BaseRecyclerViewModel() {
         loadData();
     }
 
     private void loadData() {
-        loading = true;
+        loadMoreViewModel.loading.set(true);
         request(page).subscribe(ts -> {
             if (page == 0) {
                 items.clear();
             }
             items.addAll(ts);
-            loadSuccess.set(true);
-            loading = false;
+            loadMoreViewModel.loadSuccess.set(true);
+            loadMoreViewModel.loading.set(false);
             page += 1;
-            if (page == 3) {
-                isLoadAll.set(true);
-            }
         }, throwable -> {
-            loadSuccess.set(false);
-            loading = false;
+            loadMoreViewModel.loadSuccess.set(false);
+            loadMoreViewModel.loading.set(false);
         });
     }
 
@@ -55,12 +55,18 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 int lastPosition = linearLayoutManager.findLastVisibleItemPosition();
                 int count = linearLayoutManager.getItemCount();
-                if (!loading && (count == lastPosition + 1)) {
-                    if (loadSuccess.get()) {
+                if (!loadMoreViewModel.loading.get() && (count == lastPosition + 1)) {
+                    if (loadMoreViewModel.loadSuccess.get()) {
                         loadData();
                     }
                 }
             }
+        }
+    };
+
+    public final OnRecyclerViewItemClickListener onLoadMoreClickListener = (recyclerView, position, v) -> {
+        if (!loadMoreViewModel.loading.get() && !loadMoreViewModel.loadSuccess.get()) {
+            loadData();
         }
     };
 

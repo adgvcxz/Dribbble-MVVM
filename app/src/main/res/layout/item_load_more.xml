@@ -5,7 +5,9 @@
 
         <variable
             name="item"
-            type="String" />
+            type="com.adgvcxz.adgble.model.LoadMoreViewModel" />
+
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -18,7 +20,9 @@
             android:id="@+id/item_fm_sudy_load_more_progress"
             style="?android:attr/android:progressBarStyleSmall"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="@{item.loading ? View.VISIBLE: View.GONE}"
+            />
 
         <TextView
             android:id="@+id/item_fm_sudy_load_more_txt"
@@ -27,7 +31,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:gravity="center"
-            android:text="@{item}"
+            android:text="@{(item.loadSuccess || item.loading) ? @string/loading : @string/load_failed}"
             android:textColor="@android:color/background_dark"
             android:textSize="21sp" />
     </LinearLayout>

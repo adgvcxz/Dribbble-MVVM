@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.ItemViewSelector;
+import com.adgvcxz.adgble.model.LoadMoreViewModel;
 import com.adgvcxz.adgble.util.Util;
 import com.android.databinding.library.baseAdapters.BR;
 
@@ -29,9 +30,14 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     private boolean loadMore;
     private boolean isLoadAll;
     private RecyclerView recyclerView;
+    private LoadMoreViewModel loadMoreViewModel;
     private final WeakReferenceOnListChangedCallback<T> callback = new WeakReferenceOnListChangedCallback<>(this);
 
     private ItemView loadMoreItemView = ItemView.of(BR.item, R.layout.item_load_more);
+
+    public BaseRecyclerViewAdapter(LoadMoreViewModel moreViewModel) {
+        loadMoreViewModel = moreViewModel;
+    }
 
 
     @Override
@@ -64,7 +70,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewDataBinding binding = DataBindingUtil.getBinding(holder.itemView);
         if (position == items.size()) {
-            binding.setVariable(loadMoreItemView.bindingVariable(), inflater.getContext().getString(R.string.loading));
+            binding.setVariable(loadMoreItemView.bindingVariable(), loadMoreViewModel);
         } else {
             binding.setVariable(itemView.bindingVariable(position, items.get(position)), items.get(position));
         }
