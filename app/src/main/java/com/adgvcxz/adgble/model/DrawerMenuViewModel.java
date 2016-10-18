@@ -3,8 +3,6 @@ package com.adgvcxz.adgble.model;
 import android.databinding.BaseObservable;
 import android.view.View;
 
-import com.adgvcxz.adgble.rxbus.RxBus;
-import com.adgvcxz.adgble.rxbus.RxBusChangeTheme;
 import com.adgvcxz.adgble.util.ThemeUtil;
 
 /**
@@ -15,7 +13,8 @@ import com.adgvcxz.adgble.util.ThemeUtil;
 public class DrawerMenuViewModel extends BaseObservable {
 
     public void onClickSetting(View view) {
-        RxBus.getDefault().post(new RxBusChangeTheme(ThemeUtil.sTheme == ThemeUtil.Day ? ThemeUtil.Night : ThemeUtil.Day));
+        ThemeUtil.theme.set(ThemeUtil.theme.get() == ThemeUtil.Day ? ThemeUtil.Night : ThemeUtil.Day);
+//        RxBus.getDefault().post(new RxBusChangeTheme(ThemeUtil.sTheme == ThemeUtil.Day ? ThemeUtil.Night : ThemeUtil.Day));
 //        if (ThemeUtil.sTheme == ThemeUtil.Night) {
 //            ThemeUtil.sTheme = ThemeUtil.Day;
 //        } else {

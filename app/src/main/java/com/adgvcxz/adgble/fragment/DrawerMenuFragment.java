@@ -16,13 +16,11 @@ import com.adgvcxz.adgble.model.DrawerMenuViewModel;
 
 public class DrawerMenuFragment extends BaseFragment {
 
-    private DrawerMenuViewModel viewModel;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentDrawerMenuBinding binding = FragmentDrawerMenuBinding.inflate(inflater, container, false);
-        viewModel = new DrawerMenuViewModel();
+        DrawerMenuViewModel viewModel = new DrawerMenuViewModel();
         binding.setModel(viewModel);
         return binding.getRoot();
     }

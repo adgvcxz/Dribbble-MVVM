@@ -11,10 +11,6 @@ import com.adgvcxz.adgble.databinding.ActivityMainBinding;
 import com.adgvcxz.adgble.fragment.DrawerMenuFragment;
 import com.adgvcxz.adgble.fragment.RecentShotsFragment;
 import com.adgvcxz.adgble.model.MainActivityViewModel;
-import com.adgvcxz.adgble.rxbus.RxBus;
-import com.adgvcxz.adgble.rxbus.RxBusChangeTheme;
-
-import rx.Subscription;
 
 
 public class MainActivity extends BaseActivity {
@@ -33,13 +29,5 @@ public class MainActivity extends BaseActivity {
         binding.setModel(viewModel);
         getSupportFragmentManager().beginTransaction().replace(binding.mainContent.getId(), new RecentShotsFragment()).commit();
         getSupportFragmentManager().beginTransaction().replace(binding.navigationView.getId(), new DrawerMenuFragment()).commit();
-        initChangeTheme();
-    }
-
-    private void initChangeTheme() {
-        Subscription subscription = RxBus.getDefault().toObservable(RxBusChangeTheme.class).subscribe(changeTheme -> {
-            viewModel.theme.set(changeTheme.getTheme());
-        });
-        subscriptions.add(subscription);
     }
 }

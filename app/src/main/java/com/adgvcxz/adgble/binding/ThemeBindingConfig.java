@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EdgeEffect;
@@ -51,6 +52,7 @@ public class ThemeBindingConfig {
 
     @BindingAdapter({"themeAnim"})
     public static void changeTheme(FrameLayout layout, int theme) {
+        Log.e("zhaow", theme + "    " + ThemeUtil.sTheme);
         Observable.just(theme).filter(theme1 -> theme1 != ThemeUtil.sTheme).map(theme1 -> {
             ImageView imageView = (ImageView) layout.findViewById(R.id.themeImage);
             if (imageView == null) {

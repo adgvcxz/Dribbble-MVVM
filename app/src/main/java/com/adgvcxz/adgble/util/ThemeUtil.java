@@ -1,6 +1,8 @@
 package com.adgvcxz.adgble.util;
 
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -23,6 +25,8 @@ public class ThemeUtil {
     public static final int Night = 1;
 
     public static int sTheme = Day;
+
+    public static ObservableInt theme = new ObservableInt(sTheme);
 
     public static final List<Integer> sColorPrimary = new ArrayList<>(Arrays.asList(R.color.color_primary_light
             , R.color.color_primary_dark));

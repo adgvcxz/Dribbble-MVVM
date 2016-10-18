@@ -72,6 +72,10 @@ public final class ItemView {
         return layoutRes;
     }
 
+    public void changeLayoutRes(@LayoutRes int layoutRes) {
+        this.layoutRes = layoutRes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

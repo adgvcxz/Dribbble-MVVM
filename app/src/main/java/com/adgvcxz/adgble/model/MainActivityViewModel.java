@@ -5,5 +5,5 @@ package com.adgvcxz.adgble.model;
  * Created by zhaowei on 2016/10/14.
  */
 
-public class MainActivityViewModel extends BaseThemeViewModel {
+public class MainActivityViewModel extends BaseViewModel {
 }

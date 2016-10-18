@@ -8,8 +8,8 @@
         <variable
             name="model"
             type="com.adgvcxz.adgble.model.RecentShotsViewModel" />
-
         <import type="com.adgvcxz.adgble.binding.LayoutManager" />
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>
 
     <LinearLayout
@@ -20,7 +20,7 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:colorPrimaryTheme="@{model.theme}"
+            app:colorPrimaryTheme="@{ThemeUtil.theme}"
             app:onRefreshListener="@{model.onRefreshListener}"
             app:refreshing="@{model.refreshing}">
 
@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:adapter="@{model.adapter}"
-                app:colorPrimaryTheme="@{model.theme}"
+                app:colorPrimaryTheme="@{ThemeUtil.theme}"
                 app:isLoadAll="@{model.isLoadAll}"
                 app:itemView="@{model.itemView}"
                 app:items="@{model.items}"

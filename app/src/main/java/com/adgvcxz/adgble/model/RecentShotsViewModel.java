@@ -2,7 +2,6 @@ package com.adgvcxz.adgble.model;
 
 import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,8 +25,7 @@ import rx.Observable;
 
 public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsViewModel.RecentShotsItemViewModel> {
 
-
-    public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot);
+    public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot_big_info);
 //    public final MutliItemViewSelector itemView = MutliItemViewSelector.add(ItemView.of(BR.item, R.layout.item_record_shot)
 //        , ItemView.of(BR.item, R.layout.item_record_shot_text));
 
@@ -37,7 +35,8 @@ public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsVi
         @Override
         public void onClick(RecyclerView recyclerView, int position, View v) {
             Toast.makeText(recyclerView.getContext(), items.get(position).imageUrl.get(), Toast.LENGTH_SHORT).show();
-            Log.e("zhaow", items.get(position).imageUrl.get());
+//            itemView.changeLayoutRes(R.layout.item_record_shot);
+//            recyclerView.getAdapter().notifyDataSetChanged();
         }
     };
 
@@ -47,6 +46,7 @@ public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsVi
             RecentShotsItemViewModel model = new RecentShotsItemViewModel();
             model.imageUrl.set(shot.images.getHeightImageUri());
             model.thumbnail.set(shot.images.teaser);
+            model.avatar.set(shot.user.avatar_url);
             return model;
         }));
     }
@@ -55,6 +55,7 @@ public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsVi
 
         public final ObservableField<String> imageUrl = new ObservableField<>();
         public final ObservableField<String> thumbnail = new ObservableField<>();
+        public final ObservableField<String> avatar = new ObservableField<>();
 
         @Override
         public String toString() {

@@ -160,7 +160,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
                 return;
             }
             Util.ensureChangeOnMainThread();
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemRangeChanged(positionStart, itemCount);
         }
 
         @Override
@@ -170,7 +170,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
                 return;
             }
             Util.ensureChangeOnMainThread();
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemRangeInserted(positionStart, itemCount);
         }
 
         @Override

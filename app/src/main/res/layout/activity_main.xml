@@ -10,6 +10,7 @@
 
         <import type="android.os.Build" />
         <import type="android.view.View" />
+        <import type="com.adgvcxz.adgble.util.ThemeUtil"/>
 
     </data>
 
@@ -17,7 +18,7 @@
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:themeAnim="@{model.theme}">
+        app:themeAnim="@{ThemeUtil.theme}">
 
         <android.support.v4.widget.DrawerLayout
             android:id="@+id/drawer_layout"
@@ -28,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:appTheme="@{model.theme}"
+                app:appTheme="@{ThemeUtil.theme}"
                 app:osVersion="@{Build.VERSION.SDK_INT}">
 
                 <android.support.design.widget.AppBarLayout
@@ -39,7 +40,7 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        app:colorPrimaryTheme="@{model.theme}"
+                        app:colorPrimaryTheme="@{ThemeUtil.theme}"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
                 </android.support.design.widget.AppBarLayout>
@@ -48,7 +49,7 @@
                     android:id="@+id/main_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:mainBackgroundTheme="@{model.theme}">
+                    app:mainBackgroundTheme="@{ThemeUtil.theme}">
 
                 </FrameLayout>
             </LinearLayout>
@@ -59,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"
-                app:navigationBg="@{model.theme}" />
+                app:navigationBg="@{ThemeUtil.theme}" />
         </android.support.v4.widget.DrawerLayout>
     </FrameLayout>
 </layout>
