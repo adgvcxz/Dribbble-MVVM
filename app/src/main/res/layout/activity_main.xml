@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:fitsSystemWindows="true"
-                app:navigationBg="@{ThemeUtil.theme}" />
+                app:cardColorTheme="@{ThemeUtil.theme}" />
         </android.support.v4.widget.DrawerLayout>
     </FrameLayout>
 </layout>

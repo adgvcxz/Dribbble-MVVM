@@ -8,12 +8,15 @@
         <variable
             name="item"
             type="com.adgvcxz.adgble.model.RecentShotsViewModel.RecentShotsItemViewModel" />
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:cardColorTheme="@{ThemeUtil.theme}">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"

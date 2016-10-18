@@ -8,10 +8,12 @@
     <color name="color_primary_light">#3F51B5</color>
     <color name="navigation_bg_light">#FFFFFF</color>
     <color name="main_bg_light">#FAFAFA</color>
+    <color name="card_bg_light">#FFFFFF</color>
 
     <!--Night Mode Colors-->
     <color name="color_primary_status_bar_dark">#000000</color>
     <color name="color_primary_dark">#212121</color>
     <color name="navigation_bg_dark">#424242</color>
     <color name="main_bg_dark">#303030</color>
+    <color name="card_bg_dark">#424242</color>
 </resources>

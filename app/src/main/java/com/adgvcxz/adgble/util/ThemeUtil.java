@@ -37,4 +37,7 @@ public class ThemeUtil {
     public static final List<Integer> sColorMainBackground = new ArrayList<>(Arrays.asList(R.color.main_bg_light
             , R.color.main_bg_dark));
 
+    public static final List<Integer> sColorCardBackground = new ArrayList<>(Arrays.asList(R.color.card_bg_light
+            , R.color.card_bg_dark));
+
 }

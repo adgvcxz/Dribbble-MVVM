@@ -52,7 +52,6 @@ public class ThemeBindingConfig {
 
     @BindingAdapter({"themeAnim"})
     public static void changeTheme(FrameLayout layout, int theme) {
-        Log.e("zhaow", theme + "    " + ThemeUtil.sTheme);
         Observable.just(theme).filter(theme1 -> theme1 != ThemeUtil.sTheme).map(theme1 -> {
             ImageView imageView = (ImageView) layout.findViewById(R.id.themeImage);
             if (imageView == null) {
@@ -103,16 +102,10 @@ public class ThemeBindingConfig {
         view.setBackgroundColor(color);
     }
 
-    @BindingAdapter({"navigationBg"})
-    public static void colorNavigationBg(NavigationView navigationView, int theme) {
-        switch (theme) {
-            case ThemeUtil.Night:
-                navigationView.setBackgroundColor(ContextCompat.getColor(navigationView.getContext(), R.color.navigation_bg_dark));
-                break;
-            case ThemeUtil.Day:
-                navigationView.setBackgroundColor(ContextCompat.getColor(navigationView.getContext(), R.color.navigation_bg_light));
-                break;
-        }
+    @BindingAdapter({"cardColorTheme"})
+    public static void setCardColorTheme(View view, int theme) {
+        int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorCardBackground.get(theme));
+        view.setBackgroundColor(color);
     }
 
 

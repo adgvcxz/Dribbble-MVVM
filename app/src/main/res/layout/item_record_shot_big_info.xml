@@ -8,6 +8,7 @@
         <variable
             name="item"
             type="com.adgvcxz.adgble.model.RecentShotsViewModel.RecentShotsItemViewModel" />
+        <import type="com.adgvcxz.adgble.util.ThemeUtil"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -15,7 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        app:cardElevation="6dp">
+        app:cardElevation="6dp"
+        app:cardColorTheme="@{ThemeUtil.theme}">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +32,7 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="240dp"
                 app:actualImageScaleType="focusCrop"
                 app:imageUrl="@{item.imageUrl}"
                 app:thumbnail="@{item.thumbnail}" />
