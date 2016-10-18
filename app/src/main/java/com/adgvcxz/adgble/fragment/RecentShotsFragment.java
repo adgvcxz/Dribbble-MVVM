@@ -10,6 +10,10 @@ import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.databinding.FragmentRecentShotsBinding;
 import com.adgvcxz.adgble.model.RecentShotsViewModel;
+import com.adgvcxz.adgble.rxbus.RxBus;
+import com.adgvcxz.adgble.rxbus.RxBusChangeTheme;
+
+import rx.functions.Action1;
 
 /**
  * zhaowei
@@ -24,6 +28,9 @@ public class RecentShotsFragment extends BaseFragment {
         FragmentRecentShotsBinding binding = FragmentRecentShotsBinding.inflate(inflater, container, false);
         RecentShotsViewModel model = new RecentShotsViewModel();
         binding.setModel(model);
+        RxBus.getDefault().toObservable(RxBusChangeTheme.class).subscribe(changeTheme -> {
+            model.theme.set(changeTheme.getTheme());
+        });
         return binding.getRoot();
     }
 }

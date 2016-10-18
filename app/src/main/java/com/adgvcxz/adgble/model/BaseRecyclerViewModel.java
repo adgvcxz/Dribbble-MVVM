@@ -2,10 +2,8 @@ package com.adgvcxz.adgble.model;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 
@@ -18,33 +16,38 @@ import rx.Observable;
  * Created by zhaowei on 2016/10/11.
  */
 
-public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
+public abstract class BaseRecyclerViewModel<T> extends BaseThemeViewModel {
 
-    public ObservableArrayList<T> items = new ObservableArrayList<>();
+    public final ObservableArrayList<T> items = new ObservableArrayList<>();
     public final ObservableBoolean isLoadAll = new ObservableBoolean(false);
     public final ObservableBoolean loadMore = new ObservableBoolean(true);
     public final LoadMoreViewModel loadMoreViewModel = new LoadMoreViewModel();
-    private int page = 1;
+    int page = 1;
 
-    public BaseRecyclerViewModel() {
-        loadData();
+    public BaseRecyclerViewModel(boolean load) {
+        if (load) {
+            loadData();
+        }
     }
 
-    private void loadData() {
+    void loadData() {
         loadMoreViewModel.loading.set(true);
         request(page).subscribe(ts -> {
-            if (page == 0) {
+            if (page == 1) {
                 items.clear();
             }
             items.addAll(ts);
+            loadSuccess();
+            page += 1;
             loadMoreViewModel.loadSuccess.set(true);
             loadMoreViewModel.loading.set(false);
-            page += 1;
         }, throwable -> {
+            loadFailed();
             loadMoreViewModel.loadSuccess.set(false);
             loadMoreViewModel.loading.set(false);
         });
     }
+
 
     public final RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
 
@@ -72,4 +75,8 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
 
 
     public abstract Observable<List<T>> request(int page);
+
+    void loadSuccess(){}
+
+    void loadFailed(){}
 }

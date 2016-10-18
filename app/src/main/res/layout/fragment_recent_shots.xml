@@ -17,19 +17,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:adapter="@{model.adapter}"
-            app:isLoadAll="@{model.isLoadAll}"
-            app:itemView="@{model.itemView}"
-            app:items="@{model.items}"
-            app:layoutManager="@{LayoutManager.linear()}"
-            app:loadMore="@{model.loadMore}"
-            app:onClickLoadMore="@{model.onLoadMoreClickListener}"
-            app:onItemClickListener="@{model.clickListener}"
-            app:onScrollListener="@{model.onScrollListener}" />
+            app:colorPrimaryTheme="@{model.theme}"
+            app:onRefreshListener="@{model.onRefreshListener}"
+            app:refreshing="@{model.refreshing}">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:adapter="@{model.adapter}"
+                app:colorPrimaryTheme="@{model.theme}"
+                app:isLoadAll="@{model.isLoadAll}"
+                app:itemView="@{model.itemView}"
+                app:items="@{model.items}"
+                app:layoutManager="@{LayoutManager.linear()}"
+                app:loadMore="@{model.loadMore}"
+                app:onClickLoadMore="@{model.onLoadMoreClickListener}"
+                app:onItemClickListener="@{model.clickListener}"
+                app:onScrollListener="@{model.onScrollListener}" />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
 </layout>

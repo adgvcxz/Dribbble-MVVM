@@ -7,7 +7,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary_light</item>
         <item name="colorPrimaryDark">@color/color_primary_status_bar_light</item>
-        <item name="colorAccent">@color/color_accent_light</item>
+        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

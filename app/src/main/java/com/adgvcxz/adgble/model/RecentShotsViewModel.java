@@ -24,7 +24,7 @@ import rx.Observable;
  * Created by zhaowei on 2016/10/12.
  */
 
-public class RecentShotsViewModel extends BaseRecyclerViewModel<RecentShotsViewModel.RecentShotsItemViewModel> {
+public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsViewModel.RecentShotsItemViewModel> {
 
 
     public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot);

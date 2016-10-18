@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.adgvcxz.adgble.api.OkHttpUtil;
-import com.adgvcxz.adgble.api.RetrofitSingleton;
+import com.adgvcxz.adgble.util.IMMLeaks;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -23,6 +23,7 @@ public class AdgbleApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        IMMLeaks.fixFocusedViewLeak(this);
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }

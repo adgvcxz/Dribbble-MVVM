@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_primary_light">#3F51B5</color>
+
+    <color name="color_accent">#ff4081</color>
+
+    <!--Day Mode Colors-->
     <color name="color_primary_status_bar_light">#303F9F</color>
-    <color name="color_accent_light">#ff4081</color>
+    <color name="color_primary_light">#3F51B5</color>
     <color name="navigation_bg_light">#FFFFFF</color>
+    <color name="main_bg_light">#FAFAFA</color>
 
-
-    <color name="color_primary_teal">#009688</color>
-    <color name="color_primary_status_bar_teal">#00796B</color>
-    <color name="color_accent_teal">#009688</color>
-    <color name="navigation_bg_teal">#263238</color>
+    <!--Night Mode Colors-->
+    <color name="color_primary_status_bar_dark">#000000</color>
+    <color name="color_primary_dark">#212121</color>
+    <color name="navigation_bg_dark">#424242</color>
+    <color name="main_bg_dark">#303030</color>
 </resources>

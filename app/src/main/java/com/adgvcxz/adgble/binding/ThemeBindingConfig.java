@@ -2,19 +2,26 @@ package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EdgeEffect;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.util.ThemeUtil;
 import com.adgvcxz.adgble.util.Util;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -64,39 +71,69 @@ public class ThemeBindingConfig {
         });
     }
 
-    @BindingAdapter({"colorPrimaryBg"})
-    public static void colorPrimaryBg(View view, int theme) {
-        switch (theme) {
-            case ThemeUtil.Night:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_teal));
-                break;
-            case ThemeUtil.Day:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_light));
-                break;
+    @BindingAdapter({"colorPrimaryTheme"})
+    public static void setColorPrimary(View view, int theme) {
+        int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorPrimary.get(theme));
+        if (view instanceof RecyclerView) {
+            setEdgeGlowColor((RecyclerView) view, color);
+        } else if (view instanceof SwipeRefreshLayout) {
+            ((SwipeRefreshLayout) view).setColorSchemeColors(color);
+        } else {
+            view.setBackgroundColor(color);
         }
+    }
+
+    @BindingAdapter({"mainBackgroundTheme"})
+    public static void setMainBackground(View view, int theme) {
+        int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorMainBackground.get(theme));
+        view.setBackgroundColor(color);
+    }
+
+    @BindingAdapter({"progressBarColorTheme"})
+    public static void setProgressBarColor(ProgressBar progressBar, int theme) {
+        int color = ContextCompat.getColor(progressBar.getContext(), ThemeUtil.sColorMainBackground.get(theme));
+        progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
     }
 
     @BindingAdapter({"colorPrimaryStatusBg"})
     public static void colorPrimaryStatusBg(View view, int theme) {
-        switch (theme) {
-            case ThemeUtil.Night:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_status_bar_teal));
-                break;
-            case ThemeUtil.Day:
-                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.color_primary_status_bar_light));
-                break;
-        }
+        int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorPrimaryDark.get(theme));
+        view.setBackgroundColor(color);
     }
 
     @BindingAdapter({"navigationBg"})
     public static void colorNavigationBg(NavigationView navigationView, int theme) {
         switch (theme) {
             case ThemeUtil.Night:
-                navigationView.setBackgroundColor(ContextCompat.getColor(navigationView.getContext(), R.color.navigation_bg_teal));
+                navigationView.setBackgroundColor(ContextCompat.getColor(navigationView.getContext(), R.color.navigation_bg_dark));
                 break;
             case ThemeUtil.Day:
                 navigationView.setBackgroundColor(ContextCompat.getColor(navigationView.getContext(), R.color.navigation_bg_light));
                 break;
+        }
+    }
+
+
+    public static void setEdgeGlowColor(final RecyclerView recyclerView, final int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                final Class<?> clazz = RecyclerView.class;
+                for (final String name : new String[]{"ensureTopGlow", "ensureBottomGlow"}) {
+                    Method method = clazz.getDeclaredMethod(name);
+                    method.setAccessible(true);
+                    method.invoke(recyclerView);
+                }
+                for (final String name : new String[]{"mTopGlow", "mBottomGlow"}) {
+                    final Field field = clazz.getDeclaredField(name);
+                    field.setAccessible(true);
+                    final Object edge = field.get(recyclerView); // android.support.v4.widget.EdgeEffectCompat
+                    final Field fEdgeEffect = edge.getClass().getDeclaredField("mEdgeEffect");
+                    fEdgeEffect.setAccessible(true);
+                    ((EdgeEffect) fEdgeEffect.get(edge)).setColor(color);
+                }
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
