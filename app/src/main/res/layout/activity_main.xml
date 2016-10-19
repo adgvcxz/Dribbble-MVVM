@@ -9,8 +9,10 @@
             type="com.adgvcxz.adgble.model.MainActivityViewModel" />
 
         <import type="android.os.Build" />
+
         <import type="android.view.View" />
-        <import type="com.adgvcxz.adgble.util.ThemeUtil"/>
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
     </data>
 
@@ -32,24 +34,17 @@
                 app:appTheme="@{ThemeUtil.theme}"
                 app:osVersion="@{Build.VERSION.SDK_INT}">
 
-                <android.support.design.widget.AppBarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        app:colorPrimaryTheme="@{ThemeUtil.theme}"
-                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-                </android.support.design.widget.AppBarLayout>
-
                 <FrameLayout
-                    android:id="@+id/main_content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:mainBackgroundTheme="@{ThemeUtil.theme}">
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/include_toolbar" />
+
+                    <FrameLayout
+                        android:id="@+id/main_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:mainBackgroundTheme="@{ThemeUtil.theme}"/>
 
                 </FrameLayout>
             </LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.adgvcxz.adgble.api.OkHttpUtil;
+import com.adgvcxz.adgble.util.FontsOverride;
 import com.adgvcxz.adgble.util.IMMLeaks;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
@@ -28,6 +29,7 @@ public class AdgbleApp extends Application {
             return;
         }
         refWatcher = LeakCanary.install(this);
+        FontsOverride.setDefaultFont(this, "DEFAULT", "hobostd.otf");
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(this, OkHttpUtil.generateOkHttpClient().build())
                 .setDownsampleEnabled(true).build();
         Fresco.initialize(this, config);

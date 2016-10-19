@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/color_primary_light</item>
         <item name="colorPrimaryDark">@color/color_primary_status_bar_light</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

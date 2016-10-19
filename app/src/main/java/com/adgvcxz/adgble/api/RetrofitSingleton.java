@@ -22,7 +22,7 @@ import rx.Observable;
 
 public class RetrofitSingleton {
 
-    private static ApiService sApiServce = null;
+    private static ApiService sApiService = null;
     private static Retrofit sRetrofit = null;
     private static OkHttpClient sOkHttpClient = null;
 
@@ -33,7 +33,7 @@ public class RetrofitSingleton {
     private void init() {
         initOkHttp();
         initRetrofit();
-        sApiServce = sRetrofit.create(ApiService.class);
+        sApiService = sRetrofit.create(ApiService.class);
     }
 
     public static RetrofitSingleton getInstance() {
@@ -70,6 +70,6 @@ public class RetrofitSingleton {
     }
 
     public Observable<List<Shot>> getShots(int page, String sort) {
-        return sApiServce.getShots(page, sort).compose(RxUtil.rxScheduleHelper());
+        return sApiService.getShots(page, 40, sort).compose(RxUtil.rxScheduleHelper());
     }
 }

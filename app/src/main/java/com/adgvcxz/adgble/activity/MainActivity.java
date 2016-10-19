@@ -15,8 +15,6 @@ import com.adgvcxz.adgble.model.MainActivityViewModel;
 
 public class MainActivity extends BaseActivity {
 
-    private MainActivityViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +22,8 @@ public class MainActivity extends BaseActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        viewModel = new MainActivityViewModel();
+        MainActivityViewModel viewModel = new MainActivityViewModel();
+        setSupportActionBar((Toolbar) binding.getRoot().findViewById(R.id.toolbar));
         binding.setModel(viewModel);
         getSupportFragmentManager().beginTransaction().replace(binding.mainContent.getId(), new RecentShotsFragment()).commit();
         getSupportFragmentManager().beginTransaction().replace(binding.navigationView.getId(), new DrawerMenuFragment()).commit();

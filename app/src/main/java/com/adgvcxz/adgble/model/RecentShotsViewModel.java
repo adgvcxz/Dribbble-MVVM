@@ -1,11 +1,7 @@
 package com.adgvcxz.adgble.model;
 
 import android.databinding.ObservableField;
-import android.os.Build;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,7 +10,6 @@ import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.BaseItemViewModel;
 import com.adgvcxz.adgble.binding.ItemView;
-import com.adgvcxz.adgble.binding.LayoutManager;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 import com.adgvcxz.adgble.util.RxUtil;
 import com.android.databinding.library.baseAdapters.BR;
@@ -40,7 +35,6 @@ public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsVi
         @Override
         public void onClick(RecyclerView recyclerView, int position, View v) {
             Toast.makeText(recyclerView.getContext(), items.get(position).imageUrl.get(), Toast.LENGTH_SHORT).show();
-            recyclerView.setLayoutManager(LayoutManager.gridLoadMore2().create(recyclerView));
         }
     };
 

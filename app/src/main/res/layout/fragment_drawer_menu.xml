@@ -20,7 +20,7 @@
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
             android:onClick="@{model.onClickSetting}"
-            android:text="日间模式" />
+            android:text="Day Theme" />
 
     </LinearLayout>
 </layout>

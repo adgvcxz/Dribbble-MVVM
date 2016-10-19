@@ -23,5 +23,5 @@ public interface ApiService {
 
 
     @GET("shots")
-    Observable<List<Shot>> getShots(@Query("page") int page, @Query("sort") String sort);
+    Observable<List<Shot>> getShots(@Query("page") int page, @Query("per_page") int number, @Query("sort") String sort);
 }

@@ -15,7 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                 app:isLoadAll="@{model.isLoadAll}"
                 app:itemView="@{model.itemView}"
                 app:items="@{model.items}"
-                app:layoutManager="@{LayoutManager.linear()}"
+                app:layoutManager="@{model.layoutManager}"
                 app:loadMore="@{model.loadMore}"
                 app:onClickLoadMore="@{model.onLoadMoreClickListener}"
                 app:onItemClickListener="@{model.clickListener}"
