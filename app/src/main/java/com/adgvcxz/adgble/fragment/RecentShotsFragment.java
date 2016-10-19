@@ -33,7 +33,7 @@ public class RecentShotsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentRecentShotsBinding binding = FragmentRecentShotsBinding.inflate(inflater, container, false);
-        viewModel = new RecentShotsViewModel();
+        viewModel = new RecentShotsViewModel(getActivity());
         binding.setModel(viewModel);
         return binding.getRoot();
     }

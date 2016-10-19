@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.adgvcxz.adgble.adapter.ResetObservableArrayList;
 import com.adgvcxz.adgble.binding.LayoutManager;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
@@ -25,7 +26,9 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
     public final ObservableBoolean loadMore = new ObservableBoolean(true);
     public final LoadMoreViewModel loadMoreViewModel = new LoadMoreViewModel();
     public final ObservableField<LayoutManager.LayoutManagerFactory> layoutManager = new ObservableField<>(LayoutManager.linear());
+    public final BaseRecyclerViewAdapter adapter = new BaseRecyclerViewAdapter(loadMoreViewModel);
     int page = 1;
+    public int topMargin = 0;
 
     public BaseRecyclerViewModel(boolean load) {
         if (load) {

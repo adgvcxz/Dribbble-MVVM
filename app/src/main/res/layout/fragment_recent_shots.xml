@@ -8,24 +8,27 @@
         <variable
             name="model"
             type="com.adgvcxz.adgble.model.RecentShotsViewModel" />
+
         <import type="com.adgvcxz.adgble.binding.LayoutManager" />
+
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="?attr/actionBarSize">
+        android:orientation="vertical">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:colorPrimaryTheme="@{ThemeUtil.theme}"
             app:onRefreshListener="@{model.onRefreshListener}"
+            app:topMargin="@{model.topMargin}"
             app:refreshing="@{model.refreshing}">
 
             <android.support.v7.widget.RecyclerView
+                android:id="@id/shotsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -38,7 +41,8 @@
                 app:loadMore="@{model.loadMore}"
                 app:onClickLoadMore="@{model.onLoadMoreClickListener}"
                 app:onItemClickListener="@{model.clickListener}"
-                app:onScrollListener="@{model.onScrollListener}" />
+                app:onScrollListener="@{model.onScrollListener}"
+                app:topMargin="@{model.topMargin}" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 

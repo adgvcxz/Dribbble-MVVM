@@ -1,20 +1,9 @@
 package com.adgvcxz.adgble.binding;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingListener;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.EdgeEffect;
-
-import com.adgvcxz.adgble.R;
-
-import java.lang.reflect.Field;
+import android.util.Log;
 
 /**
  * zhaowei
@@ -33,9 +22,15 @@ public class SwipeRefreshLayoutBindingConfig {
 
     @BindingAdapter({"refreshing"})
     public static void setRefreshing(SwipeRefreshLayout swipeRefreshLayout, boolean refreshing) {
-//        ChangeEdgeEffect(swipeRefreshLayout.getContext(), swipeRefreshLayout, ContextCompat.getColor(swipeRefreshLayout.getContext(), R.color.color_primary_teal));
+        Log.e("zhaow", refreshing + "    " + swipeRefreshLayout.isRefreshing());
         if (refreshing ^ swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(refreshing);
         }
+    }
+
+    @BindingAdapter({"topMargin"})
+    public static void setTopMargin(SwipeRefreshLayout swipeRefreshLayout, int topMargin) {
+        Log.e("zhaow",  "  setTopMargin  " + swipeRefreshLayout.isRefreshing());
+        swipeRefreshLayout.setProgressViewOffset(false, topMargin / 2, topMargin * 3 / 2);
     }
 }

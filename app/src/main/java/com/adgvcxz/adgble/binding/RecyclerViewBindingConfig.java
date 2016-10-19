@@ -8,6 +8,7 @@ import android.databinding.adapters.ListenerUtil;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.adgvcxz.adgble.R;
@@ -60,13 +61,14 @@ public class RecyclerViewBindingConfig {
     }
 
     @SuppressWarnings("unchecked")
-    @BindingAdapter({"itemView", "items", "adapter"})
-    public static <T> void setAdapter(RecyclerView recyclerView, ItemViewSelector<T> itemView, List<T> items, BaseRecyclerViewAdapter adapter) {
+    @BindingAdapter(value = {"itemView", "items", "adapter", "topMargin"}, requireAll = false)
+    public static <T> void setAdapter(RecyclerView recyclerView, ItemViewSelector<T> itemView, List<T> items, BaseRecyclerViewAdapter adapter, int topMargin) {
         if (itemView == null) {
             throw new IllegalArgumentException("itemView must not be null");
         }
 
         RecyclerView.Adapter oldAdapter = recyclerView.getAdapter();
+        adapter.setTopMargin(topMargin);
         if (oldAdapter == null) {
             adapter.setItems(items);
             adapter.setItemView(itemView);

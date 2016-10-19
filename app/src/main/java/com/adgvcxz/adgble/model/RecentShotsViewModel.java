@@ -1,12 +1,13 @@
 package com.adgvcxz.adgble.model;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.databinding.ObservableField;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
 import com.adgvcxz.adgble.R;
-import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.BaseItemViewModel;
 import com.adgvcxz.adgble.binding.ItemView;
@@ -25,11 +26,17 @@ import rx.Observable;
 
 public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsViewModel.RecentShotsItemViewModel> {
 
+
+    public RecentShotsViewModel(Context context) {
+        super();
+        final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
+        topMargin = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+    }
+
     public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot);
 //    public final MutliItemViewSelector itemView = MutliItemViewSelector.add(ItemView.of(BR.item, R.layout.item_record_shot)
 //        , ItemView.of(BR.item, R.layout.item_record_shot_text));
-
-    public final BaseRecyclerViewAdapter adapter = new BaseRecyclerViewAdapter(loadMoreViewModel);
 
     public final OnRecyclerViewItemClickListener clickListener = new OnRecyclerViewItemClickListener() {
         @Override
