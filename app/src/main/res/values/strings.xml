@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Adgble</string>
+    <string name="app_name">Dribbble</string>
     <string name="loading">loading</string>
     <string name="load_failed">Load failed retry again!</string>
     <string name="default_font">default</string>
