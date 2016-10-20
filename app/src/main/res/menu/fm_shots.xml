@@ -3,6 +3,6 @@
 
     <item
         android:id="@+id/fm_shots_range"
-        android:title="网格" />
+        android:title="Change" />
 
 </menu>
