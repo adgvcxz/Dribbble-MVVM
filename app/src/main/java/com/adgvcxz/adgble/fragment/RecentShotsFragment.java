@@ -2,15 +2,11 @@ package com.adgvcxz.adgble.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adgvcxz.adgble.R;
-import com.adgvcxz.adgble.binding.LayoutManager;
 import com.adgvcxz.adgble.databinding.FragmentRecentShotsBinding;
 import com.adgvcxz.adgble.model.RecentShotsViewModel;
 
@@ -22,6 +18,7 @@ import com.adgvcxz.adgble.model.RecentShotsViewModel;
 public class RecentShotsFragment extends BaseFragment {
 
     private RecentShotsViewModel viewModel;
+    private Toolbar toolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,19 +36,8 @@ public class RecentShotsFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fm_shots, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+    public void onResume() {
+        super.onResume();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.fm_shots_range:
-                viewModel.itemView.changeLayoutRes(R.layout.item_shots_small);
-                viewModel.layoutManager.set(LayoutManager.gridLoadMore2());
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

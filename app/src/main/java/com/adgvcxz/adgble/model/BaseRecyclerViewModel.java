@@ -30,12 +30,6 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
     int page = 1;
     public int topMargin = 0;
 
-    public BaseRecyclerViewModel(boolean load) {
-        if (load) {
-            loadData();
-        }
-    }
-
     void loadData() {
         loadMoreViewModel.loading.set(true);
         request(page).subscribe(ts -> {
@@ -83,7 +77,9 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
 
     public abstract Observable<List<T>> request(int page);
 
-    void loadSuccess(){}
+    void loadSuccess() {
+    }
 
-    void loadFailed(){}
+    void loadFailed() {
+    }
 }

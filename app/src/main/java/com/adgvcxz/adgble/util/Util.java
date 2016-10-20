@@ -1,6 +1,7 @@
 package com.adgvcxz.adgble.util;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Looper;
 
 import com.adgvcxz.adgble.R;
@@ -24,5 +25,12 @@ public class Util {
         } else {
             return context.getResources().getDimensionPixelSize(R.dimen.status_bar_height);
         }
+    }
+
+    public static int getActionBarHeight(Context context) {
+        final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
+        int height = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+        return height;
     }
 }

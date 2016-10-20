@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="com.adgvcxz.adgble.util.ThemeUtil"/>
 
         <variable
             name="model"
@@ -20,7 +21,7 @@
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
             android:onClick="@{model.onClickSetting}"
-            android:text="Day Theme" />
+            android:text="@{ThemeUtil.theme == ThemeUtil.Day ? @string/night_theme : @string/day_theme}" />
 
     </LinearLayout>
 </layout>

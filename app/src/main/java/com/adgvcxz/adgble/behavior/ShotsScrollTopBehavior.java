@@ -6,8 +6,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
@@ -18,15 +16,13 @@ import android.view.ViewConfiguration;
 
 public class ShotsScrollTopBehavior extends CoordinatorLayout.Behavior<AppBarLayout> {
 
-    private int touchSlop;
-    private int scrolledDistance = 0;
-    private int scrollY = 0;
     private int actionBarHeight;
-    private AppBarLayout child;
+    private float velocity;
+    private float minVelocity;
 
     public ShotsScrollTopBehavior(Context context, AttributeSet set) {
         super(context, set);
-        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop() * 4;
+        minVelocity = ViewConfiguration.get(context).getScaledMinimumFlingVelocity();
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
         actionBarHeight = (int) styledAttributes.getDimension(0, 0);
         styledAttributes.recycle();
@@ -35,42 +31,22 @@ public class ShotsScrollTopBehavior extends CoordinatorLayout.Behavior<AppBarLay
 
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View directTargetChild, View target, int nestedScrollAxes) {
-        scrolledDistance = 0;
-//        if (target.getTag() == null) {
-//            target.setOnTouchListener(touchListener);
-//            target.setTag(touchListener);
-//            this.child = child;
-//        }
+        velocity = 0;
         return target instanceof SwipeRefreshLayout;
     }
 
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
-//        scrollY += dyConsumed;
-//        float translation = child.getTranslationY();
-//        if (scrollY > mActionBarHeight) {
-//            if (scrolledDistance > touchSlop && translation == 0) {
-//                scrolledDistance = 0;
-//                ViewCompat.animate(child).translationY(-actionBarHeight).setDuration(actionBarHeight).start();
-//            } else if (scrolledDistance < -touchSlop && translation == -actionBarHeight) {
-//                scrolledDistance = 0;
-//                ViewCompat.animate(child).translationY(0).setDuration(actionBarHeight).start();
-//            }
-//            if ((dyConsumed > 0 && translation == 0) || (translation == -actionBarHeight && dyConsumed < 0)) {
-//                scrolledDistance += dyConsumed;
-//            }
-//        } else if (translation == -actionBarHeight) {
-//            ViewCompat.animate(child).translationY(0).setDuration(actionBarHeight).start();
-//        }
-
         float translation = child.getTranslationY() - dyConsumed;
         if (translation > 0) {
             translation = 0;
         } else if (translation < -actionBarHeight) {
             translation = -actionBarHeight;
         }
-        child.setTranslationY(translation);
+        if (translation != child.getTranslationY()) {
+            child.setTranslationY(translation);
+        }
     }
 
 
@@ -79,11 +55,21 @@ public class ShotsScrollTopBehavior extends CoordinatorLayout.Behavior<AppBarLay
         super.onStopNestedScroll(coordinatorLayout, child, target);
         float translation = child.getTranslationY();
         if (translation != 0 && translation != -actionBarHeight) {
-            if (translation > -actionBarHeight / 2) {
-                child.animate().translationY(0).setDuration((long) Math.abs(child.getTranslationY()) * 2).start();
+            if ((velocity == 0 && translation > -actionBarHeight / 2) || (velocity != 0 && velocity < -minVelocity)) {
+                int duration = (int) Math.abs(child.getTranslationY());
+                duration = velocity == 0 ? duration * 2 : duration;
+                child.animate().translationY(0).setDuration(duration).start();
             } else {
-                child.animate().translationY(-actionBarHeight).setDuration((long) Math.abs(child.getTranslationY() + actionBarHeight) * 2).start();
+                int duration = (int) Math.abs(child.getTranslationY() + actionBarHeight);
+                duration = velocity == 0 ? duration * 2 : duration;
+                child.animate().translationY(-actionBarHeight).setDuration(duration).start();
             }
         }
+    }
+
+    @Override
+    public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY) {
+        velocity = velocityY;
+        return super.onNestedPreFling(coordinatorLayout, child, target, velocityX, velocityY);
     }
 }

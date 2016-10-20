@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.adgvcxz.adgble.R;
+import com.adgvcxz.adgble.adapter.OnCreateViewListener;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.BaseItemViewModel;
 import com.adgvcxz.adgble.binding.ItemView;
@@ -24,7 +25,7 @@ import rx.Observable;
  * Created by zhaowei on 2016/10/12.
  */
 
-public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsViewModel.RecentShotsItemViewModel> {
+public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsViewModel.RecentShotsItemViewModel> implements OnCreateViewListener {
 
 
     public RecentShotsViewModel(Context context) {
@@ -54,6 +55,12 @@ public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsVi
             model.avatar.set(shot.user.avatar_url);
             return model;
         }));
+    }
+
+    @Override
+    public void onCreateView() {
+        loadFirstData();
+        refreshing.set(true);
     }
 
     public static class RecentShotsItemViewModel extends BaseItemViewModel {

@@ -149,7 +149,6 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     }
 
     public void setTopMargin(int topMargin) {
-        Log.e("zhaow", topMargin + "aaa");
         this.topMargin = topMargin;
     }
 

@@ -3,4 +3,7 @@
     <string name="loading">loading</string>
     <string name="load_failed">Load failed retry again!</string>
     <string name="default_font">default</string>
+    <string name="shots">Shots</string>
+    <string name="day_theme">Day Theme</string>
+    <string name="night_theme">Night Theme</string>
 </resources>
