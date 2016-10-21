@@ -1,6 +1,5 @@
 package com.adgvcxz.adgble.fragment;
 
-import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -16,6 +15,7 @@ import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.binding.LayoutManager;
 import com.adgvcxz.adgble.databinding.FragmentShotsBinding;
 import com.adgvcxz.adgble.model.ShotsViewModel;
+import com.adgvcxz.adgble.util.RxUtil;
 import com.adgvcxz.adgble.util.Util;
 
 /**
@@ -45,14 +45,10 @@ public class ShotsFragment extends BaseFragment implements Toolbar.OnMenuItemCli
         toolbar.setOnMenuItemClickListener(this);
         appBarLayout = (AppBarLayout) binding.getRoot().findViewById(R.id.app_bar_layout);
         actionBarHeight = Util.getActionBarHeight(getActivity());
-        viewModel.position.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                if (appBarLayout.getTranslationY() == -actionBarHeight) {
+        RxUtil.toObservableInt(viewModel.position).filter(integer -> appBarLayout.getTranslationY() == -actionBarHeight)
+                .subscribe(integer -> {
                     ViewCompat.animate(appBarLayout).translationY(0).setDuration((long) Math.abs(appBarLayout.getTranslationY())).start();
-                }
-            }
-        });
+                });
         return binding.getRoot();
     }
 

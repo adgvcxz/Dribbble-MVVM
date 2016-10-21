@@ -21,3 +21,4 @@ Dribbble Android MVVM
 
 - [binding-collection-adapter](https://github.com/evant/binding-collection-adapter)
 - [MVVMFramework](https://github.com/saiwu-bigkoo/Android-MVVMFramework)
+- [android-data-binding-rxjava](https://github.com/TangoAgency/android-data-binding-rxjava)
