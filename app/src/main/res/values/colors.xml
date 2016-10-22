@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="color_accent">#448AFF</color>
+    <color name="color_accent">#80CBC4</color>
 
     <!--Day Mode Colors-->
     <color name="color_primary_status_bar_light">#C2185B</color>

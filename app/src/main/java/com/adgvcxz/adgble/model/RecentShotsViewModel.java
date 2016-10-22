@@ -35,7 +35,7 @@ public class RecentShotsViewModel extends RefreshRecyclerViewModel<RecentShotsVi
         styledAttributes.recycle();
     }
 
-    public final ItemView itemView = ItemView.of(BR.item, R.layout.item_record_shot);
+    public final ItemView itemView = ItemView.of(BR.item, R.layout.item_shot_large_without_info);
 //    public final MutliItemViewSelector itemView = MutliItemViewSelector.add(ItemView.of(BR.item, R.layout.item_record_shot)
 //        , ItemView.of(BR.item, R.layout.item_record_shot_text));
 

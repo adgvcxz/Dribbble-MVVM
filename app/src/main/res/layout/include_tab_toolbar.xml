@@ -9,8 +9,8 @@
             name="title"
             type="String"/>
         <variable
-            name="position"
-            type="Integer"/>
+            name="model"
+            type="com.adgvcxz.adgble.model.ShotsToolbarViewModel"/>
     </data>
 
     <android.support.design.widget.AppBarLayout
@@ -25,7 +25,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="@{model.rightIcon}"
+            app:navigationOnClickListener="@{model.listener}"
+            app:menu="@{model.menu}"
+            app:menuClickListener="@{model.onMenuItemClickListener}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +45,7 @@
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
             app:tabIndicatorColor="#FFFFFF"
             app:tabSelectedTextColor="#FFFFFF"
-            app:position="@={position}"
+            app:position="@={model.position}"
             app:tabTextColor="#FFFFFF"  />
     </android.support.design.widget.AppBarLayout>
 </layout>

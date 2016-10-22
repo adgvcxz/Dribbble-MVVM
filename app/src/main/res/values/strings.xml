@@ -6,4 +6,9 @@
     <string name="shots">Shots</string>
     <string name="day_theme">Day Theme</string>
     <string name="night_theme">Night Theme</string>
+    <string name="large_without_info">Large without info</string>
+    <string name="sort">Sort</string>
+    <string name="small_with_info">Small with info</string>
+    <string name="large_with_info">Large with info</string>
+    <string name="small_without_info">Small without info</string>
 </resources>
