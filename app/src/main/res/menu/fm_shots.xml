@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/fm_shots_sort"
-        android:actionProviderClass="android.widget.ShareActionProvider"
         android:icon="@mipmap/ic_more"
         android:title="@string/sort"
         app:showAsAction="ifRoom">

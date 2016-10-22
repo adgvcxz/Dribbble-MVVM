@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="onScrollListener" type="id" />
+    <item name="drawerListener" type="id" />
     <item name="statusBarId" type="id" />
     <item name="themeImage" type="id" />
     <item name="shotsRecyclerView" type="id" />

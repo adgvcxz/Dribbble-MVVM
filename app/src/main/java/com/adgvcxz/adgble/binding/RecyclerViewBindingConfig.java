@@ -8,7 +8,6 @@ import android.databinding.adapters.ListenerUtil;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.adgvcxz.adgble.R;
@@ -121,7 +120,9 @@ public class RecyclerViewBindingConfig {
         if (oldValue != null) {
             recyclerView.removeOnScrollListener(oldValue);
         }
-        recyclerView.addOnScrollListener(listener);
+        if (listener != null) {
+            recyclerView.addOnScrollListener(listener);
+        }
     }
 
     @BindingConversion

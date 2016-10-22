@@ -2,9 +2,9 @@ package com.adgvcxz.adgble.model;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableField;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.adgvcxz.adgble.R;
@@ -44,6 +44,10 @@ public class ShotsViewModel extends BaseViewModel implements Toolbar.OnMenuItemC
             case R.id.fm_shots_small:
                 model.itemView.changeLayoutRes(R.layout.item_shot_small_without_info);
                 model.layoutManager.set(LayoutManager.gridLoadMore2());
+                break;
+            case R.id.fm_shots_large_info:
+                model.itemView.changeLayoutRes(R.layout.item_shot_large_with_info);
+                model.layoutManager.set(LayoutManager.linear());
                 break;
         }
         return false;
