@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.adgvcxz.adgble.model.RecentShotsViewModel.RecentShotsItemViewModel" />
+            type="com.adgvcxz.adgble.model.ShotItemViewModel" />
 
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>

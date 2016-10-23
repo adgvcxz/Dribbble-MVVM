@@ -19,5 +19,4 @@ public class MainActivityViewModel extends BaseViewModel {
                     isDrawerOpen.set(true);
                 });
     }
-
 }

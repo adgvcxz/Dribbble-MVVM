@@ -5,21 +5,12 @@ import android.databinding.BindingConversion;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.databinding.adapters.ListenerUtil;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.adgvcxz.adgble.databinding.ItemLoadMoreBinding;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.common.ImageDecodeOptions;
-import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.List;
 
@@ -31,28 +22,6 @@ import rx.Observable;
  */
 
 public class RecyclerViewBindingConfig {
-
-    @BindingAdapter(value = {"imageUrl", "thumbnail"}, requireAll = false)
-    public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl, String thumbnail) {
-        ImageDecodeOptions decodeOptions = ImageDecodeOptions.newBuilder().setDecodePreviewFrame(true).build();
-        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))
-                .setImageDecodeOptions(decodeOptions)
-                .setResizeOptions(new ResizeOptions(240, 240))
-                .setProgressiveRenderingEnabled(true)
-                .build();
-        ImageRequest lowRequest = null;
-        if (!TextUtils.isEmpty(thumbnail)) {
-            lowRequest = ImageRequest.fromUri(thumbnail);
-        }
-        DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(imageRequest)
-                .setLowResImageRequest(lowRequest)
-                .setOldController(simpleDraweeView.getController())
-                .setAutoPlayAnimations(true)
-                .build();
-
-        simpleDraweeView.setController(draweeController);
-    }
 
     @BindingAdapter({"layoutManager"})
     public static void setLayoutManager(RecyclerView recyclerView, LayoutManager.LayoutManagerFactory factory) {

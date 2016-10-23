@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.adgvcxz.adgble.model.RecentShotsViewModel" />
+            type="com.adgvcxz.adgble.model.ShotsListViewModel" />
 
         <import type="com.adgvcxz.adgble.binding.LayoutManager" />
 

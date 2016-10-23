@@ -6,12 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.adgvcxz.adgble.binding.ItemViewSelector;
-import com.adgvcxz.adgble.fragment.BaseViewPagerFragment;
+import com.adgvcxz.adgble.fragment.BaseViewModelFragment;
 import com.adgvcxz.adgble.util.Util;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.stream.Collector;
 
 /**
  * zhaowei
@@ -31,10 +30,9 @@ public class BaseViewPagerFragmentAdapter<T extends OnCreateViewListener> extend
 
     @Override
     public Fragment getItem(int position) {
-        BaseViewPagerFragment fragment = BaseViewPagerFragment.newInstance(itemView.layoutRes(position, items.get(position))
-                , itemView.bindingVariable(position, items.get(position)));
-        fragment.setItem(items.get(position));
-        return fragment;
+        BaseViewModelFragment fragment = BaseViewModelFragment.newInstance(
+                itemView.bindingVariable(position, items.get(position)), itemView.layoutRes(position, items.get(position)));
+        return fragment.setItem(items.get(position));
     }
 
     @Override

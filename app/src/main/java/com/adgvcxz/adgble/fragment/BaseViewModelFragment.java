@@ -16,14 +16,14 @@ import com.adgvcxz.adgble.adapter.OnCreateViewListener;
  * Created by zhaowei on 2016/10/20.
  */
 
-public class BaseViewPagerFragment extends BaseFragment {
+public class BaseViewModelFragment extends BaseFragment {
 
     @LayoutRes
     private int layoutId;
     private OnCreateViewListener item;
 
-    public static BaseViewPagerFragment newInstance(@LayoutRes int layoutId, int bindingVariable) {
-        BaseViewPagerFragment fragment = new BaseViewPagerFragment();
+    public static BaseViewModelFragment newInstance(int bindingVariable, @LayoutRes int layoutId) {
+        BaseViewModelFragment fragment = new BaseViewModelFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("layoutId", layoutId);
         bundle.putInt("bindingVariable", bindingVariable);
@@ -42,7 +42,8 @@ public class BaseViewPagerFragment extends BaseFragment {
         return binding.getRoot();
     }
 
-    public void setItem(OnCreateViewListener item) {
+    public BaseViewModelFragment setItem(OnCreateViewListener item) {
         this.item = item;
+        return this;
     }
 }
