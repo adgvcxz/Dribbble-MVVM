@@ -1,7 +1,7 @@
 package com.adgvcxz.adgble.model;
 
 import android.databinding.BaseObservable;
-import android.databinding.ObservableField;
+import android.databinding.Bindable;
 
 /**
  * zhaowei
@@ -10,12 +10,39 @@ import android.databinding.ObservableField;
 
 public class ShotItemViewModel extends BaseObservable {
 
-    public final ObservableField<String> imageUrl = new ObservableField<>();
-    public final ObservableField<String> thumbnail = new ObservableField<>();
-    public final ObservableField<String> avatar = new ObservableField<>();
+    public String imageUrl = "";
+    public String thumbnail = "";
+    public String avatar = "";
 
     @Override
     public String toString() {
-        return "imageUrl" + imageUrl.get();
+        return "imageUrl" + imageUrl;
+    }
+
+    @Bindable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Bindable
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    @Bindable
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

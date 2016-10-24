@@ -3,7 +3,9 @@ package com.adgvcxz.adgble.behavior;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.View;
@@ -20,19 +22,19 @@ public class ShotsScrollTopBehavior extends CoordinatorLayout.Behavior<AppBarLay
     private float velocity;
     private float minVelocity;
 
+    @Override
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View directTargetChild, View target, int nestedScrollAxes) {
+        velocity = 0;
+        return target instanceof SwipeRefreshLayout;
+    }
+
+
     public ShotsScrollTopBehavior(Context context, AttributeSet set) {
         super(context, set);
         minVelocity = ViewConfiguration.get(context).getScaledMinimumFlingVelocity();
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
         actionBarHeight = (int) styledAttributes.getDimension(0, 0);
         styledAttributes.recycle();
-    }
-
-
-    @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View directTargetChild, View target, int nestedScrollAxes) {
-        velocity = 0;
-        return target instanceof SwipeRefreshLayout;
     }
 
     @Override
@@ -47,6 +49,7 @@ public class ShotsScrollTopBehavior extends CoordinatorLayout.Behavior<AppBarLay
         if (translation != child.getTranslationY()) {
             child.setTranslationY(translation);
         }
+        ViewCompat.offsetTopAndBottom(child, (int) translation);
     }
 
 

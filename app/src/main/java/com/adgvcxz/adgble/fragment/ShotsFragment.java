@@ -22,7 +22,6 @@ import com.adgvcxz.adgble.util.Util;
 
 public class ShotsFragment extends BaseFragment {
 
-    private AppBarLayout appBarLayout;
     private FragmentShotsBinding binding;
     private ShotsViewModel viewModel;
     private int actionBarHeight;
@@ -37,11 +36,11 @@ public class ShotsFragment extends BaseFragment {
         TabLayout tabLayout = (TabLayout) binding.getRoot().findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(binding.viewPager);
         binding.viewPager.setOffscreenPageLimit(2);
-        appBarLayout = (AppBarLayout) binding.getRoot().findViewById(R.id.app_bar_layout);
+        View view = binding.getRoot().findViewById(R.id.app_bar_layout);
         actionBarHeight = Util.getActionBarHeight(getActivity());
-        RxUtil.toObservableInt(viewModel.shotsToolbarViewModel.position).filter(integer -> appBarLayout.getTranslationY() == -actionBarHeight)
+        RxUtil.toObservableInt(viewModel.shotsToolbarViewModel.position).filter(integer -> view.getTranslationY() == -actionBarHeight)
                 .subscribe(integer -> {
-                    ViewCompat.animate(appBarLayout).translationY(0).setDuration((long) Math.abs(appBarLayout.getTranslationY())).start();
+                    ViewCompat.animate(view).translationY(0).setDuration((long) Math.abs(view.getTranslationY())).start();
                 });
         return binding.getRoot();
     }

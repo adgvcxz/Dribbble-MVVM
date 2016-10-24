@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Build;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * zhaowei
@@ -48,6 +51,17 @@ public class ThemeBindingConfig {
         }).subscribe(view -> {
             colorPrimaryStatusBg(view, theme);
         });
+    }
+
+    @BindingAdapter(value = {"osVersionMarginTop"}, requireAll = false)
+    public static void setStatusBarMarginTop(View view, int osVersion) {
+        Observable.just(osVersion).filter(integer -> osVersion > Build.VERSION_CODES.KITKAT)
+                .map(integer -> view.getLayoutParams())
+                .ofType(ViewGroup.MarginLayoutParams.class)
+                .subscribe(marginLayoutParams -> {
+                    marginLayoutParams.topMargin = Util.getStatusBarHeight(view.getContext());
+                    view.setLayoutParams(marginLayoutParams);
+                });
     }
 
     @BindingAdapter({"themeAnim"})
