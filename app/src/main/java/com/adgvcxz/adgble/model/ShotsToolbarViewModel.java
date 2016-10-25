@@ -17,7 +17,6 @@ import com.adgvcxz.adgble.rxbus.RxBusClickDrawerMenu;
 
 public class ShotsToolbarViewModel extends BaseObservable {
 
-    public final ObservableBoolean openDrawer = new ObservableBoolean(false);
     public final ObservableInt position = new ObservableInt(0);
     public final int rightIcon = R.mipmap.ic_menu;
     public final View.OnClickListener listener = v -> RxBus.getDefault().post(new RxBusClickDrawerMenu());

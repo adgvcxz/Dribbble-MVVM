@@ -12,6 +12,9 @@ import com.adgvcxz.adgble.R;
  */
 
 public class Util {
+
+    public static final String ShotImage = "Translate:ShotImage";
+
     public static void ensureChangeOnMainThread() {
         if (Thread.currentThread() != Looper.getMainLooper().getThread()) {
             throw new IllegalStateException("You must only modify the ObservableList on the main thread.");

@@ -5,4 +5,5 @@
     <item name="statusBarId" type="id" />
     <item name="themeImage" type="id" />
     <item name="shotsRecyclerView" type="id" />
+    <item name="item_shot_image" type="id" />
 </resources>

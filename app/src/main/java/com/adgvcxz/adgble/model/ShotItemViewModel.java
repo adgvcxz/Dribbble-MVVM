@@ -3,12 +3,14 @@ package com.adgvcxz.adgble.model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import java.io.Serializable;
+
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/23.
  */
 
-public class ShotItemViewModel extends BaseObservable {
+public class ShotItemViewModel extends BaseObservable implements Serializable {
 
     public String imageUrl = "";
     public String thumbnail = "";

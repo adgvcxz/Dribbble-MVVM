@@ -1,0 +1,43 @@
+package com.adgvcxz.adgble.model;
+
+import android.content.Context;
+import android.databinding.ObservableInt;
+import android.os.Build;
+
+import com.adgvcxz.adgble.R;
+import com.adgvcxz.adgble.util.RxUtil;
+import com.adgvcxz.adgble.util.Util;
+
+import java.util.List;
+
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
+
+/**
+ * zhaowei
+ * Created by zhaowei on 2016/10/25.
+ */
+
+public class ShotsDetailViewModel extends BaseRecyclerViewModel {
+
+    public final ShotItemViewModel shotItemViewModel;
+    public final ObservableInt translationY = new ObservableInt();
+    public final ObservableInt scrollY = new ObservableInt();
+
+    public ShotsDetailViewModel(Context context, ShotItemViewModel model) {
+        topMargin = context.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            topMargin += Util.getStatusBarHeight(context);
+        }
+        shotItemViewModel = model;
+        int height = context.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height) - Util.getActionBarHeight(context) * 2;
+        RxUtil.toObservableInt(scrollY).map(integer -> integer > height ? height : integer)
+                .filter(integer -> integer != translationY.get()).subscribe(translationY::set);
+    }
+
+    @Override
+    public Observable<List> request(int page) {
+        return null;
+    }
+}

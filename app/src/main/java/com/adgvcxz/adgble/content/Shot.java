@@ -1,5 +1,6 @@
 package com.adgvcxz.adgble.content;
 
+import android.databinding.BaseObservable;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
@@ -11,7 +12,8 @@ import java.util.List;
  * Created by zhaowei on 2016/10/10.
  */
 
-public class Shot {
+public class Shot extends BaseObservable{
+
     public int id;
     public String title;
     public String description;
@@ -65,6 +67,8 @@ public class Shot {
     public int hashCode() {
         return ((Integer) id).hashCode();
     }
+
+
 
 
     public static class Images implements Serializable {

@@ -1,5 +1,6 @@
 package com.adgvcxz.adgble.adapter;
 
+import android.databinding.BaseObservable;
 import android.databinding.ObservableList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +21,7 @@ import java.util.List;
 public class BaseViewPagerFragmentAdapter<T extends OnCreateViewListener> extends FragmentPagerAdapter {
 
     private List<T> items;
-    private ItemViewSelector<T> itemView;
+    private ItemViewSelector itemView;
     private PageTitles pageTitles;
     private final WeakReferenceOnListChangedCallback<T> callback = new WeakReferenceOnListChangedCallback<>(this);
 

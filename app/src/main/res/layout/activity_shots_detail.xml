@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="model"
+            type="com.adgvcxz.adgble.model.ShotsDetailViewModel" />
+
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
         <import type="android.os.Build" />
@@ -17,7 +21,8 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:scrollY="@={model.scrollY}">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,8 +31,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
-                    android:background="@color/card_bg_dark" />
+                    android:layout_height="1000dp" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
@@ -35,22 +39,27 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_toolbar_height"
+            android:translationY="@{-model.translationY}"
             app:osVersionMarginTop="@{Build.VERSION.SDK_INT}">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:background="@color/color_primary_light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:placeholderImageScaleType="focusCrop"
-                app:placeholderImage="@mipmap/ic_launcher" />
+                android:translationY="@{model.translationY / 2}"
+                app:actualImageScaleType="focusCrop"
+                app:cardColorTheme="@{ThemeUtil.theme}"
+                app:imageUrl="@{model.shotItemViewModel.imageUrl}"
+                app:thumbnail="@{model.shotItemViewModel.thumbnail}" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:translationY="@{model.translationY}"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

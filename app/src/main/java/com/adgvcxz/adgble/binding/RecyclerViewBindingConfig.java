@@ -99,9 +99,9 @@ public class RecyclerViewBindingConfig {
         return new SingleItemViewSelector(itemView);
     }
 
-    public static ItemViewSelector toItemViewSelector(List<ItemView> itemViews) {
-        return new MutliItemViewSelector(itemViews);
-    }
+//    public static ItemViewSelector toItemViewSelector(List<ItemView> itemViews) {
+//        return new MutliItemViewSelector(itemViews);
+//    }
 
 
 }

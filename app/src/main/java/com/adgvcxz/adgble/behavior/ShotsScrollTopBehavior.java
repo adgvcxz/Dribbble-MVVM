@@ -49,7 +49,6 @@ public class ShotsScrollTopBehavior extends CoordinatorLayout.Behavior<AppBarLay
         if (translation != child.getTranslationY()) {
             child.setTranslationY(translation);
         }
-        ViewCompat.offsetTopAndBottom(child, (int) translation);
     }
 
 

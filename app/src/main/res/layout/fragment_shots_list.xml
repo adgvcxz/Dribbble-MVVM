@@ -9,8 +9,6 @@
             name="model"
             type="com.adgvcxz.adgble.model.ShotsListViewModel" />
 
-        <import type="com.adgvcxz.adgble.binding.LayoutManager" />
-
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>
 

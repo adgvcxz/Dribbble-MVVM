@@ -32,6 +32,7 @@
                 app:imageUrl="@{item.avatar}" />
 
             <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@id/item_shot_image"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 app:actualImageScaleType="focusCrop"

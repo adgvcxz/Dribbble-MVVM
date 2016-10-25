@@ -1,9 +1,14 @@
 package com.adgvcxz.adgble.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,11 +19,13 @@ import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 import com.adgvcxz.adgble.util.RxUtil;
+import com.adgvcxz.adgble.util.Util;
 import com.android.databinding.library.baseAdapters.BR;
 
 import java.util.List;
 
 import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * zhaowei
@@ -37,12 +44,18 @@ public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<ShotIt
 
     public final ItemView itemView = ItemView.of(BR.item, R.layout.item_shot_large_without_info);
 
-    public final OnRecyclerViewItemClickListener clickListener = new OnRecyclerViewItemClickListener() {
-        @Override
-        public void onClick(RecyclerView recyclerView, int position, View v) {
-            recyclerView.getContext().startActivity(new Intent(recyclerView.getContext(), ShotsDetailActivity.class));
-        }
-    };
+    public final OnRecyclerViewItemClickListener clickListener = (recyclerView, position, v) ->
+            Observable.just(recyclerView.getContext()).ofType(Activity.class)
+            .subscribe(activity -> {
+                View view = v.findViewById(R.id.item_shot_image);
+                if (view != null) {
+                    ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, new Pair<>(view, Util.ShotImage));
+                    Intent intent = new Intent(activity, ShotsDetailActivity.class);
+                    intent.putExtra("Data", items.get(position));
+                    ActivityCompat.startActivity(activity, intent, opts.toBundle());
+                    Log.e("zhaow", items.get(position).getImageUrl());
+                }
+            });
 
     @Override
     public Observable<List<ShotItemViewModel>> request(int page) {

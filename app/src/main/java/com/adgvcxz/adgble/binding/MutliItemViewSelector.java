@@ -10,25 +10,28 @@ import java.util.List;
 
 public class MutliItemViewSelector<T> implements ItemViewSelector<T> {
 
-    private List<ItemView> itemViews;
+    private OnItemViewSelector<T> selector;
 
-    public MutliItemViewSelector(List<ItemView> itemViews) {
-        this.itemViews = itemViews;
+    public MutliItemViewSelector(OnItemViewSelector selector) {
+        this.selector = selector;
     }
 
 
     @Override
     public int layoutRes(int position, T item) {
-        return itemViews.get(position % 2).layoutRes();
+        return selector.onItemView(position, item).layoutRes();
     }
 
     @Override
     public int bindingVariable(int position, T item) {
-        return itemViews.get(position % 2).bindingVariable();
+        return selector.onItemView(position, item).bindingVariable();
     }
 
-    public static MutliItemViewSelector add(ItemView... itemViews) {
-        List list = Arrays.asList(itemViews);
-        return new MutliItemViewSelector(list);
+    public static MutliItemViewSelector newInstance(OnItemViewSelector selector) {
+        return new MutliItemViewSelector(selector);
+    }
+
+    public interface OnItemViewSelector<T> {
+        ItemView onItemView(int position, T item);
     }
 }

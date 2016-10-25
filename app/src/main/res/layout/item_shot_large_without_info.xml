@@ -19,6 +19,7 @@
         app:cardColorTheme="@{ThemeUtil.theme}">
 
         <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@id/item_shot_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:actualImageScaleType="focusCrop"
