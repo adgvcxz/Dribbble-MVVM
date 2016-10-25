@@ -5,6 +5,7 @@ import android.databinding.ObservableInt;
 import android.os.Build;
 
 import com.adgvcxz.adgble.R;
+import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.RxUtil;
 import com.adgvcxz.adgble.util.Util;
 
@@ -21,11 +22,11 @@ import rx.functions.Func1;
 
 public class ShotsDetailViewModel extends BaseRecyclerViewModel {
 
-    public final ShotItemViewModel shotItemViewModel;
+    public final Shot shotItemViewModel;
     public final ObservableInt translationY = new ObservableInt();
     public final ObservableInt scrollY = new ObservableInt();
 
-    public ShotsDetailViewModel(Context context, ShotItemViewModel model) {
+    public ShotsDetailViewModel(Context context, Shot model) {
         topMargin = context.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             topMargin += Util.getStatusBarHeight(context);

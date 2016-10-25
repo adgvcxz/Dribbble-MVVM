@@ -1,16 +1,26 @@
 package com.adgvcxz.adgble.content;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/10.
  */
 
-public class User {
+public class User extends BaseObservable implements Serializable {
     public int id;
     public String name;
-    public String username;
+    private String username;
     public String html_url;
-    public String avatar_url; // 用户头像
+
+    @SerializedName("avatar_url")
+    private String avatarUrl; // 用户头像
+
     public String bio;
     public String location;
 
@@ -39,4 +49,22 @@ public class User {
     public String teams_url;
     public String created_at;
     public String updated_at;
+
+    @Bindable
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    @Bindable
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

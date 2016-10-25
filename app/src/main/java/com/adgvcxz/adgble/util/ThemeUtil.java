@@ -40,4 +40,10 @@ public class ThemeUtil {
     public static final List<Integer> sColorCardBackground = new ArrayList<>(Arrays.asList(R.color.card_bg_light
             , R.color.card_bg_dark));
 
+    public static final List<Integer> sColorPrimaryText = new ArrayList<>(Arrays.asList(R.color.primary_text_color_light
+            , R.color.primary_text_color_dark));
+
+    public static final List<Integer> sColorSecondText = new ArrayList<>(Arrays.asList(R.color.second_text_color_light
+            , R.color.second_text_color_dark));
+
 }

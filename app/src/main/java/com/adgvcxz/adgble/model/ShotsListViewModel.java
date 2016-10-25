@@ -7,10 +7,7 @@ import android.content.res.TypedArray;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.activity.ShotsDetailActivity;
@@ -18,6 +15,7 @@ import com.adgvcxz.adgble.adapter.OnCreateViewListener;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
+import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.RxUtil;
 import com.adgvcxz.adgble.util.Util;
 import com.android.databinding.library.baseAdapters.BR;
@@ -25,14 +23,13 @@ import com.android.databinding.library.baseAdapters.BR;
 import java.util.List;
 
 import rx.Observable;
-import rx.functions.Action1;
 
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/23.
  */
 
-public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<ShotItemViewModel> implements OnCreateViewListener {
+public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<Shot> implements OnCreateViewListener {
 
 
     public ShotsListViewModel(Context context) {
@@ -46,26 +43,19 @@ public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<ShotIt
 
     public final OnRecyclerViewItemClickListener clickListener = (recyclerView, position, v) ->
             Observable.just(recyclerView.getContext()).ofType(Activity.class)
-            .subscribe(activity -> {
-                View view = v.findViewById(R.id.item_shot_image);
-                if (view != null) {
-                    ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, new Pair<>(view, Util.ShotImage));
-                    Intent intent = new Intent(activity, ShotsDetailActivity.class);
-                    intent.putExtra("Data", items.get(position));
-                    ActivityCompat.startActivity(activity, intent, opts.toBundle());
-                    Log.e("zhaow", items.get(position).getImageUrl());
-                }
-            });
+                    .subscribe(activity -> {
+                        View view = v.findViewById(R.id.item_shot_image);
+                        if (view != null) {
+                            ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, new Pair<>(view, Util.ShotImage));
+                            Intent intent = new Intent(activity, ShotsDetailActivity.class);
+                            intent.putExtra("Data", items.get(position));
+                            ActivityCompat.startActivity(activity, intent, opts.toBundle());
+                        }
+                    });
 
     @Override
-    public Observable<List<ShotItemViewModel>> request(int page) {
-        return RetrofitSingleton.getInstance().getShots(page, getSorts()).compose(RxUtil.rxTransformList(shot -> {
-            ShotItemViewModel model = new ShotItemViewModel();
-            model.setImageUrl(shot.images.getHeightImageUri());
-            model.setThumbnail(shot.images.teaser);
-            model.setAvatar(shot.user.avatar_url);
-            return model;
-        }));
+    public Observable<List<Shot>> request(int page) {
+        return RetrofitSingleton.getInstance().getShots(page, getSorts());
     }
 
     @Override

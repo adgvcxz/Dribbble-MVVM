@@ -9,6 +9,7 @@ import android.transition.Transition;
 import android.view.WindowManager;
 
 import com.adgvcxz.adgble.R;
+import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.databinding.ActivityShotsDetailBinding;
 import com.adgvcxz.adgble.model.ShotItemViewModel;
 import com.adgvcxz.adgble.model.ShotsDetailViewModel;
@@ -31,7 +32,7 @@ public class ShotsDetailActivity extends BaseActivity {
         }
         ActivityShotsDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_shots_detail);
         initTranslation(binding);
-        ShotsDetailViewModel model = new ShotsDetailViewModel(this, (ShotItemViewModel) getIntent().getSerializableExtra("Data"));
+        ShotsDetailViewModel model = new ShotsDetailViewModel(this, (Shot) getIntent().getSerializableExtra("Data"));
         binding.setModel(model);
     }
 

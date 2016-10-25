@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.adgvcxz.adgble.model.ShotItemViewModel" />
+            type="com.adgvcxz.adgble.content.Shot" />
 
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>
@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:actualImageScaleType="focusCrop"
-            app:imageUrl="@{item.imageUrl}"
-            app:thumbnail="@{item.thumbnail}" />
+            app:imageUrl="@{item.images.hidpi}"
+            app:thumbnail="@{item.images.teaser}" />
 
     </LinearLayout>
 </layout>

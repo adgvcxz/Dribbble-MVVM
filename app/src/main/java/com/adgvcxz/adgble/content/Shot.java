@@ -1,10 +1,14 @@
 package com.adgvcxz.adgble.content;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.support.annotation.NonNull;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +16,7 @@ import java.util.List;
  * Created by zhaowei on 2016/10/10.
  */
 
-public class Shot extends BaseObservable{
+public class Shot extends BaseObservable implements Serializable {
 
     public int id;
     public String title;
@@ -33,15 +37,23 @@ public class Shot extends BaseObservable{
      */
     public Images images;
 
-    public int views_count;
-    public int likes_count;
-    public int comments_count;
-    public int attachments_count;
-    public int rebounds_count;
-    public int buckets_count;
+    @SerializedName("views_count")
+    public int viewsCount;
+    @SerializedName("likes_count")
+    public int likesCount;
+    @SerializedName("comments_count")
+    public int commentsCount;
+    @SerializedName("attachments_count")
+    public int attachmentsCount;
+    @SerializedName("rebounds_count")
+    public int reboundsCount;
+    @SerializedName("buckets_count")
+    public int bucketsCount;
 
-    public String created_at;
-    public String updated_at;
+    @SerializedName("created_at")
+    public String createdAt;
+    @SerializedName("updated_at")
+    public Date updatedAt;
 
     public String html_url;
     public String attachments_url;
@@ -58,6 +70,16 @@ public class Shot extends BaseObservable{
     public User user;
     public Team team;
 
+    @Bindable
+    public Images getImages() {
+        return images;
+    }
+
+    @Bindable
+    public String getUpdatedAt() {
+        return updatedAt.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         return o != null && o instanceof Shot && (this == o || id == ((Shot) o).id);
@@ -69,26 +91,46 @@ public class Shot extends BaseObservable{
     }
 
 
+    public static class Images extends BaseObservable implements Serializable {
+        private String hidpi;
+        private String normal;
+        private String teaser;
 
-
-    public static class Images implements Serializable {
-        public String hidpi;
-        public String normal;
-        public String teaser;
-
-        //@DebugLog
-        public String getHeightImageUri() {
+        @Bindable
+        public String getHidpi() {
             return hidpi != null ? hidpi : normal != null ? normal : teaser;
         }
 
-        // @DebugLog
-        public @NonNull
-        String getType() {
-            String name = getHeightImageUri();
+        public void setHidpi(String hidpi) {
+            this.hidpi = hidpi;
+        }
 
-            if(name != null) {
+        @Bindable
+        public String getNormal() {
+            return normal;
+        }
+
+        public void setNormal(String normal) {
+            this.normal = normal;
+        }
+
+        @Bindable
+        public String getTeaser() {
+            return teaser;
+        }
+
+        public void setTeaser(String teaser) {
+            this.teaser = teaser;
+        }
+
+        // @DebugLog
+        public
+        @NonNull
+        String getType() {
+            String name = getHidpi();
+            if (name != null) {
                 int i = name.lastIndexOf('.');
-                if(i != -1 && i + 1 < name.length()) {
+                if (i != -1 && i + 1 < name.length()) {
                     return name.substring(i + 1);
                 }
             }

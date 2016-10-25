@@ -17,4 +17,6 @@
     <color name="color_primary_dark">#212121</color>
     <color name="main_bg_dark">#303030</color>
     <color name="card_bg_dark">#424242</color>
+    <color name="primary_text_color_dark">#EEEEEE</color>
+    <color name="second_text_color_dark">#A0A0A0</color>
 </resources>

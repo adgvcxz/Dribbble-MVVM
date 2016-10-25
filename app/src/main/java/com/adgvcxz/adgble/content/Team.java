@@ -1,11 +1,13 @@
 package com.adgvcxz.adgble.content;
 
+import java.io.Serializable;
+
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/10.
  */
 
-public class Team {
+public class Team implements Serializable {
     public int id;
     public String name;
     public String username;

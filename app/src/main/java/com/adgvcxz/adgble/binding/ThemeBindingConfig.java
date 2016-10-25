@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.util.ThemeUtil;
@@ -120,6 +121,18 @@ public class ThemeBindingConfig {
     public static void setCardColorTheme(View view, int theme) {
         int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorCardBackground.get(theme));
         view.setBackgroundColor(color);
+    }
+
+    @BindingAdapter({"textPrimaryColor"})
+    public static void setPrimaryTextColor(TextView textView, int theme) {
+        int color = ContextCompat.getColor(textView.getContext(), ThemeUtil.sColorPrimaryText.get(theme));
+        textView.setTextColor(color);
+    }
+
+    @BindingAdapter({"textSecondColor"})
+    public static void setSecondTextColor(TextView textView, int theme) {
+        int color = ContextCompat.getColor(textView.getContext(), ThemeUtil.sColorSecondText.get(theme));
+        textView.setTextColor(color);
     }
 
 

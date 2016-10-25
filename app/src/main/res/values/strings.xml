@@ -11,6 +11,7 @@
     <string name="small_with_info">Small with info</string>
     <string name="large_with_info">Large with info</string>
     <string name="small_without_info">Small without info</string>
+    <string name="sans_serif_medium">sans-serif-medium</string>
     <string-array name="shots_sorts">
         <item>Popular</item>
         <item>Recent</item>

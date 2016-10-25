@@ -22,6 +22,7 @@
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:mainBackgroundTheme="@{ThemeUtil.theme}"
             app:scrollY="@={model.scrollY}">
 
             <LinearLayout
@@ -49,8 +50,8 @@
                 android:translationY="@{model.translationY / 2}"
                 app:actualImageScaleType="focusCrop"
                 app:cardColorTheme="@{ThemeUtil.theme}"
-                app:imageUrl="@{model.shotItemViewModel.imageUrl}"
-                app:thumbnail="@{model.shotItemViewModel.thumbnail}" />
+                app:imageUrl="@{model.shotItemViewModel.images.hidpi}"
+                app:thumbnail="@{model.shotItemViewModel.images.teaser}" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

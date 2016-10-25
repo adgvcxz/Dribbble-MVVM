@@ -12,9 +12,9 @@ import java.io.Serializable;
 
 public class ShotItemViewModel extends BaseObservable implements Serializable {
 
-    public String imageUrl = "";
-    public String thumbnail = "";
-    public String avatar = "";
+    private String imageUrl = "";
+    private String thumbnail = "";
+    private String avatar = "";
 
     @Override
     public String toString() {
