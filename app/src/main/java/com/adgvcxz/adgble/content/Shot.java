@@ -19,7 +19,7 @@ import java.util.List;
 public class Shot extends BaseObservable implements Serializable {
 
     public int id;
-    public String title;
+    private String title;
     public String description;
     public int width;
     public int height;
@@ -76,8 +76,17 @@ public class Shot extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public String getUpdatedAt() {
-        return updatedAt.toString();
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    @Bindable
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -134,7 +143,6 @@ public class Shot extends BaseObservable implements Serializable {
                     return name.substring(i + 1);
                 }
             }
-
             return "null";
         }
     }
