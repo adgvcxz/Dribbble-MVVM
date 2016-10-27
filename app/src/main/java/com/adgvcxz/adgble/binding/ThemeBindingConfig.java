@@ -4,12 +4,9 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Build;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EdgeEffect;
@@ -29,8 +26,6 @@ import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * zhaowei
@@ -47,6 +42,21 @@ public class ThemeBindingConfig {
                 view = new View(linearLayout.getContext());
                 view.setId(R.id.statusBarId);
                 linearLayout.addView(view, 0, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.getStatusBarHeight(linearLayout.getContext())));
+            }
+            return view;
+        }).subscribe(view -> {
+            colorPrimaryStatusBg(view, theme);
+        });
+    }
+
+    @BindingAdapter(value = {"osVersion", "appTheme"}, requireAll = false)
+    public static void setOsVersion(FrameLayout frameLayout, int osVersion, int theme) {
+        Observable.just(osVersion).filter(integer -> osVersion > Build.VERSION_CODES.KITKAT).map(integer -> {
+            View view = frameLayout.findViewById(R.id.statusBarId);
+            if (view == null) {
+                view = new View(frameLayout.getContext());
+                view.setId(R.id.statusBarId);
+                frameLayout.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.getStatusBarHeight(frameLayout.getContext())));
             }
             return view;
         }).subscribe(view -> {
@@ -133,6 +143,15 @@ public class ThemeBindingConfig {
     public static void setSecondTextColor(TextView textView, int theme) {
         int color = ContextCompat.getColor(textView.getContext(), ThemeUtil.sColorSecondText.get(theme));
         textView.setTextColor(color);
+    }
+
+    @BindingAdapter({"statusBarHeight"})
+    public static void setStatusBarHeight(View view, int version) {
+        Observable.just(version).filter(integer -> integer > Build.VERSION_CODES.KITKAT)
+                .map(integer -> view.getLayoutParams()).subscribe(layoutParams -> {
+            layoutParams.width = Util.getStatusBarHeight(view.getContext());
+            view.setLayoutParams(layoutParams);
+        });
     }
 
 

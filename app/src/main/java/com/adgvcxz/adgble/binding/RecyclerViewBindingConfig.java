@@ -3,8 +3,10 @@ package com.adgvcxz.adgble.binding;
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.databinding.DataBindingUtil;
+import android.databinding.InverseBindingAdapter;
 import android.databinding.ViewDataBinding;
 import android.databinding.adapters.ListenerUtil;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -103,6 +105,17 @@ public class RecyclerViewBindingConfig {
 //    public static ItemViewSelector toItemViewSelector(List<ItemView> itemViews) {
 //        return new MutliItemViewSelector(itemViews);
 //    }
+
+
+    @InverseBindingAdapter(attribute = "firstItemTop", event = "firstItemTopAttrChanged")
+    public static int getFirstItemTop(RecyclerView recyclerView) {
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+            LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            int position = manager.findFirstVisibleItemPosition();
+
+        }
+        return -1;
+    }
 
 
 }

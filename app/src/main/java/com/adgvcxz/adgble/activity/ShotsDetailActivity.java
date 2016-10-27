@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.databinding.ActivityShotsDetailBinding;
-import com.adgvcxz.adgble.model.ShotItemViewModel;
 import com.adgvcxz.adgble.model.ShotsDetailViewModel;
 import com.adgvcxz.adgble.util.Util;
 import com.facebook.drawee.drawable.ScalingUtils;

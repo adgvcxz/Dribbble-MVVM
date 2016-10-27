@@ -1,10 +1,14 @@
 package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.adgvcxz.adgble.util.Util;
+
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * zhaowei
@@ -12,6 +16,17 @@ import rx.Observable;
  */
 
 public class ViewBindingConfig {
+
+    @BindingAdapter({"statusBarHeight"})
+    public static void setLayoutHeight(View view, int version) {
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (version > Build.VERSION_CODES.KITKAT) {
+            lp.height = Util.getStatusBarHeight(view.getContext());
+        } else {
+            lp.height = 0;
+        }
+        view.setLayoutParams(lp);
+    }
 
     @BindingAdapter({"android:translationY"})
     public static void setTranslationY(View view, int translationY) {

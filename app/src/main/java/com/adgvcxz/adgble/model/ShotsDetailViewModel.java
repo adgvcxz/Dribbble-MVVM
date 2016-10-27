@@ -1,6 +1,7 @@
 package com.adgvcxz.adgble.model;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.os.Build;
@@ -8,9 +9,12 @@ import android.view.View;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;
+import com.adgvcxz.adgble.binding.ItemView;
+import com.adgvcxz.adgble.binding.MutliItemViewSelector;
 import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.RxUtil;
 import com.adgvcxz.adgble.util.Util;
+import com.android.databinding.library.baseAdapters.BR;
 
 import java.util.List;
 
@@ -29,6 +33,10 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel {
     public final ObservableInt translationY = new ObservableInt();
     public final ObservableInt scrollY = new ObservableInt();
 
+    public final ItemView imageItemView = ItemView.of(BR.item, R.layout.item_shot_large_without_info);
+
+    public final MutliItemViewSelector itemView = MutliItemViewSelector.newInstance((position, item) -> imageItemView);
+
     public ShotsDetailViewModel(Context context, Shot model) {
         int topMargin = context.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -40,6 +48,9 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel {
         int height = context.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height) - Util.getActionBarHeight(context) * 2;
         RxUtil.toObservableInt(scrollY).map(integer -> integer > height ? height : integer)
                 .filter(integer -> integer != translationY.get()).subscribe(translationY::set);
+        for (int i = 0; i < 10; i++) {
+            items.add(shotItemViewModel);
+        }
     }
 
     @Override

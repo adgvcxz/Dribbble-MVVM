@@ -13,7 +13,7 @@ import android.support.v4.widget.NestedScrollView;
 public class NestScrollViewBindingConfig {
 
     @InverseBindingAdapter(attribute = "scrollY", event = "scrollYAttrChanged")
-    public static int setScrollY(NestedScrollView nestedScrollView) {
+    public static int getScrollY(NestedScrollView nestedScrollView) {
         return nestedScrollView.getScrollY();
     }
 

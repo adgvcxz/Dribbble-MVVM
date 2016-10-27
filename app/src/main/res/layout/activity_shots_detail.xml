@@ -11,6 +11,8 @@
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
         <import type="android.os.Build" />
+
+        <import type="android.view.View" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -41,7 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_toolbar_height"
             android:translationY="@{-model.translationY}"
-            app:osVersionMarginTop="@{Build.VERSION.SDK_INT}">
+            app:appTheme="@{ThemeUtil.theme}"
+            app:osVersion="@{Build.VERSION.SDK_INT}">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/image_view"
@@ -51,6 +54,7 @@
                 app:actualImageScaleType="focusCrop"
                 app:cardColorTheme="@{ThemeUtil.theme}"
                 app:imageUrl="@{model.shotItemViewModel.images.hidpi}"
+                app:osVersionMarginTop="@{Build.VERSION.SDK_INT}"
                 app:thumbnail="@{model.shotItemViewModel.images.teaser}" />
 
             <android.support.v7.widget.Toolbar
@@ -58,8 +62,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:translationY="@{model.translationY}"
+                app:osVersionMarginTop="@{Build.VERSION.SDK_INT}"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:translationY="@{model.translationY / 2}"
+                android:visibility="@{Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT ? View.VISIBLE : View.GONE}"
+                app:colorPrimaryStatusBg="@{ThemeUtil.theme}"
+                app:statusBarHeight="@{Build.VERSION.SDK_INT}" />
 
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
