@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="item"
+            type="com.adgvcxz.adgble.content.Shot" />
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
+
+        <import type="com.adgvcxz.adgble.util.TimeUtil" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="@dimen/item_shots_padding"
+        android:layout_marginLeft="@{item.marginLeft}"
+        android:layout_marginRight="@{item.marginRight}"
+        app:cardColorTheme="@{ThemeUtil.theme}"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/item_shots_padding">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@id/item_shot_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:actualImageScaleType="focusCrop"
+                app:imageUrl="@{item.images.hidpi}"
+                app:thumbnail="@{item.images.teaser}" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

@@ -1,8 +1,8 @@
 package com.adgvcxz.adgble.model;
 
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 
 /**
  * zhaowei
@@ -12,8 +12,8 @@ import android.util.Log;
 public abstract class RefreshRecyclerViewModel<T> extends BaseRecyclerViewModel<T> {
 
     public final ObservableBoolean refreshing = new ObservableBoolean(false);
-
     public final SwipeRefreshLayout.OnRefreshListener onRefreshListener = this::loadFirstData;
+    public final ObservableInt topMargin = new ObservableInt();
 
     void loadFirstData() {
         if (!refreshing.get()) {

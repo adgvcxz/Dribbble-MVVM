@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -32,7 +31,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     private boolean isLoadAll;
     private RecyclerView recyclerView;
     private LoadMoreViewModel loadMoreViewModel;
-    private int topMargin = 0;
+    private TopMarginSelector topMargin;
     private final WeakReferenceOnListChangedCallback<T> callback = new WeakReferenceOnListChangedCallback<>(this);
 
     private ItemView loadMoreItemView = ItemView.of(BR.item, R.layout.item_load_more);
@@ -64,7 +63,8 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
             inflater = LayoutInflater.from(parent.getContext());
         }
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
-        return new RecyclerView.ViewHolder(binding.getRoot()) {};
+        return new RecyclerView.ViewHolder(binding.getRoot()) {
+        };
     }
 
     @Override
@@ -73,15 +73,16 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         if (position == items.size()) {
             binding.setVariable(loadMoreItemView.bindingVariable(), loadMoreViewModel);
         } else {
-            binding.setVariable(itemView.bindingVariable(position, items.get(position)), items.get(position));
+            T item = items.get(position);
+            binding.setVariable(itemView.bindingVariable(position, item), item);
+            adjustTop(position, binding);
         }
-        adjustTop(position, binding);
         binding.executePendingBindings();
     }
 
     private void adjustTop(int position, ViewDataBinding binding) {
-        if (topMargin != 0) {
-            int margin = position == 0 ? topMargin : 0;
+        if (topMargin != null) {
+            int margin = topMargin.topMargin(binding.getRoot(), position);
             RecyclerView.LayoutParams lp = (RecyclerView.LayoutParams) binding.getRoot().getLayoutParams();
             if (lp.topMargin != margin) {
                 lp.topMargin = margin;
@@ -148,12 +149,12 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         return isLoadAll;
     }
 
-    public void setTopMargin(int topMargin) {
-        this.topMargin = topMargin;
+    public TopMarginSelector getTopMargin() {
+        return topMargin;
     }
 
-    public int getTopMargin() {
-        return topMargin;
+    public void setTopMargin(TopMarginSelector topMargin) {
+        this.topMargin = topMargin;
     }
 
     private static class WeakReferenceOnListChangedCallback<T> extends ObservableList.OnListChangedCallback<ObservableList<T>> {

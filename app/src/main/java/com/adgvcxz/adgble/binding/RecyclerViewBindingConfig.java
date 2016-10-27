@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
+import com.adgvcxz.adgble.adapter.TopMarginSelector;
 import com.adgvcxz.adgble.databinding.ItemLoadMoreBinding;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class RecyclerViewBindingConfig {
     }
 
     @SuppressWarnings("unchecked")
-    @BindingAdapter(value = {"itemView", "items", "adapter", "topMargin"}, requireAll = false)
-    public static <T> void setAdapter(RecyclerView recyclerView, ItemViewSelector<T> itemView, List<T> items, BaseRecyclerViewAdapter adapter, int topMargin) {
+    @BindingAdapter(value = {"itemView", "items", "adapter", "topMarginSelector"}, requireAll = false)
+    public static <T> void setAdapter(RecyclerView recyclerView, ItemViewSelector<T> itemView, List<T> items, BaseRecyclerViewAdapter adapter, TopMarginSelector topMargin) {
         if (itemView == null) {
             throw new IllegalArgumentException("itemView must not be null");
         }

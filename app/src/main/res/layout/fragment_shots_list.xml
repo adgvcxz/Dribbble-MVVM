@@ -19,7 +19,7 @@
         app:colorPrimaryTheme="@{ThemeUtil.theme}"
         app:onRefreshListener="@{model.onRefreshListener}"
         app:refreshing="@{model.refreshing}"
-        app:topMargin="@{model.topMargin * 2}">
+        app:topMargin="@{model.topMargin}">
 
         <android.support.v7.widget.RecyclerView
             android:id="@id/shotsRecyclerView"
@@ -27,16 +27,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:adapter="@{model.adapter}"
-            app:layoutManager="@{model.layoutManager}"
             app:colorPrimaryTheme="@{ThemeUtil.theme}"
             app:isLoadAll="@{model.isLoadAll}"
             app:itemView="@{model.itemView}"
             app:items="@{model.items}"
+            app:layoutManager="@{model.layoutManager}"
             app:loadMore="@{model.loadMore}"
             app:onClickLoadMore="@{model.onLoadMoreClickListener}"
             app:onItemClickListener="@{model.clickListener}"
             app:onScrollListener="@{model.onScrollListener}"
-            app:topMargin="@{model.topMargin * 2}" />
+            app:topMarginSelector="@{model.topMarginSelector}" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </layout>

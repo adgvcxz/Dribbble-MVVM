@@ -2,11 +2,13 @@ package com.adgvcxz.adgble.model;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.adgvcxz.adgble.adapter.ResetObservableArrayList;
+import com.adgvcxz.adgble.adapter.TopMarginSelector;
 import com.adgvcxz.adgble.binding.LayoutManager;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 
@@ -28,7 +30,7 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
     public final ObservableField<LayoutManager.LayoutManagerFactory> layoutManager = new ObservableField<>(LayoutManager.linear());
     public final BaseRecyclerViewAdapter adapter = new BaseRecyclerViewAdapter(loadMoreViewModel);
     int page = 1;
-    public int topMargin = 0;
+    public ObservableField<TopMarginSelector> topMarginSelector;
 
     void loadData() {
         loadMoreViewModel.loading.set(true);

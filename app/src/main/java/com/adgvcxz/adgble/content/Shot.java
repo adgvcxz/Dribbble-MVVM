@@ -70,6 +70,9 @@ public class Shot extends BaseObservable implements Serializable {
     public User user;
     public Team team;
 
+    private int marginLeft;
+    private int marginRight;
+
     @Bindable
     public Images getImages() {
         return images;
@@ -87,6 +90,24 @@ public class Shot extends BaseObservable implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Bindable
+    public int getMarginLeft() {
+        return marginLeft;
+    }
+
+    public void setMarginLeft(int marginLeft) {
+        this.marginLeft = marginLeft;
+    }
+
+    @Bindable
+    public int getMarginRight() {
+        return marginRight;
+    }
+
+    public void setMarginRight(int marginRight) {
+        this.marginRight = marginRight;
     }
 
     @Override

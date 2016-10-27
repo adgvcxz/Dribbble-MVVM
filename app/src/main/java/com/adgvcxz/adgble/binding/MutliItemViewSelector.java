@@ -1,5 +1,7 @@
 package com.adgvcxz.adgble.binding;
 
+import android.databinding.BaseObservable;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,11 +10,11 @@ import java.util.List;
  * Created by zhaowei on 2016/10/13.
  */
 
-public class MutliItemViewSelector<T> implements ItemViewSelector<T> {
+public class MutliItemViewSelector<T extends BaseObservable> implements ItemViewSelector<T> {
 
     private OnItemViewSelector<T> selector;
 
-    public MutliItemViewSelector(OnItemViewSelector selector) {
+    public MutliItemViewSelector(OnItemViewSelector<T> selector) {
         this.selector = selector;
     }
 
@@ -27,7 +29,7 @@ public class MutliItemViewSelector<T> implements ItemViewSelector<T> {
         return selector.onItemView(position, item).bindingVariable();
     }
 
-    public static MutliItemViewSelector newInstance(OnItemViewSelector selector) {
+    public static <T extends BaseObservable> MutliItemViewSelector newInstance(OnItemViewSelector<T> selector) {
         return new MutliItemViewSelector(selector);
     }
 

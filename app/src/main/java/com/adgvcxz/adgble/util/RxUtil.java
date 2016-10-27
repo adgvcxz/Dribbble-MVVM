@@ -11,6 +11,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
 import static android.databinding.Observable.OnPropertyChangedCallback;
 
 
@@ -43,6 +44,21 @@ public class RxUtil {
             };
             observableInt.addOnPropertyChangedCallback(callback);
             asyncEmitter.setCancellation(() -> observableInt.removeOnPropertyChangedCallback(callback));
+        }, AsyncEmitter.BackpressureMode.LATEST);
+    }
+    public static <T> Observable<T> toObservableInt(@NonNull final ObservableField<T> observableField) {
+        return Observable.fromAsync(asyncEmitter -> {
+
+            final OnPropertyChangedCallback callback = new OnPropertyChangedCallback() {
+                @Override
+                public void onPropertyChanged(android.databinding.Observable dataBindingObservable, int propertyId) {
+                    if (dataBindingObservable == observableField) {
+                        asyncEmitter.onNext(observableField.get());
+                    }
+                }
+            };
+            observableField.addOnPropertyChangedCallback(callback);
+            asyncEmitter.setCancellation(() -> observableField.removeOnPropertyChangedCallback(callback));
         }, AsyncEmitter.BackpressureMode.LATEST);
     }
 }
