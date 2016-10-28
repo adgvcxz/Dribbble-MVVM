@@ -62,8 +62,8 @@ public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<Shot> 
     @Override
     public Observable<List<Shot>> request(int page) {
         return RetrofitSingleton.getInstance().getShots(page, getSorts()).flatMapIterable(shots -> shots).collect(ArrayList::new, (shots, shot) -> {
-            shot.setMarginLeft(shots.size() == 0 ? padding : padding / 2);
-            shot.setMarginRight(shots.size() == 0 ? padding / 2 : padding);
+            shot.setMarginLeft(shots.size() % 2 == 0 ? padding : padding / 2);
+            shot.setMarginRight(shots.size() % 2 == 0 ? padding / 2 : padding);
             shots.add(shot);
         });
     }

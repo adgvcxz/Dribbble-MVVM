@@ -11,11 +11,12 @@
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
         <import type="com.adgvcxz.adgble.util.TimeUtil" />
+
     </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_shots_padding"
         android:layout_marginLeft="@{item.marginLeft}"
         android:layout_marginRight="@{item.marginRight}"
@@ -26,15 +27,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/item_shots_padding">
+            android:paddingBottom="6dp">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@id/item_shot_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="120dp"
                 app:actualImageScaleType="focusCrop"
                 app:imageUrl="@{item.images.hidpi}"
                 app:thumbnail="@{item.images.teaser}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/ic_shot_like_normal"
+                    android:drawablePadding="2dp"
+                    android:gravity="center_vertical"
+                    android:text="@{String.valueOf(item.likesCount)}"
+                    android:textSize="10sp"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_shot_comment_normal"
+                    android:drawablePadding="2dp"
+                    android:gravity="center_vertical"
+                    android:text="@{String.valueOf(item.commentsCount)}"
+                    android:textSize="10sp"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+            </LinearLayout>
 
         </LinearLayout>
 

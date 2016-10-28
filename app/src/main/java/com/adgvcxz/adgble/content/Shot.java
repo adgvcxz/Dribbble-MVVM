@@ -38,11 +38,11 @@ public class Shot extends BaseObservable implements Serializable {
     public Images images;
 
     @SerializedName("views_count")
-    public int viewsCount;
+    private int viewsCount;
     @SerializedName("likes_count")
-    public int likesCount;
+    private int likesCount;
     @SerializedName("comments_count")
-    public int commentsCount;
+    private int commentsCount;
     @SerializedName("attachments_count")
     public int attachmentsCount;
     @SerializedName("rebounds_count")
@@ -108,6 +108,32 @@ public class Shot extends BaseObservable implements Serializable {
 
     public void setMarginRight(int marginRight) {
         this.marginRight = marginRight;
+    }
+
+    @Bindable
+    public int getLikesCount() {
+        return likesCount;
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    @Bindable
+    public int getCommentsCount() {
+        return commentsCount;
+    }
+
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
+    }
+
+    public int getViewsCount() {
+        return viewsCount;
+    }
+
+    public void setViewsCount(int viewsCount) {
+        this.viewsCount = viewsCount;
     }
 
     @Override
