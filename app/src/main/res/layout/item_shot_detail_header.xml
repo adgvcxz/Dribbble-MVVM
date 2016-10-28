@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.adgvcxz.adgble.content.Shot" />
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
+
+        <import type="com.adgvcxz.adgble.util.TimeUtil" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:actualImageScaleType="focusCrop"
+            app:imageUrl="@{item.user.avatarUrl}"
+            app:placeholderImageScaleType="focusCrop"
+            app:roundAsCircle="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:maxLines="1"
+                android:text="@{item.title}"
+                android:textColor="@color/color_accent"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:text="@{item.user.username}"
+                    android:textSize="18sp"
+                    app:textPrimaryColor="@{ThemeUtil.theme}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:maxLines="1"
+                    android:text="@{TimeUtil.getTimeAgo(item.updatedAt)}"
+                    android:textSize="16sp"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

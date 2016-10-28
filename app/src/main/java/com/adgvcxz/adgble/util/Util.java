@@ -36,4 +36,8 @@ public class Util {
         styledAttributes.recycle();
         return height;
     }
+
+    public static int dpToPx(Context context, int dp) {
+        return (int) (context.getResources().getDisplayMetrics().density * dp);
+    }
 }

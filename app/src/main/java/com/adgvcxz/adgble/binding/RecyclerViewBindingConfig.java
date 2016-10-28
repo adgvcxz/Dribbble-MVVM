@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.databinding.DataBindingUtil;
 import android.databinding.InverseBindingAdapter;
+import android.databinding.InverseBindingListener;
 import android.databinding.ViewDataBinding;
 import android.databinding.adapters.ListenerUtil;
 import android.support.v7.widget.LinearLayoutManager;
@@ -112,10 +113,39 @@ public class RecyclerViewBindingConfig {
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
             LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
             int position = manager.findFirstVisibleItemPosition();
-
+            if (position == 0) {
+                return recyclerView.getChildAt(0).getTop();
+            }
         }
         return -1;
     }
 
+    @BindingAdapter({"firstItemTopAttrChanged"})
+    public static void setFirstItemTopListener(RecyclerView recyclerView, InverseBindingListener firstItemTopAttrChanged) {
+        if (firstItemTopAttrChanged != null) {
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int position = manager.findFirstVisibleItemPosition();
+                    if (position == 0) {
+                        firstItemTopAttrChanged.onChange();
+                    }
+                }
+            });
+        }
+    }
 
+    @BindingAdapter({"firstItemTop"})
+    public static void setFirstItemTop(RecyclerView recyclerView, int firstItemTop) {
+//        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+//            LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//            if (recyclerView.getChildAt(0) != null) {
+//                if (recyclerView.getChildAt(0).getTop() != firstItemTop) {
+//                    manager.scrollToPositionWithOffset(0, firstItemTop);
+//                }
+//            }
+//        }
+    }
 }

@@ -2,13 +2,13 @@ package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.adgvcxz.adgble.util.Util;
 
 import rx.Observable;
-import rx.functions.Func1;
 
 /**
  * zhaowei
@@ -50,6 +50,22 @@ public class ViewBindingConfig {
                 .filter(marginLayoutParams -> marginLayoutParams.rightMargin != right).subscribe(marginLayoutParams -> {
             marginLayoutParams.rightMargin = right;
             view.setLayoutParams(marginLayoutParams);
+        });
+    }
+
+    @BindingAdapter({"android:layout_marginBottom"})
+    public static void setMarginBottom(View view, int bottom) {
+        Observable.just(view.getLayoutParams()).ofType(ViewGroup.MarginLayoutParams.class)
+                .filter(marginLayoutParams -> marginLayoutParams.bottomMargin != bottom).subscribe(marginLayoutParams -> {
+            marginLayoutParams.bottomMargin = bottom;
+            view.setLayoutParams(marginLayoutParams);
+        });
+    }
+
+    @BindingAdapter({"android:elevation"})
+    public static void setElevation(View view, int elevation) {
+        Observable.just(elevation).filter(integer -> Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT).subscribe(integer -> {
+            ViewCompat.setElevation(view, elevation);
         });
     }
 }

@@ -17,31 +17,31 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false">
 
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/scroll_view"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:mainBackgroundTheme="@{ThemeUtil.theme}"
-            app:scrollY="@={model.scrollY}">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1000dp" />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+            android:orientation="vertical"
+            app:adapter="@{model.adapter}"
+            app:colorPrimaryTheme="@{ThemeUtil.theme}"
+            app:firstItemTop="@={model.firstItemTop}"
+            app:isLoadAll="@{model.isLoadAll}"
+            app:itemView="@{model.itemView}"
+            app:items="@{model.items}"
+            app:layoutManager="@{model.layoutManager}"
+            app:loadMore="@{model.loadMore}"
+            app:onClickLoadMore="@{model.onLoadMoreClickListener}"
+            app:onScrollListener="@{model.onScrollListener}"
+            app:topMarginSelector="@{model.topMarginSelector}" />
 
         <FrameLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_toolbar_height"
+            android:clipChildren="false"
             android:translationY="@{-model.translationY}"
             app:appTheme="@{ThemeUtil.theme}"
             app:osVersion="@{Build.VERSION.SDK_INT}">
@@ -50,11 +50,13 @@
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:translationY="@{model.translationY / 2}"
+                android:elevation="@{model.elevation}"
+                android:translationY="@{model.translationY * 3 / 5}"
                 app:actualImageScaleType="focusCrop"
                 app:cardColorTheme="@{ThemeUtil.theme}"
                 app:imageUrl="@{model.shotItemViewModel.images.hidpi}"
                 app:osVersionMarginTop="@{Build.VERSION.SDK_INT}"
+                android:layout_marginBottom="@{model.translationY * 3 / 5}"
                 app:thumbnail="@{model.shotItemViewModel.images.teaser}" />
 
             <android.support.v7.widget.Toolbar
@@ -69,7 +71,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:translationY="@{model.translationY / 2}"
+                android:translationY="@{model.translationY * 3 / 5}"
                 android:visibility="@{Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT ? View.VISIBLE : View.GONE}"
                 app:colorPrimaryStatusBg="@{ThemeUtil.theme}"
                 app:statusBarHeight="@{Build.VERSION.SDK_INT}" />
