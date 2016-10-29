@@ -1,12 +1,8 @@
 package com.adgvcxz.adgble.model;
 
 import android.app.Activity;
-import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;
@@ -20,7 +16,6 @@ import com.android.databinding.library.baseAdapters.BR;
 import java.util.List;
 
 import rx.Observable;
-import rx.functions.Action1;
 
 /**
  * zhaowei

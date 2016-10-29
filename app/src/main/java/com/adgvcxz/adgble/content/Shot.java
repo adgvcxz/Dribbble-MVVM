@@ -2,14 +2,19 @@ package com.adgvcxz.adgble.content;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.text.Html;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 /**
  * zhaowei
@@ -20,7 +25,8 @@ public class Shot extends BaseObservable implements Serializable {
 
     public int id;
     private String title;
-    public String description;
+
+    private String description;
     public int width;
     public int height;
 
@@ -134,6 +140,19 @@ public class Shot extends BaseObservable implements Serializable {
 
     public void setViewsCount(int viewsCount) {
         this.viewsCount = viewsCount;
+    }
+
+    @Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            this.description = Html.fromHtml(description, FROM_HTML_MODE_LEGACY).toString().trim();
+        } else {
+            this.description = Html.fromHtml(description).toString().trim();
+        }
     }
 
     @Override

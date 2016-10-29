@@ -11,61 +11,95 @@
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
         <import type="com.adgvcxz.adgble.util.TimeUtil" />
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.adgvcxz.adgble.util.GoURLSpan" />
+
+        <import type="android.text.Html" />
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="12dp">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            app:actualImageScaleType="focusCrop"
-            app:imageUrl="@{item.user.avatarUrl}"
-            app:placeholderImageScaleType="focusCrop"
-            app:roundAsCircle="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="12dp">
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:maxLines="1"
-                android:text="@{item.title}"
-                android:textColor="@color/color_accent"
-                android:textSize="16sp" />
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                app:actualImageScaleType="focusCrop"
+                app:imageUrl="@{item.user.avatarUrl}"
+                app:placeholderImageScaleType="focusCrop"
+                app:roundAsCircle="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:text="@{item.user.username}"
-                    android:textSize="18sp"
-                    app:textPrimaryColor="@{ThemeUtil.theme}" />
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:maxLines="1"
-                    android:text="@{TimeUtil.getTimeAgo(item.updatedAt)}"
-                    android:textSize="16sp"
-                    app:textSecondColor="@{ThemeUtil.theme}" />
+                    android:layout_marginBottom="4dp"
+                    android:text="@{item.title}"
+                    android:textColor="@color/color_accent"
+                    android:textSize="16sp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:text="@string/by"
+                        android:textSize="12sp"
+                        app:textSecondColor="@{ThemeUtil.theme}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:maxLines="1"
+                        android:text="@{item.user.username}"
+                        android:textSize="12sp"
+                        app:textPrimaryColor="@{ThemeUtil.theme}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/ic_shot_time"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@{TimeUtil.getTimeYMD(item.updatedAt)}"
+                        android:textSize="12sp"
+                        app:textPrimaryColor="@{ThemeUtil.theme}" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <org.sufficientlysecure.htmltextview.HtmlTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:visibility="@{TextUtils.isEmpty(item.description) ? View.GONE : View.VISIBLE}"
+            app:html="@{item.description}"
+            app:textSecondColor="@{ThemeUtil.theme}" />
     </LinearLayout>
 </layout>

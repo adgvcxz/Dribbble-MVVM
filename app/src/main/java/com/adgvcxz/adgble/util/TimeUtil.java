@@ -1,6 +1,8 @@
 package com.adgvcxz.adgble.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * zhaowei
@@ -27,8 +29,8 @@ public class TimeUtil {
         }
     }
 
-    public static String getStr() {
-        return "abcd";
+    public static String getTimeYMD(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH);
+        return dateFormat.format(date);
     }
-
 }
