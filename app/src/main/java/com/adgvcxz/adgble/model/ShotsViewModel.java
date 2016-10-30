@@ -49,7 +49,7 @@ public class ShotsViewModel extends BaseViewModel implements Toolbar.OnMenuItemC
                 if (res != R.layout.item_shot_large_without_info) {
                     model.itemView.changeLayoutRes(R.layout.item_shot_large_without_info);
                     model.topMarginSelector.set((view, position) -> position == 0 ? normalMargin : 0);
-                    if (res == R.layout.item_shot_small_without_info) {
+                    if (res == R.layout.item_shot_small_without_info || res == R.layout.item_shot_small_with_info) {
                         model.layoutManager.set(LayoutManager.linear());
                     } else {
                         model.adapter.notifyDataSetChanged();
