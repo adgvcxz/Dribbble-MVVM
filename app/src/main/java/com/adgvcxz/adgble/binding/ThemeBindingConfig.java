@@ -101,7 +101,7 @@ public class ThemeBindingConfig {
     public static void setColorPrimary(View view, int theme) {
         int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorPrimary.get(theme));
         if (view instanceof RecyclerView) {
-            setEdgeGlowColor((RecyclerView) view, color);
+            view.post(() -> setEdgeGlowColor((RecyclerView) view, color));
         } else if (view instanceof SwipeRefreshLayout) {
             ((SwipeRefreshLayout) view).setColorSchemeColors(color);
         } else {

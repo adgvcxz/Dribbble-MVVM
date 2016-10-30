@@ -88,6 +88,8 @@ public class Shot extends BaseObservable implements Parcelable {
         this.user = in.readParcelable(User.class.getClassLoader());
         this.team = in.readParcelable(Team.class.getClassLoader());
         this.animated = in.readByte() != 0;
+        this.marginLeft = in.readInt();
+        this.marginRight = in.readInt();
     }
 
     @Override
@@ -123,6 +125,8 @@ public class Shot extends BaseObservable implements Parcelable {
         dest.writeParcelable(this.user, 0);
         dest.writeParcelable(this.team, flags);
         dest.writeByte((byte) (animated ? 1 : 0));
+        dest.writeInt(this.marginLeft);
+        dest.writeInt(this.marginRight);
     }
 
 

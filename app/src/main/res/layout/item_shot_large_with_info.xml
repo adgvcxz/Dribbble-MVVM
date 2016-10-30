@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:foreground="?attr/selectableItemBackground"
         app:cardColorTheme="@{ThemeUtil.theme}"
         app:cardElevation="6dp">
 
@@ -60,6 +61,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="bottom"
                         android:orientation="horizontal">
 
                         <TextView
@@ -68,7 +70,7 @@
                             android:layout_weight="1"
                             android:maxLines="1"
                             android:text="@{item.user.username}"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             app:textPrimaryColor="@{ThemeUtil.theme}" />
 
                         <TextView
@@ -77,7 +79,7 @@
                             android:layout_marginLeft="8dp"
                             android:maxLines="1"
                             android:text="@{TimeUtil.getTimeAgo(item.updatedAt)}"
-                            android:textSize="16sp"
+                            android:textSize="12sp"
                             app:textSecondColor="@{ThemeUtil.theme}" />
 
                     </LinearLayout>
@@ -107,9 +109,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/ic_shot_like_normal"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:paddingRight="8dp"
+                    android:paddingRight="12dp"
                     android:text="@{String.valueOf(item.likesCount)}"
                     android:textSize="14sp"
                     app:textSecondColor="@{ThemeUtil.theme}" />
@@ -118,9 +120,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/ic_shot_comment_normal"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:paddingRight="8dp"
+                    android:paddingRight="12dp"
                     android:text="@{String.valueOf(item.commentsCount)}"
                     android:textSize="14sp"
                     app:textSecondColor="@{ThemeUtil.theme}" />
@@ -129,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/ic_shot_view_normal"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:text="@{String.valueOf(item.viewsCount)}"
                     android:textSize="14sp"

@@ -21,6 +21,7 @@
         android:layout_marginLeft="@{item.marginLeft}"
         android:layout_marginRight="@{item.marginRight}"
         app:cardColorTheme="@{ThemeUtil.theme}"
+        android:foreground="?attr/selectableItemBackground"
         app:cardElevation="6dp">
 
         <LinearLayout

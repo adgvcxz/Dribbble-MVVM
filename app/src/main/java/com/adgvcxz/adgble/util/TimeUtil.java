@@ -19,13 +19,13 @@ public class TimeUtil {
         int minute = stamp / 60;
         if (minute < 60) {
             minute = minute < 1 ? 1 : minute;
-            return minute + " hours";
+            return minute + " minutes ago";
         } else if (minute < 1440) {
-            return minute / 60 + " hours";
+            return minute / 60 + " hours ago";
         } else if (minute < 7 * 1440) {
-            return minute / 1440 + " days";
+            return minute / 1440 + " days ago";
         } else {
-            return (minute / (30 * 1440)) + " months";
+            return (minute / (30 * 1440)) + " months ago";
         }
     }
 

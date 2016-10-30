@@ -12,9 +12,10 @@
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical"
         app:cardColorTheme="@{ThemeUtil.theme}">
 
@@ -26,5 +27,5 @@
             app:imageUrl="@{item.images.hidpi}"
             app:thumbnail="@{item.images.teaser}" />
 
-    </LinearLayout>
+    </FrameLayout>
 </layout>

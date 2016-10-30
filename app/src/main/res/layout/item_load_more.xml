@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,6 +9,8 @@
             type="com.adgvcxz.adgble.model.LoadMoreViewModel" />
 
         <import type="android.view.View" />
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
     </data>
 
     <LinearLayout
@@ -31,8 +34,8 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/load_failed"
-            android:textColor="@android:color/background_dark"
-            android:textSize="21sp"
-            android:visibility="@{(item.loading || item.loadSuccess) ? View.GONE : View.VISIBLE}" />
+            android:textSize="17sp"
+            android:visibility="@{(item.loading || item.loadSuccess) ? View.GONE : View.VISIBLE}"
+            app:textSecondColor="@{ThemeUtil.theme}" />
     </LinearLayout>
 </layout>

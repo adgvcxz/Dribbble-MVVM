@@ -146,7 +146,7 @@
                 <TextView
                     style="@style/itemShotLike"
                     android:drawableLeft="@mipmap/ic_shot_share"
-                    android:text="@{@string/n_views(item.bucketsCount)}"
+                    android:text="@{@string/n_shares(item.bucketsCount)}"
                     app:textSecondColor="@{ThemeUtil.theme}" />
             </LinearLayout>
         </LinearLayout>
