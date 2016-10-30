@@ -31,7 +31,7 @@ public class ShotsDetailActivity extends BaseActivity {
         }
         ActivityShotsDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_shots_detail);
         initTranslation(binding);
-        ShotsDetailViewModel model = new ShotsDetailViewModel(this, (Shot) getIntent().getSerializableExtra("Data"));
+        ShotsDetailViewModel model = new ShotsDetailViewModel(this, getIntent().getParcelableExtra(Util.DATA));
         binding.setModel(model);
     }
 

@@ -3,6 +3,7 @@ package com.adgvcxz.adgble.model;
 import android.app.Activity;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.util.Log;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;

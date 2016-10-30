@@ -13,6 +13,9 @@ import com.adgvcxz.adgble.R;
 
 public class Util {
 
+    public static final String APP = "dribbble";
+    public static final String DATA = "DATA";
+
     public static final String ShotImage = "Translate:ShotImage";
 
     public static void ensureChangeOnMainThread() {

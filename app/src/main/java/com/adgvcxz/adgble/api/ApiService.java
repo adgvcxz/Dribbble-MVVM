@@ -18,6 +18,7 @@ import rx.Observable;
 public interface ApiService {
 
 
+    int PageNumber = 20;
 
     public static final String ClientId = "ff29cefaeb3df7e915e21af05c393af4294742c563dd9c705d0f70636560c93d";
     public static final String ClientSecret = "15b88962e2e90aec8593641272583f990c6fe4e3e284cbd936d60c332b6070dc";
@@ -28,5 +29,5 @@ public interface ApiService {
     Observable<List<Shot>> getShots(@Query("page") int page, @Query("per_page") int number, @Query("sort") String sort);
 
     @GET("shots/{shot}/comments")
-    Observable<List<Comment>> getComments(@Path("shot") int id, @Query("page") int page, @Query("per_page") int number);
+    Observable<List<Comment>> getComments(@Path("shot") long id, @Query("page") int page, @Query("per_page") int number);
 }

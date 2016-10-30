@@ -4,6 +4,9 @@ import com.adgvcxz.adgble.BuildConfig;
 import com.adgvcxz.adgble.content.Comment;
 import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.RxUtil;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -63,18 +66,19 @@ public class RetrofitSingleton {
     }
 
     private void initRetrofit() {
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
         sRetrofit = new Retrofit.Builder().baseUrl("https://api.dribbble.com/v1/")
                 .client(sOkHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }
 
     public Observable<List<Shot>> getShots(int page, String sort) {
-        return sApiService.getShots(page, 40, sort).compose(RxUtil.rxScheduleHelper());
+        return sApiService.getShots(page, ApiService.PageNumber, sort).compose(RxUtil.rxScheduleHelper());
     }
 
-    public Observable<List<Comment>> getComments(int id, int page) {
-        return sApiService.getComments(id, page, 40).compose(RxUtil.rxScheduleHelper());
+    public Observable<List<Comment>> getComments(long id, int page) {
+        return sApiService.getComments(id, page, ApiService.PageNumber).compose(RxUtil.rxScheduleHelper());
     }
 }

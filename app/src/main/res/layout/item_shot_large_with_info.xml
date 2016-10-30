@@ -38,6 +38,7 @@
                     android:layout_height="52dp"
                     app:actualImageScaleType="focusCrop"
                     app:imageUrl="@{item.user.avatarUrl}"
+                    app:placeholderImage="@mipmap/ic_default_avatar"
                     app:placeholderImageScaleType="focusCrop"
                     app:roundAsCircle="true" />
 

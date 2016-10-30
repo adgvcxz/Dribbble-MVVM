@@ -139,6 +139,9 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
 
     public void setLoadAll(boolean loadAll) {
         isLoadAll = loadAll;
+        if (isLoadAll) {
+            notifyItemRemoved(getItemCount() - 1);
+        }
     }
 
     public boolean isLoadMore() {

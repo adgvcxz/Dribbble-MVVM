@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.adgvcxz.adgble.adapter.BaseRecyclerViewAdapter;
 import com.adgvcxz.adgble.adapter.ResetObservableArrayList;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;
+import com.adgvcxz.adgble.api.ApiService;
 import com.adgvcxz.adgble.binding.LayoutManager;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 
@@ -40,8 +41,12 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
             } else {
                 items.addAll(ts);
             }
+            if (ts.size() < ApiService.PageNumber) {
+                isLoadAll.set(true);
+            } else {
+                page += 1;
+            }
             loadSuccess();
-            page += 1;
             loadMoreViewModel.loadSuccess.set(true);
             loadMoreViewModel.loading.set(false);
         }, throwable -> {

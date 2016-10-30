@@ -2,85 +2,132 @@ package com.adgvcxz.adgble.content;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.text.Html;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/10.
  */
 
-public class Shot extends BaseObservable implements Serializable {
+public class Shot extends BaseObservable implements Parcelable {
 
-    public int id;
-    private String title;
-
-    private String description;
+    public long id;
+    public String title;
+    public String description;
     public int width;
     public int height;
-
-    /*
-     * The normal image is typically 400x300, but may be smaller if created before October 4th, 2012.
-     * The width and height provide the size of the normal image.
-     *
-     * The hidpi image may or may not be present, but will always be 800x600.
-     *
-     * The teaser image is typically 200x150, but may be smaller if created before October 4th, 2012.
-     *
-     * If the animated attribute of the shot is true,
-     * the highest resolution image available (hidpi or normal) will be animated (smaller images will be stills).
-     */
-    public Images images;
-
-    @SerializedName("views_count")
-    private int viewsCount;
-    @SerializedName("likes_count")
-    private int likesCount;
-    @SerializedName("comments_count")
-    private int commentsCount;
-    @SerializedName("attachments_count")
+    public Image images;
+    public int viewsCount;
+    public int likesCount;
+    public int commentsCount;
     public int attachmentsCount;
-    @SerializedName("rebounds_count")
     public int reboundsCount;
-    @SerializedName("buckets_count")
-    private int bucketsCount;
-
-    @SerializedName("created_at")
-    public String createdAt;
-    @SerializedName("updated_at")
+    public int bucketsCount;
+    public Date createdAt;
     public Date updatedAt;
-
-    public String html_url;
-    public String attachments_url;
-    public String buckets_url;
-    public String comments_url;
-    public String likes_url;
-    public String projects_url;
-    public String rebounds_url;
-
+    public String htmlUrl;
+    public String attachmentsUrl;
+    public String bucketsUrl;
+    public String commentsUrl;
+    public String likesUrl;
+    public String projectsUrl;
+    public String reboundsUrl;
     public boolean animated;
-
+    public String reboundSourceUrl;
     public List<String> tags = new ArrayList<>();
-
     public User user;
     public Team team;
+    public int marginLeft;
+    public int marginRight;
 
-    private int marginLeft;
-    private int marginRight;
+    public static final Parcelable.Creator<Shot> CREATOR = new Parcelable.Creator<Shot>() {
+        public Shot createFromParcel(Parcel source) {
+            return new Shot(source);
+        }
+
+        public Shot[] newArray(int size) {
+            return new Shot[size];
+        }
+    };
+
+    public Shot() {
+    }
+
+    private Shot(Parcel in) {
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
+        this.title = in.readString();
+        this.description = in.readString();
+        this.width = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.height = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.images = in.readParcelable(Image.class.getClassLoader());
+        this.viewsCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.likesCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.commentsCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.attachmentsCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.reboundsCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.bucketsCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdatedAt = in.readLong();
+        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
+        this.htmlUrl = in.readString();
+        this.attachmentsUrl = in.readString();
+        this.bucketsUrl = in.readString();
+        this.commentsUrl = in.readString();
+        this.likesUrl = in.readString();
+        this.projectsUrl = in.readString();
+        this.reboundsUrl = in.readString();
+        this.reboundSourceUrl = in.readString();
+        this.tags = new ArrayList<>();
+        in.readList(this.tags, List.class.getClassLoader());
+        this.user = in.readParcelable(User.class.getClassLoader());
+        this.team = in.readParcelable(Team.class.getClassLoader());
+        this.animated = in.readByte() != 0;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeValue(this.width);
+        dest.writeValue(this.height);
+        dest.writeParcelable(this.images, flags);
+        dest.writeValue(this.viewsCount);
+        dest.writeValue(this.likesCount);
+        dest.writeValue(this.commentsCount);
+        dest.writeValue(this.attachmentsCount);
+        dest.writeValue(this.reboundsCount);
+        dest.writeValue(this.bucketsCount);
+        dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
+        dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
+        dest.writeString(this.htmlUrl);
+        dest.writeString(this.attachmentsUrl);
+        dest.writeString(this.bucketsUrl);
+        dest.writeString(this.commentsUrl);
+        dest.writeString(this.likesUrl);
+        dest.writeString(this.projectsUrl);
+        dest.writeString(this.reboundsUrl);
+        dest.writeString(this.reboundSourceUrl);
+        dest.writeList(this.tags);
+        dest.writeParcelable(this.user, 0);
+        dest.writeParcelable(this.team, flags);
+        dest.writeByte((byte) (animated ? 1 : 0));
+    }
+
 
     @Bindable
-    public Images getImages() {
+    public Image getImages() {
         return images;
     }
 
@@ -92,10 +139,6 @@ public class Shot extends BaseObservable implements Serializable {
     @Bindable
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @Bindable
@@ -130,97 +173,19 @@ public class Shot extends BaseObservable implements Serializable {
         return commentsCount;
     }
 
-    public void setCommentsCount(int commentsCount) {
-        this.commentsCount = commentsCount;
-    }
-
     @Bindable
     public int getViewsCount() {
         return viewsCount;
     }
 
-    public void setViewsCount(int viewsCount) {
-        this.viewsCount = viewsCount;
-    }
 
     @Bindable
     public int getBucketsCount() {
         return bucketsCount;
     }
 
-    public void setBucketsCount(int bucketsCount) {
-        this.bucketsCount = bucketsCount;
-    }
-
     @Bindable
     public String getDescription() {
         return description;
     }
-
-    public void setDescription(String description) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            this.description = Html.fromHtml(description, FROM_HTML_MODE_LEGACY).toString().trim();
-        } else {
-            this.description = Html.fromHtml(description).toString().trim();
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return o != null && o instanceof Shot && (this == o || id == ((Shot) o).id);
-    }
-
-    @Override
-    public int hashCode() {
-        return ((Integer) id).hashCode();
-    }
-
-
-    public static class Images extends BaseObservable implements Serializable {
-        private String hidpi;
-        private String normal;
-        private String teaser;
-
-        @Bindable
-        public String getHidpi() {
-            return hidpi != null ? hidpi : normal != null ? normal : teaser;
-        }
-
-        public void setHidpi(String hidpi) {
-            this.hidpi = hidpi;
-        }
-
-        @Bindable
-        public String getNormal() {
-            return normal;
-        }
-
-        public void setNormal(String normal) {
-            this.normal = normal;
-        }
-
-        @Bindable
-        public String getTeaser() {
-            return teaser;
-        }
-
-        public void setTeaser(String teaser) {
-            this.teaser = teaser;
-        }
-
-        // @DebugLog
-        public
-        @NonNull
-        String getType() {
-            String name = getHidpi();
-            if (name != null) {
-                int i = name.lastIndexOf('.');
-                if (i != -1 && i + 1 < name.length()) {
-                    return name.substring(i + 1);
-                }
-            }
-            return "null";
-        }
-    }
-
 }

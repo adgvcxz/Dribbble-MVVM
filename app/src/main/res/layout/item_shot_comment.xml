@@ -16,11 +16,49 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <org.sufficientlysecure.htmltextview.HtmlTextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:html="@{item.body}"
-            app:textSecondColor="@{ThemeUtil.theme}" />
+            android:orientation="horizontal"
+            android:padding="12dp">
 
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:actualImageScaleType="focusCrop"
+                app:imageUrl="@{item.user.avatarUrl}"
+                app:placeholderImage="@mipmap/ic_default_avatar"
+                app:placeholderImageScaleType="focusCrop"
+                app:roundAsCircle="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.user.username}"
+                    android:textSize="17sp"
+                    app:textPrimaryColor="@{ThemeUtil.theme}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="15sp"
+                    app:html="@{item.body}"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="72dp"
+            app:dividerColor="@{ThemeUtil.theme}" />
     </LinearLayout>
 </layout>

@@ -2,15 +2,11 @@ package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.adgvcxz.adgble.util.Util;
-
-import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import rx.Observable;
 
@@ -71,12 +67,5 @@ public class ViewBindingConfig {
         Observable.just(elevation).filter(integer -> Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT).subscribe(integer -> {
             ViewCompat.setElevation(view, elevation);
         });
-    }
-
-    @BindingAdapter({"html"})
-    public static void displayHtml(HtmlTextView view, @Nullable String html) {
-        if (html != null) {
-            view.setHtml(html, new HtmlResImageGetter(view));
-        }
     }
 }
