@@ -1,10 +1,12 @@
 package com.adgvcxz.adgble.api;
 
+import com.adgvcxz.adgble.content.Comment;
 import com.adgvcxz.adgble.content.Shot;
 
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -24,4 +26,7 @@ public interface ApiService {
 
     @GET("shots")
     Observable<List<Shot>> getShots(@Query("page") int page, @Query("per_page") int number, @Query("sort") String sort);
+
+    @GET("shots/{shot}/comments")
+    Observable<List<Comment>> getComments(@Path("shot") int id, @Query("page") int page, @Query("per_page") int number);
 }

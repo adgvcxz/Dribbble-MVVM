@@ -2,6 +2,7 @@ package com.adgvcxz.adgble.adapter;
 
 import android.databinding.ListChangeRegistry;
 import android.databinding.ObservableList;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,7 +45,7 @@ public class ResetObservableArrayList<T> extends ArrayList<T> implements Observa
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> collection) {
+    public boolean addAll(@NonNull Collection<? extends T> collection) {
         int oldSize = size();
         boolean added = super.addAll(collection);
         if (added) {
@@ -59,8 +60,18 @@ public class ResetObservableArrayList<T> extends ArrayList<T> implements Observa
         notifyChange();
     }
 
+    public void reset(int fromIndex, Collection<? extends T> collection) {
+        if (fromIndex == 0) {
+            reset(collection);
+        } else {
+            super.removeRange(fromIndex, size());
+            super.addAll(collection);
+            notifyChange();
+        }
+    }
+
     @Override
-    public boolean addAll(int index, Collection<? extends T> collection) {
+    public boolean addAll(int index, @NonNull Collection<? extends T> collection) {
         boolean added = super.addAll(index, collection);
         if (added) {
             notifyAdd(index, collection.size());

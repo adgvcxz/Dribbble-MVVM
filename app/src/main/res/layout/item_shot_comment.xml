@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.adgvcxz.adgble.content.Comment" />
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <org.sufficientlysecure.htmltextview.HtmlTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:html="@{item.body}"
+            app:textSecondColor="@{ThemeUtil.theme}" />
+
+    </LinearLayout>
+</layout>

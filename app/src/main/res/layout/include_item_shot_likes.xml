@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
+    </data>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@mipmap/ic_shot_like_normal"
+        android:drawablePadding="8dp"
+        android:text="1"
+        android:textSize="14sp"
+        app:textSecondColor="@{ThemeUtil.theme}" />
+</layout>

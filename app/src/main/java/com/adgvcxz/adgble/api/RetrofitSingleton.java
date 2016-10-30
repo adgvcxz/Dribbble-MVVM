@@ -1,6 +1,7 @@
 package com.adgvcxz.adgble.api;
 
 import com.adgvcxz.adgble.BuildConfig;
+import com.adgvcxz.adgble.content.Comment;
 import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.RxUtil;
 
@@ -71,5 +72,9 @@ public class RetrofitSingleton {
 
     public Observable<List<Shot>> getShots(int page, String sort) {
         return sApiService.getShots(page, 40, sort).compose(RxUtil.rxScheduleHelper());
+    }
+
+    public Observable<List<Comment>> getComments(int id, int page) {
+        return sApiService.getComments(id, page, 40).compose(RxUtil.rxScheduleHelper());
     }
 }

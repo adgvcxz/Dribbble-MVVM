@@ -30,6 +30,9 @@ public class AdgbleApp extends Application {
         }
         refWatcher = LeakCanary.install(this);
         FontsOverride.setDefaultFont(this, "DEFAULT", "hobostd.otf");
+//        FontsOverride.setDefaultFont(this, "MONOSPACE", "hobostd.otf");
+//        FontsOverride.setDefaultFont(this, "SERIF", "hobostd.otf");
+//        FontsOverride.setDefaultFont(this, "SANS_SERIF", "hobostd.otf");
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(this, OkHttpUtil.generateOkHttpClient().build())
                 .setDownsampleEnabled(true).build();
         Fresco.initialize(this, config);

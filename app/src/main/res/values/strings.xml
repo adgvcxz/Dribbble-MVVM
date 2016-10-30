@@ -12,6 +12,10 @@
     <string name="large_with_info">Large with info</string>
     <string name="small_without_info">Small without info</string>
     <string name="sans_serif_medium">sans-serif-medium</string>
+    <string name="n_likes">%d Likes</string>
+    <string name="n_buckets">%d Buckets</string>
+    <string name="n_views">%d Views</string>
+    <string name="n_shares">%d Shares</string>
     <string name="by">by</string>
     <string-array name="shots_sorts">
         <item>Popular</item>

@@ -6,4 +6,5 @@
     <dimen name="navigation_item_height">48dp</dimen>
     <dimen name="detail_toolbar_height">248dp</dimen>
     <dimen name="item_shots_padding">8dp</dimen>
+    <dimen name="item_shot_likes_padding">16dp</dimen>
 </resources>

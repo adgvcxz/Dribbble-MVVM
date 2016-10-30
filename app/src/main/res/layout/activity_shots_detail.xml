@@ -18,7 +18,8 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false">
+        android:clipChildren="false"
+        app:mainBackgroundTheme="@{ThemeUtil.theme}">
 
 
         <android.support.v7.widget.RecyclerView
@@ -50,13 +51,13 @@
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@{model.translationY * 3 / 5}"
                 android:elevation="@{model.elevation}"
                 android:translationY="@{model.translationY * 3 / 5}"
                 app:actualImageScaleType="focusCrop"
                 app:cardColorTheme="@{ThemeUtil.theme}"
                 app:imageUrl="@{model.shotItemViewModel.images.hidpi}"
                 app:osVersionMarginTop="@{Build.VERSION.SDK_INT}"
-                android:layout_marginBottom="@{model.translationY * 3 / 5}"
                 app:thumbnail="@{model.shotItemViewModel.images.teaser}" />
 
             <android.support.v7.widget.Toolbar

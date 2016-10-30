@@ -115,6 +115,12 @@ public class ThemeBindingConfig {
         view.setBackgroundColor(color);
     }
 
+    @BindingAdapter({"secondBackgroundTheme"})
+    public static void setSeocndBackground(View view, int theme) {
+        int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorSecondBackground.get(theme));
+        view.setBackgroundColor(color);
+    }
+
     @BindingAdapter({"progressBarColorTheme"})
     public static void setProgressBarColor(ProgressBar progressBar, int theme) {
         int color = ContextCompat.getColor(progressBar.getContext(), ThemeUtil.sColorMainBackground.get(theme));
@@ -143,6 +149,12 @@ public class ThemeBindingConfig {
     public static void setSecondTextColor(TextView textView, int theme) {
         int color = ContextCompat.getColor(textView.getContext(), ThemeUtil.sColorSecondText.get(theme));
         textView.setTextColor(color);
+    }
+
+    @BindingAdapter({"dividerColor"})
+    public static void setDividerColor(View view, int theme) {
+        int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorDivider.get(theme));
+        view.setBackgroundColor(color);
     }
 
     @BindingAdapter({"statusBarHeight"})

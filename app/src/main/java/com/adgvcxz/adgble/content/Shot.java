@@ -54,7 +54,7 @@ public class Shot extends BaseObservable implements Serializable {
     @SerializedName("rebounds_count")
     public int reboundsCount;
     @SerializedName("buckets_count")
-    public int bucketsCount;
+    private int bucketsCount;
 
     @SerializedName("created_at")
     public String createdAt;
@@ -134,12 +134,22 @@ public class Shot extends BaseObservable implements Serializable {
         this.commentsCount = commentsCount;
     }
 
+    @Bindable
     public int getViewsCount() {
         return viewsCount;
     }
 
     public void setViewsCount(int viewsCount) {
         this.viewsCount = viewsCount;
+    }
+
+    @Bindable
+    public int getBucketsCount() {
+        return bucketsCount;
+    }
+
+    public void setBucketsCount(int bucketsCount) {
+        this.bucketsCount = bucketsCount;
     }
 
     @Bindable

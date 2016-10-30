@@ -12,7 +12,7 @@
 
         <import type="com.adgvcxz.adgble.util.TimeUtil" />
 
-        <import type="android.view.View" />
+        <import type="android.view.View" />`
 
         <import type="android.text.TextUtils" />
 
@@ -25,13 +25,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="12dp">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:layout_width="52dp"
@@ -51,7 +53,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
                     android:text="@{item.title}"
                     android:textColor="@color/color_accent"
                     android:textSize="16sp" />
@@ -64,7 +66,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="2dp"
+                        android:layout_marginRight="4dp"
                         android:text="@string/by"
                         android:textSize="12sp"
                         app:textSecondColor="@{ThemeUtil.theme}" />
@@ -96,10 +98,59 @@
         <org.sufficientlysecure.htmltextview.HtmlTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:layout_marginTop="4dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:textSize="14sp"
             android:visibility="@{TextUtils.isEmpty(item.description) ? View.GONE : View.VISIBLE}"
             app:html="@{item.description}"
             app:textSecondColor="@{ThemeUtil.theme}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            app:secondBackgroundTheme="@{ThemeUtil.theme}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/itemShotLike"
+                    android:drawableLeft="@mipmap/ic_shot_like_normal"
+                    android:text="@{@string/n_likes(item.likesCount)}"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+
+                <TextView
+                    style="@style/itemShotLike"
+                    android:drawableLeft="@mipmap/ic_shot_bucket"
+                    android:text="@{@string/n_buckets(item.bucketsCount)}"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/itemShotLike"
+                    android:drawableLeft="@mipmap/ic_shot_view_normal"
+                    android:text="@{@string/n_views(item.viewsCount)}"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+
+                <TextView
+                    style="@style/itemShotLike"
+                    android:drawableLeft="@mipmap/ic_shot_share"
+                    android:text="@{@string/n_views(item.bucketsCount)}"
+                    app:textSecondColor="@{ThemeUtil.theme}" />
+            </LinearLayout>
+        </LinearLayout>
+
+
     </LinearLayout>
 </layout>

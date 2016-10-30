@@ -6,8 +6,10 @@ import android.databinding.ObservableInt;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;
+import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.MutliItemViewSelector;
+import com.adgvcxz.adgble.content.Comment;
 import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.RxUtil;
 import com.adgvcxz.adgble.util.Util;
@@ -29,10 +31,10 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel {
     public final ObservableInt firstItemTop = new ObservableInt();
     public final ObservableInt elevation = new ObservableInt();
 
-    public final ItemView imageItemView = ItemView.of(BR.item, R.layout.item_shot_large_without_info);
+    public final ItemView commentItemView = ItemView.of(BR.item, R.layout.item_shot_comment);
     public final ItemView headerItemView = ItemView.of(BR.item, R.layout.item_shot_detail_header);
 
-    public final MutliItemViewSelector itemView = MutliItemViewSelector.newInstance((position, item) -> position == 0 ? headerItemView : imageItemView);
+    public final MutliItemViewSelector itemView = MutliItemViewSelector.newInstance((position, item) -> position == 0 ? headerItemView : commentItemView);
 
     public ShotsDetailViewModel(Activity activity, Shot model) {
         int topMargin = activity.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height);
@@ -51,13 +53,13 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel {
             translationY.set(integer);
             elevation.set((int) (8 * integer * density / height));
         });
-        for (int i = 0; i < 10; i++) {
-            items.add(shotItemViewModel);
-        }
+        items.add(shotItemViewModel);
+        resetStart = items.size();
+        loadData();
     }
 
     @Override
-    public Observable<List> request(int page) {
-        return null;
+    public Observable<List<Comment>> request(int page) {
+        return RetrofitSingleton.getInstance().getComments(shotItemViewModel.id, page);
     }
 }

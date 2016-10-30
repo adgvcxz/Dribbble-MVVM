@@ -2,7 +2,6 @@ package com.adgvcxz.adgble.model;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.databinding.ObservableInt;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -31,12 +30,13 @@ public abstract class BaseRecyclerViewModel<T> extends BaseViewModel {
     public final BaseRecyclerViewAdapter adapter = new BaseRecyclerViewAdapter(loadMoreViewModel);
     int page = 1;
     public ObservableField<TopMarginSelector> topMarginSelector;
+    int resetStart = 0;
 
     void loadData() {
         loadMoreViewModel.loading.set(true);
         request(page).subscribe(ts -> {
             if (page == 1) {
-                items.reset(ts);
+                items.reset(resetStart, ts);
             } else {
                 items.addAll(ts);
             }

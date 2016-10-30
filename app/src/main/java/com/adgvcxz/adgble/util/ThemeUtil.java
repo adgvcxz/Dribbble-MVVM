@@ -37,6 +37,9 @@ public class ThemeUtil {
     public static final List<Integer> sColorMainBackground = new ArrayList<>(Arrays.asList(R.color.main_bg_light
             , R.color.main_bg_dark));
 
+    public static final List<Integer> sColorSecondBackground = new ArrayList<>(Arrays.asList(R.color.second_bg_light
+            , R.color.second_bg_dark));
+
     public static final List<Integer> sColorCardBackground = new ArrayList<>(Arrays.asList(R.color.card_bg_light
             , R.color.card_bg_dark));
 
@@ -45,5 +48,8 @@ public class ThemeUtil {
 
     public static final List<Integer> sColorSecondText = new ArrayList<>(Arrays.asList(R.color.second_text_color_light
             , R.color.second_text_color_dark));
+
+    public static final List<Integer> sColorDivider = new ArrayList<>(Arrays.asList(R.color.divider_color_light
+            , R.color.divider_color_dark));
 
 }

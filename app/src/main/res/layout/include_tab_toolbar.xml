@@ -5,12 +5,14 @@
     <data>
 
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
+
         <variable
             name="title"
-            type="String"/>
+            type="String" />
+
         <variable
             name="model"
-            type="com.adgvcxz.adgble.model.ShotsToolbarViewModel"/>
+            type="com.adgvcxz.adgble.model.ShotsToolbarViewModel" />
     </data>
 
     <android.support.design.widget.AppBarLayout
@@ -24,12 +26,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:menu="@{model.menu}"
+            app:menuClickListener="@{model.onMenuItemClickListener}"
             app:navigationIcon="@{model.rightIcon}"
             app:navigationOnClickListener="@{model.listener}"
-            app:menu="@{model.menu}"
-            app:menuClickListener="@{model.onMenuItemClickListener}">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,9 +44,10 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:position="@={model.position}"
             app:tabIndicatorColor="#FFFFFF"
             app:tabSelectedTextColor="#FFFFFF"
-            app:position="@={model.position}"
-            app:tabTextColor="#FFFFFF"  />
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="#FFFFFF" />
     </android.support.design.widget.AppBarLayout>
 </layout>
