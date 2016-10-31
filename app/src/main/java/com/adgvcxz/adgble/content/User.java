@@ -1,7 +1,5 @@
 package com.adgvcxz.adgble.content;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,12 +10,12 @@ import java.util.Date;
  * Created by zhaowei on 2016/10/10.
  */
 
-public class User extends BaseObservable implements Parcelable {
+public class User implements Parcelable {
     public long id;
     public String name;
-    private String username;
+    public String username;
     public String htmlUrl;
-    private String avatarUrl; // 用户头像
+    public String avatarUrl; // 用户头像
     public String bio;
     public String location;
     public Links links;
@@ -53,7 +51,8 @@ public class User extends BaseObservable implements Parcelable {
         }
     };
 
-    public User(){}
+    public User() {
+    }
 
     private User(Parcel in) {
         this.id = (Long) in.readValue(Long.class.getClassLoader());
@@ -118,23 +117,5 @@ public class User extends BaseObservable implements Parcelable {
         dest.writeString(this.teamsUrl);
         dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
         dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
-    }
-
-    @Bindable
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    @Bindable
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

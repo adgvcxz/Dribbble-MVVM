@@ -20,10 +20,12 @@ import com.squareup.leakcanary.RefWatcher;
 public class AdgbleApp extends Application {
 
     private RefWatcher refWatcher;
+    private static Context sContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sContext = this;
         IMMLeaks.fixFocusedViewLeak(this);
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
@@ -41,5 +43,9 @@ public class AdgbleApp extends Application {
     public static RefWatcher getRefWatcher(Context context) {
         AdgbleApp application = (AdgbleApp) context.getApplicationContext();
         return application.refWatcher;
+    }
+
+    public static Context getContext() {
+        return sContext;
     }
 }

@@ -14,7 +14,7 @@ import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * zhaowei

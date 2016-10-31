@@ -7,4 +7,6 @@
     <dimen name="detail_toolbar_height">248dp</dimen>
     <dimen name="item_shots_padding">8dp</dimen>
     <dimen name="item_shot_likes_padding">16dp</dimen>
+    <dimen name="item_shot_large_size">112dp</dimen>
+    <dimen name="item_shot_small_size">56dp</dimen>
 </resources>

@@ -1,11 +1,8 @@
 package com.adgvcxz.adgble.content;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +10,7 @@ import java.util.Date;
  * Created by zhaowei on 2016/10/30.
  */
 
-public class Comment extends BaseObservable implements Parcelable {
+public class Comment implements Parcelable {
 
     public long id;
     public String body;
@@ -62,10 +59,5 @@ public class Comment extends BaseObservable implements Parcelable {
         dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
         dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
         dest.writeParcelable(this.user, 0);
-    }
-
-    @Bindable
-    public String getBody() {
-        return body;
     }
 }

@@ -15,7 +15,7 @@
     <string name="n_likes">%d Likes</string>
     <string name="n_buckets">%d Buckets</string>
     <string name="n_views">%d Views</string>
-    <string name="n_shares">%d Shares</string>
+    <string name="share">Share</string>
     <string name="by">by</string>
     <string-array name="shots_sorts">
         <item>Popular</item>

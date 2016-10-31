@@ -11,7 +11,8 @@ import com.adgvcxz.adgble.util.TypefaceSpan;
 
 import java.util.ArrayList;
 
-import rx.Subscription;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * zhaowei
@@ -20,12 +21,12 @@ import rx.Subscription;
 
 public class BaseActivity extends AppCompatActivity {
 
-    ArrayList<Subscription> subscriptions;
+    ArrayList<Disposable> disposables;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        subscriptions = new ArrayList<>();
+        disposables = new ArrayList<>();
     }
 
     void setActionBarTitle(@StringRes int res) {
@@ -40,8 +41,8 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        for (Subscription subscription : subscriptions) {
-            subscription.unsubscribe();
+        for (Disposable disposable : disposables) {
+            disposable.dispose();
         }
     }
 }

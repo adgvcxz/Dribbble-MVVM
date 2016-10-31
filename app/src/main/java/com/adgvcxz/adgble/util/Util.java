@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Looper;
 
+import com.adgvcxz.adgble.AdgbleApp;
 import com.adgvcxz.adgble.R;
 
 /**
@@ -42,5 +43,9 @@ public class Util {
 
     public static int dpToPx(Context context, int dp) {
         return (int) (context.getResources().getDisplayMetrics().density * dp);
+    }
+
+    public static int getSize(int resId) {
+        return AdgbleApp.getContext().getResources().getDimensionPixelSize(resId);
     }
 }

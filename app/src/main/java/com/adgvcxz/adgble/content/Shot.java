@@ -1,9 +1,9 @@
 package com.adgvcxz.adgble.content;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.adgvcxz.adgble.R;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +14,10 @@ import java.util.List;
  * Created by zhaowei on 2016/10/10.
  */
 
-public class Shot extends BaseObservable implements Parcelable {
+public class Shot implements Parcelable {
+
+    public static final int SmallSize = R.dimen.item_shot_small_size;
+    public static final int LargeSize = R.dimen.item_shot_large_size;
 
     public long id;
     public String title;
@@ -42,8 +45,6 @@ public class Shot extends BaseObservable implements Parcelable {
     public List<String> tags = new ArrayList<>();
     public User user;
     public Team team;
-    public int marginLeft;
-    public int marginRight;
 
     public static final Parcelable.Creator<Shot> CREATOR = new Parcelable.Creator<Shot>() {
         public Shot createFromParcel(Parcel source) {
@@ -88,8 +89,6 @@ public class Shot extends BaseObservable implements Parcelable {
         this.user = in.readParcelable(User.class.getClassLoader());
         this.team = in.readParcelable(Team.class.getClassLoader());
         this.animated = in.readByte() != 0;
-        this.marginLeft = in.readInt();
-        this.marginRight = in.readInt();
     }
 
     @Override
@@ -125,71 +124,5 @@ public class Shot extends BaseObservable implements Parcelable {
         dest.writeParcelable(this.user, 0);
         dest.writeParcelable(this.team, flags);
         dest.writeByte((byte) (animated ? 1 : 0));
-        dest.writeInt(this.marginLeft);
-        dest.writeInt(this.marginRight);
-    }
-
-
-    @Bindable
-    public Image getImages() {
-        return images;
-    }
-
-    @Bindable
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    @Bindable
-    public String getTitle() {
-        return title;
-    }
-
-    @Bindable
-    public int getMarginLeft() {
-        return marginLeft;
-    }
-
-    public void setMarginLeft(int marginLeft) {
-        this.marginLeft = marginLeft;
-    }
-
-    @Bindable
-    public int getMarginRight() {
-        return marginRight;
-    }
-
-    public void setMarginRight(int marginRight) {
-        this.marginRight = marginRight;
-    }
-
-    @Bindable
-    public int getLikesCount() {
-        return likesCount;
-    }
-
-    public void setLikesCount(int likesCount) {
-        this.likesCount = likesCount;
-    }
-
-    @Bindable
-    public int getCommentsCount() {
-        return commentsCount;
-    }
-
-    @Bindable
-    public int getViewsCount() {
-        return viewsCount;
-    }
-
-
-    @Bindable
-    public int getBucketsCount() {
-        return bucketsCount;
-    }
-
-    @Bindable
-    public String getDescription() {
-        return description;
     }
 }

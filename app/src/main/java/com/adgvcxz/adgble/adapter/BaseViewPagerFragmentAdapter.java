@@ -1,6 +1,5 @@
 package com.adgvcxz.adgble.adapter;
 
-import android.databinding.BaseObservable;
 import android.databinding.ObservableList;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.adgvcxz.adgble.content.Shot" />
+            type="com.adgvcxz.adgble.model.ShotItemViewModel" />
 
         <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
@@ -37,8 +37,9 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="52dp"
                     android:layout_height="52dp"
+                    android:onClick="@{item.onClickAvatar}"
                     app:actualImageScaleType="focusCrop"
-                    app:imageUrl="@{item.user.avatarUrl}"
+                    app:imageUrl="@{item.avatar}"
                     app:placeholderImage="@mipmap/ic_default_avatar"
                     app:placeholderImageScaleType="focusCrop"
                     app:roundAsCircle="true" />
@@ -53,6 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
+                        android:ellipsize="end"
                         android:maxLines="1"
                         android:text="@{item.title}"
                         android:textColor="@color/color_accent"
@@ -69,7 +71,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:maxLines="1"
-                            android:text="@{item.user.username}"
+                            android:text="@{item.username}"
                             android:textSize="16sp"
                             app:textPrimaryColor="@{ThemeUtil.theme}" />
 
@@ -78,7 +80,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:maxLines="1"
-                            android:text="@{TimeUtil.getTimeAgo(item.updatedAt)}"
+                            android:text="@{TimeUtil.getTimeAgo(item.createdAt)}"
                             android:textSize="12sp"
                             app:textSecondColor="@{ThemeUtil.theme}" />
 
@@ -93,8 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 app:actualImageScaleType="focusCrop"
-                app:imageUrl="@{item.images.hidpi}"
-                app:thumbnail="@{item.images.teaser}" />
+                app:imageUrl="@{item.image}"
+                app:thumbnail="@{item.thumbnail}" />
 
             <LinearLayout
                 android:layout_width="match_parent"

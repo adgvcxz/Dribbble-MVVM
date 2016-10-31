@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.adgvcxz.adgble.util.Util;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * zhaowei

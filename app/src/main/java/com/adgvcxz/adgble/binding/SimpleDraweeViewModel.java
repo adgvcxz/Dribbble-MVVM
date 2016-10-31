@@ -19,20 +19,26 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 public class SimpleDraweeViewModel {
 
-    @BindingAdapter(value = {"imageUrl", "thumbnail"}, requireAll = false)
-    public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl, String thumbnail) {
+    @BindingAdapter(value = {"imageUrl", "thumbnail", "maxSize"}, requireAll = false)
+    public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl, String thumbnail, int maxSize) {
         ImageDecodeOptions decodeOptions = ImageDecodeOptions.newBuilder().setDecodePreviewFrame(true).build();
-        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))
+        ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(imageUrl))
                 .setImageDecodeOptions(decodeOptions)
-                .setResizeOptions(new ResizeOptions(240, 240))
-                .setProgressiveRenderingEnabled(true)
-                .build();
+                .setProgressiveRenderingEnabled(true);
+        if (maxSize != 0) {
+            int size = simpleDraweeView.getContext().getResources().getDimensionPixelSize(maxSize);
+            if (size != 0) {
+                requestBuilder.setResizeOptions(new ResizeOptions(size, size));
+            } else {
+                requestBuilder.setResizeOptions(new ResizeOptions(maxSize, maxSize));
+            }
+        }
         ImageRequest lowRequest = null;
         if (!TextUtils.isEmpty(thumbnail)) {
             lowRequest = ImageRequest.fromUri(thumbnail);
         }
         DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                .setImageRequest(imageRequest)
+                .setImageRequest(requestBuilder.build())
                 .setLowResImageRequest(lowRequest)
                 .setOldController(simpleDraweeView.getController())
                 .setAutoPlayAnimations(true)

@@ -6,11 +6,14 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import rx.AsyncEmitter;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.databinding.Observable.OnPropertyChangedCallback;
 
@@ -22,43 +25,47 @@ import static android.databinding.Observable.OnPropertyChangedCallback;
 
 public class RxUtil {
 
-    public static <T> Observable.Transformer<T, T> rxScheduleHelper() {
+    public static <T> ObservableTransformer<T, T> rxScheduleHelper() {
         return tObservable -> tObservable.subscribeOn(Schedulers.io()).unsubscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static <T, R> Observable.Transformer<List<T>, List<R>> rxTransformList(Func1<T, R> func1) {
-        return listObservable -> listObservable.flatMapIterable(ts -> ts).map(func1).toList();
+    public static <T, R> ObservableTransformer<List<T>, List<R>> rxTransformList(Function<T, R> function) {
+        return listObservable -> listObservable.flatMapIterable(ts -> ts).map(function).toList().toObservable();
     }
 
-    public static Observable<Integer> toObservableInt(@NonNull final ObservableInt observableInt) {
-        return Observable.fromAsync(asyncEmitter -> {
-
-            final OnPropertyChangedCallback callback = new OnPropertyChangedCallback() {
-                @Override
-                public void onPropertyChanged(android.databinding.Observable dataBindingObservable, int propertyId) {
-                    if (dataBindingObservable == observableInt) {
-                        asyncEmitter.onNext(observableInt.get());
+    public static Flowable<Integer> toObservableInt(@NonNull final ObservableInt observableInt) {
+        return Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                final OnPropertyChangedCallback callback = new OnPropertyChangedCallback() {
+                    @Override
+                    public void onPropertyChanged(android.databinding.Observable dataBindingObservable, int propertyId) {
+                        if (dataBindingObservable == observableInt) {
+                            emitter.onNext(observableInt.get());
+                        }
                     }
-                }
-            };
-            observableInt.addOnPropertyChangedCallback(callback);
-            asyncEmitter.setCancellation(() -> observableInt.removeOnPropertyChangedCallback(callback));
-        }, AsyncEmitter.BackpressureMode.LATEST);
+                };
+                observableInt.addOnPropertyChangedCallback(callback);
+                emitter.setCancellable(() -> observableInt.removeOnPropertyChangedCallback(callback));
+            }
+        }, BackpressureStrategy.DROP);
     }
-    public static <T> Observable<T> toObservableInt(@NonNull final ObservableField<T> observableField) {
-        return Observable.fromAsync(asyncEmitter -> {
+
+
+    public static <T> Flowable<T> toObservableField(@NonNull final ObservableField<T> observableField) {
+        return Flowable.create(emitter -> {
 
             final OnPropertyChangedCallback callback = new OnPropertyChangedCallback() {
                 @Override
                 public void onPropertyChanged(android.databinding.Observable dataBindingObservable, int propertyId) {
                     if (dataBindingObservable == observableField) {
-                        asyncEmitter.onNext(observableField.get());
+                        emitter.onNext(observableField.get());
                     }
                 }
             };
             observableField.addOnPropertyChangedCallback(callback);
-            asyncEmitter.setCancellation(() -> observableField.removeOnPropertyChangedCallback(callback));
-        }, AsyncEmitter.BackpressureMode.LATEST);
+            emitter.setCancellable(() -> observableField.removeOnPropertyChangedCallback(callback));
+        }, BackpressureStrategy.DROP);
     }
 }

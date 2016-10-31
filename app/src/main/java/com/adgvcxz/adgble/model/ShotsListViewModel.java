@@ -16,22 +16,22 @@ import com.adgvcxz.adgble.adapter.TopMarginSelector;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
-import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.RxUtil;
 import com.adgvcxz.adgble.util.Util;
 import com.android.databinding.library.baseAdapters.BR;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/23.
  */
 
-public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<Shot> implements OnCreateViewListener {
+public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<ShotItemViewModel> implements OnCreateViewListener {
 
     private final int padding;
 
@@ -40,7 +40,7 @@ public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<Shot> 
         padding = context.getResources().getDimensionPixelSize(R.dimen.item_shots_padding);
         topMarginSelector = new ObservableField<>(selector);
         topMargin.set(topMarginSelector.get().topMargin(null, 0));
-        RxUtil.toObservableInt(topMarginSelector).subscribe(selector1 -> {
+        RxUtil.toObservableField(topMarginSelector).subscribe(selector1 -> {
             topMargin.set(selector1.topMargin(null, 0));
         });
     }
@@ -60,12 +60,12 @@ public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<Shot> 
                     });
 
     @Override
-    public Observable<List<Shot>> request(int page) {
-        return RetrofitSingleton.getInstance().getShots(page, getSorts()).flatMapIterable(shots -> shots).collect(ArrayList::new, (shots, shot) -> {
-            shot.setMarginLeft(shots.size() % 2 == 0 ? padding : padding / 2);
-            shot.setMarginRight(shots.size() % 2 == 0 ? padding / 2 : padding);
-            shots.add(shot);
-        });
+    public Observable<List<ShotItemViewModel>> request(int page) {
+        return RetrofitSingleton.getInstance().getShots(page, getSorts()).flatMapIterable(shots -> shots)
+                .collect((Callable<List<ShotItemViewModel>>) ArrayList::new, (shots, shot) -> {
+                    boolean size0 = shots.size() % 2 == 0;
+                    shots.add(new ShotItemViewModel(shot, size0 ? padding : padding / 2, size0 ? padding / 2 : padding));
+                }).toObservable();
     }
 
     @Override

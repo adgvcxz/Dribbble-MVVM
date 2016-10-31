@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.adgvcxz.adgble.model.ShotItemViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/avatar"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            app:actualImageScaleType="focusCrop"
+            app:imageUrl="@{model.avatar}"
+            app:placeholderImage="@mipmap/ic_default_avatar"
+            app:placeholderImageScaleType="focusCrop" />
+
+
+    </LinearLayout>
+</layout>
