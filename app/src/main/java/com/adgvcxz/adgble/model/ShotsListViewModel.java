@@ -52,7 +52,7 @@ public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<ShotIt
                     .subscribe(activity -> {
                         View view = v.findViewById(R.id.item_shot_image);
                         if (view != null) {
-                            ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, new Pair<>(view, Util.ShotImage));
+                            ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, Util.ShotImage);
                             Intent intent = new Intent(activity, ShotsDetailActivity.class);
                             intent.putExtra(Util.DATA, items.get(position));
                             ActivityCompat.startActivity(activity, intent, opts.toBundle());

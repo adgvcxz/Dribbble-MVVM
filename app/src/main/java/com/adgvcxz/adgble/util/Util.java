@@ -18,6 +18,7 @@ public class Util {
     public static final String DATA = "DATA";
 
     public static final String ShotImage = "Translate:ShotImage";
+    public static final String UserAvatar = "Translate:UserAvatar";
 
     public static void ensureChangeOnMainThread() {
         if (Thread.currentThread() != Looper.getMainLooper().getThread()) {

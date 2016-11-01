@@ -82,7 +82,7 @@ public class RecyclerViewBindingConfig {
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-
+                
             }
         });
     }

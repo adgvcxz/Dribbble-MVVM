@@ -35,7 +35,8 @@
             app:layoutManager="@{model.layoutManager}"
             app:loadMore="@{model.loadMore}"
             app:onClickLoadMore="@{model.onLoadMoreClickListener}"
-            app:onScrollListener="@{model.onScrollListener}"
+            app:onItemClickListener="@{model.clickListener}"
+            app:onScrollListener="@{model.statusListener}"
             app:topMarginSelector="@{model.topMarginSelector}" />
 
         <FrameLayout

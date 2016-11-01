@@ -1,5 +1,6 @@
 package com.adgvcxz.adgble.model;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
@@ -7,6 +8,8 @@ import android.databinding.ObservableInt;
 import android.databinding.ObservableLong;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
 import com.adgvcxz.adgble.activity.UserInfoActivity;
@@ -16,6 +19,9 @@ import com.adgvcxz.adgble.util.ObservableString;
 import com.adgvcxz.adgble.util.Util;
 
 import java.util.Date;
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 /**
  * zhaowei
@@ -62,9 +68,13 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
     }
 
     public View.OnClickListener onClickAvatar = view -> {
-        Intent intent = new Intent(view.getContext(), UserInfoActivity.class);
-        intent.putExtra(Util.DATA, ShotItemViewModel.this);
-        view.getContext().startActivity(intent);
+        Observable.just(view.getContext()).ofType(Activity.class)
+                .subscribe(activity -> {
+                    ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, Util.UserAvatar);
+                    Intent intent = new Intent(activity, UserInfoActivity.class);
+                    intent.putExtra(Util.DATA, ShotItemViewModel.this);
+                    ActivityCompat.startActivity(activity, intent, opts.toBundle());
+                });
     };
 
 

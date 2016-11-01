@@ -11,20 +11,31 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/avatar"
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="320dp"
+            android:background="@color/card_bg_dark"
             app:actualImageScaleType="focusCrop"
             app:imageUrl="@{model.avatar}"
             app:placeholderImage="@mipmap/ic_default_avatar"
             app:placeholderImageScaleType="focusCrop" />
 
-
-    </LinearLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/avatar"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="128dp"
+            app:actualImageScaleType="focusCrop"
+            app:imageUrl="@{model.avatar}"
+            app:placeholderImage="@mipmap/ic_default_avatar"
+            app:placeholderImageScaleType="focusCrop"
+            app:roundAsCircle="true" />
+    </RelativeLayout>
 </layout>

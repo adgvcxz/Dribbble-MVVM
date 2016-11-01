@@ -9,13 +9,13 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adgvcxz.adgble.util.Util;
+import com.adgvcxz.adgble.view.TextViewFixTouchConsume;
 
 /**
  * zhaowei
@@ -38,10 +38,10 @@ public class TextViewBindingConfig {
                     builder.setSpan(new DribbbleUrlSpan(span.getURL()), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 textView.setText(trimHtml(builder));
-                textView.setMovementMethod(LinkMovementMethod.getInstance());
             } else {
                 textView.setText(trimHtml(spanned));
             }
+            textView.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
         }
     }
 

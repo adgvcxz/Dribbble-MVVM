@@ -13,79 +13,117 @@
         <import type="com.adgvcxz.adgble.util.TimeUtil" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="12dp">
+            android:orientation="vertical">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                app:actualImageScaleType="focusCrop"
-                app:imageUrl="@{item.avatar}"
-                app:placeholderImage="@mipmap/ic_default_avatar"
-                app:placeholderImageScaleType="focusCrop"
-                app:roundAsCircle="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="12dp">
+                android:orientation="horizontal"
+                android:padding="12dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{item.username}"
-                    android:textSize="17sp"
-                    app:textPrimaryColor="@{ThemeUtil.theme}" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="15sp"
-                    app:html="@{item.body}"
-                    app:textSecondColor="@{ThemeUtil.theme}" />
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:actualImageScaleType="focusCrop"
+                    app:imageUrl="@{item.avatar}"
+                    app:placeholderImage="@mipmap/ic_default_avatar"
+                    app:placeholderImageScaleType="focusCrop"
+                    app:roundAsCircle="true" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_vertical">
+                    android:orientation="vertical"
+                    android:paddingLeft="12dp">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@{TimeUtil.getTimeAgo(item.createdAt)}"
-                        android:textSize="12sp"
-                        app:textSecondColor="@{ThemeUtil.theme}" />
+                        android:text="@{item.username}"
+                        android:textSize="17sp"
+                        app:textPrimaryColor="@{ThemeUtil.theme}" />
 
-                    <TextView
+                    <com.adgvcxz.adgble.view.TextViewFixTouchConsume
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/ic_shot_like_small_normal"
-                        android:drawablePadding="6dp"
-                        android:text="@{@string/n_likes(item.likesCount)}"
-                        android:textSize="12sp"
+                        android:layout_marginTop="4dp"
+                        android:textSize="15sp"
+                        app:html="@{item.body}"
                         app:textSecondColor="@{ThemeUtil.theme}" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@{TimeUtil.getTimeAgo(item.createdAt)}"
+                            android:textSize="12sp"
+                            app:textSecondColor="@{ThemeUtil.theme}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@mipmap/ic_shot_like_small_normal"
+                            android:drawablePadding="6dp"
+                            android:text="@{@string/n_likes(item.likesCount)}"
+                            android:textSize="12sp"
+                            app:textSecondColor="@{ThemeUtil.theme}" />
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
 
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                app:dividerColor="@{ThemeUtil.theme}" />
         </LinearLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="72dp"
-            app:dividerColor="@{ThemeUtil.theme}" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:revealAnim="@={item.anim}">
+
+            <TextView
+                style="@style/itemShotCommentLike"
+                android:drawableTop="@mipmap/ic_shot_like_normal"
+                android:text="@string/like"
+                android:onClick="@{item.clickLike}"
+                app:textSecondColor="@{ThemeUtil.theme}" />
+
+            <TextView
+                style="@style/itemShotCommentLike"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="64dp"
+                android:drawableTop="@mipmap/ic_shot_share"
+                android:text="@string/reply"
+                android:onClick="@{item.clickReply}"
+                app:textSecondColor="@{ThemeUtil.theme}" />
+
+            <TextView
+                style="@style/itemShotCommentLike"
+                android:drawableTop="@mipmap/ic_shot_copy"
+                android:text="@string/copy"
+                android:onClick="@{item.clickCopy}"
+                app:textSecondColor="@{ThemeUtil.theme}" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>

@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.support.v7.widget.RecyclerView;
 
 import com.adgvcxz.adgble.R;
-import com.adgvcxz.adgble.adapter.TopMarginSelector;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.ItemView;
 import com.adgvcxz.adgble.binding.MutliItemViewSelector;
+import com.adgvcxz.adgble.binding.OnRecyclerViewItemClickListener;
+import com.adgvcxz.adgble.binding.ViewBindingConfig;
 import com.adgvcxz.adgble.util.RxUtil;
 import com.adgvcxz.adgble.util.Util;
 import com.android.databinding.library.baseAdapters.BR;
@@ -36,6 +38,48 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel<BaseObservable> 
     public final ItemView headerItemView = ItemView.of(BR.item, R.layout.item_shot_detail_header);
 
     public final MutliItemViewSelector itemView = MutliItemViewSelector.newInstance((position, item) -> position == 0 ? headerItemView : commentItemView);
+    public int animPosition = -1;
+
+    public final OnRecyclerViewItemClickListener clickListener = (recyclerView, position, v) -> {
+        Observable.just(position).map(items::get).ofType(CommentViewModel.class)
+                .subscribe(commentViewModel -> {
+                    if (animPosition >= 1 && animPosition != position) {
+                        CommentViewModel model = (CommentViewModel) items.get(animPosition);
+                        if (model.anim.get() == ViewBindingConfig.AnimShow) {
+                            model.anim.set(ViewBindingConfig.AnimHide);
+                        }
+                    }
+                    animPosition = position;
+                    int anim = commentViewModel.anim.get();
+                    if (anim == ViewBindingConfig.AnimInit || anim == ViewBindingConfig.AnimHide) {
+                        commentViewModel.anim.set(ViewBindingConfig.AnimShow);
+                    } else {
+                        animPosition = -1;
+                        commentViewModel.anim.set(ViewBindingConfig.AnimHide);
+                    }
+                });
+    };
+
+
+    public RecyclerView.OnScrollListener statusListener = new RecyclerView.OnScrollListener() {
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            onScrollListener.onScrolled(recyclerView, dx, dy);
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            onScrollListener.onScrollStateChanged(recyclerView, newState);
+            if (animPosition != -1) {
+                CommentViewModel model = (CommentViewModel) items.get(animPosition);
+                if (model.anim.get() == ViewBindingConfig.AnimShow) {
+                    animPosition = -1;
+                    model.anim.set(ViewBindingConfig.AnimHide);
+                }
+            }
+        }
+    };
 
     public ShotsDetailViewModel(Activity activity, ShotItemViewModel model) {
         int topMargin = activity.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height);

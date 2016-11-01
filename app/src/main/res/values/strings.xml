@@ -17,6 +17,9 @@
     <string name="n_views">%d Views</string>
     <string name="share">Share</string>
     <string name="by">by</string>
+    <string name="like">Like</string>
+    <string name="reply">Reply</string>
+    <string name="copy">Copy</string>
     <string-array name="shots_sorts">
         <item>Popular</item>
         <item>Recent</item>
