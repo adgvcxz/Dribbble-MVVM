@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.transition.Transition;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.adgvcxz.adgble.R;
-import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.databinding.ActivityShotsDetailBinding;
 import com.adgvcxz.adgble.model.ShotsDetailViewModel;
 import com.adgvcxz.adgble.util.Util;
@@ -23,6 +23,8 @@ import com.facebook.drawee.view.DraweeTransition;
 
 public class ShotsDetailActivity extends BaseActivity {
 
+    ShotsDetailViewModel viewModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +33,8 @@ public class ShotsDetailActivity extends BaseActivity {
         }
         ActivityShotsDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_shots_detail);
         initTranslation(binding);
-        ShotsDetailViewModel model = new ShotsDetailViewModel(this, getIntent().getParcelableExtra(Util.DATA));
-        binding.setModel(model);
+        viewModel = new ShotsDetailViewModel(this, getIntent().getParcelableExtra(Util.DATA));
+        binding.setModel(viewModel);
     }
 
     private void initTranslation(ActivityShotsDetailBinding binding) {
@@ -67,5 +69,14 @@ public class ShotsDetailActivity extends BaseActivity {
             ViewCompat.setTransitionName(binding.imageView, Util.ShotImage);
             getWindow().getSharedElementEnterTransition().addListener(listener);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (viewModel.animPosition != -1 && keyCode == KeyEvent.KEYCODE_BACK) {
+            viewModel.hideLikeLayout();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

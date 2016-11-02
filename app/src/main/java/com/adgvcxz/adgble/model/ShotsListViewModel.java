@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.databinding.ObservableField;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.activity.ShotsDetailActivity;
-import com.adgvcxz.adgble.adapter.OnCreateViewListener;
+import com.adgvcxz.adgble.adapter.OnFragmentViewModelListener;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
 import com.adgvcxz.adgble.binding.ItemView;
@@ -31,7 +30,7 @@ import io.reactivex.Observable;
  * Created by zhaowei on 2016/10/23.
  */
 
-public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<ShotItemViewModel> implements OnCreateViewListener {
+public abstract class ShotsListViewModel extends RefreshRecyclerViewModel<ShotItemViewModel> implements OnFragmentViewModelListener {
 
     private final int padding;
 

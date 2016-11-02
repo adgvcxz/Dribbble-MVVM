@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.adgvcxz.adgble.binding.ItemViewSelector;
 import com.adgvcxz.adgble.fragment.BaseViewModelFragment;
+import com.adgvcxz.adgble.model.BaseFragmentViewModel;
 import com.adgvcxz.adgble.util.Util;
 
 import java.lang.ref.WeakReference;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by zhaowei on 2016/10/20.
  */
 
-public class BaseViewPagerFragmentAdapter<T extends OnCreateViewListener> extends FragmentPagerAdapter {
+public class BaseViewPagerFragmentAdapter<T extends OnFragmentViewModelListener> extends FragmentPagerAdapter {
 
     private List<T> items;
     private ItemViewSelector itemView;
@@ -30,9 +31,8 @@ public class BaseViewPagerFragmentAdapter<T extends OnCreateViewListener> extend
 
     @Override
     public Fragment getItem(int position) {
-        BaseViewModelFragment fragment = BaseViewModelFragment.newInstance(
-                itemView.bindingVariable(position, items.get(position)), itemView.layoutRes(position, items.get(position)));
-        return fragment.setItem(items.get(position));
+        T item = items.get(position);
+        return BaseViewModelFragment.newInstance(itemView.bindingVariable(position, item), itemView.layoutRes(position, item)).setModel(item);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class BaseViewPagerFragmentAdapter<T extends OnCreateViewListener> extend
     }
 
 
-    private static class WeakReferenceOnListChangedCallback<T extends OnCreateViewListener> extends ObservableList.OnListChangedCallback<ObservableList<T>> {
+    private static class WeakReferenceOnListChangedCallback<T extends OnFragmentViewModelListener> extends ObservableList.OnListChangedCallback<ObservableList<T>> {
         final WeakReference<BaseViewPagerFragmentAdapter<T>> adapterRef;
 
         WeakReferenceOnListChangedCallback(BaseViewPagerFragmentAdapter<T> adapter) {

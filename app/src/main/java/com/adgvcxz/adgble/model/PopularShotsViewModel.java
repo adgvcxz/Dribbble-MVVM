@@ -1,7 +1,9 @@
 package com.adgvcxz.adgble.model;
 
 import android.content.Context;
+import android.os.Parcel;
 
+import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;
 
 /**
@@ -18,5 +20,10 @@ public class PopularShotsViewModel extends ShotsListViewModel {
     @Override
     String getSorts() {
         return "";
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_shots_list;
     }
 }

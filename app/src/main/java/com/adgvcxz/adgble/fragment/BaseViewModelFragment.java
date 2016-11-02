@@ -9,7 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adgvcxz.adgble.adapter.OnCreateViewListener;
+import com.adgvcxz.adgble.adapter.OnFragmentViewModelListener;
+import com.adgvcxz.adgble.model.BaseFragmentViewModel;
 
 /**
  * zhaowei
@@ -18,15 +19,17 @@ import com.adgvcxz.adgble.adapter.OnCreateViewListener;
 
 public class BaseViewModelFragment extends BaseFragment {
 
-    @LayoutRes
-    private int layoutId;
-    private OnCreateViewListener item;
+    public static final String LayoutId = "LayoutId";
+    public static final String BindingVariable = "BindingVariable";
+    public static final String ViewModel = "ViewModel";
+
+    private OnFragmentViewModelListener model;
 
     public static BaseViewModelFragment newInstance(int bindingVariable, @LayoutRes int layoutId) {
         BaseViewModelFragment fragment = new BaseViewModelFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("layoutId", layoutId);
-        bundle.putInt("bindingVariable", bindingVariable);
+        bundle.putInt(LayoutId, layoutId);
+        bundle.putInt(BindingVariable, bindingVariable);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -34,16 +37,22 @@ public class BaseViewModelFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layoutId = getArguments().getInt("layoutId");
-        int bindingVariable = getArguments().getInt("bindingVariable");
+        int layoutId = getArguments().getInt(LayoutId);
+        int bindingVariable = getArguments().getInt(BindingVariable);
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, container, false);
-        binding.setVariable(bindingVariable, item);
-        item.onCreateView();
+        if (model != null) {
+            binding.setVariable(bindingVariable, model);
+            model.onCreateView();
+        }
         return binding.getRoot();
     }
 
-    public BaseViewModelFragment setItem(OnCreateViewListener item) {
-        this.item = item;
+    public OnFragmentViewModelListener getModel() {
+        return model;
+    }
+
+    public BaseViewModelFragment setModel(OnFragmentViewModelListener model) {
+        this.model = model;
         return this;
     }
 }

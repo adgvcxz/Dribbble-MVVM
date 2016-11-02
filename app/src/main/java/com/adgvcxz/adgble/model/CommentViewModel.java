@@ -1,10 +1,11 @@
 package com.adgvcxz.adgble.model;
 
 import android.databinding.BaseObservable;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.databinding.ObservableLong;
+import android.graphics.Point;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class CommentViewModel extends BaseObservable {
     public final ObservableInt likesCount;
     public final ObservableField<Date> createdAt;
     public final ObservableInt anim;
+    public final Point point;
 
     public CommentViewModel(Comment comment) {
         userId = new ObservableLong(comment.user.id);
@@ -37,6 +39,7 @@ public class CommentViewModel extends BaseObservable {
         likesCount = new ObservableInt(comment.likesCount);
         createdAt = new ObservableField<>(comment.createdAt);
         anim = new ObservableInt(ViewBindingConfig.AnimInit);
+        point = new Point();
     }
 
     public final View.OnClickListener clickLike = new View.OnClickListener() {
@@ -55,6 +58,16 @@ public class CommentViewModel extends BaseObservable {
         @Override
         public void onClick(View view) {
             Toast.makeText(view.getContext(), "Click Copy", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    public final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                point.set((int) motionEvent.getX(), (int) motionEvent.getY());
+            }
+            return false;
         }
     };
 }

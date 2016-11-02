@@ -11,7 +11,9 @@ import com.adgvcxz.adgble.rxbus.RxBusClickDrawerMenu;
  */
 
 public class MainActivityViewModel extends BaseViewModel {
+
     public final ObservableBoolean isDrawerOpen = new ObservableBoolean(false);
+    public final DrawerMenuViewModel drawerMenuViewModel = new DrawerMenuViewModel();
 
     public MainActivityViewModel() {
         RxBus.getDefault().toObservable(RxBusClickDrawerMenu.class).filter(rxBusClickDrawerMenu -> !isDrawerOpen.get())
