@@ -17,7 +17,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
  * Created by zhaowei on 2016/10/23.
  */
 
-public class SimpleDraweeViewModel {
+public class SimpleDraweeBindingConfig {
 
     @BindingAdapter(value = {"imageUrl", "thumbnail", "maxSize"}, requireAll = false)
     public static void loadImage(SimpleDraweeView simpleDraweeView, String imageUrl, String thumbnail, int maxSize) {

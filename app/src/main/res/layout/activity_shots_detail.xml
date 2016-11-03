@@ -25,6 +25,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipChildren="false"
             android:orientation="vertical"
             app:adapter="@{model.adapter}"
             app:colorPrimaryTheme="@{ThemeUtil.theme}"

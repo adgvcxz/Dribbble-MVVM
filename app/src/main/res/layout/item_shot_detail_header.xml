@@ -21,6 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:orientation="vertical">
 
         <LinearLayout
@@ -36,6 +37,7 @@
                 android:layout_height="52dp"
                 app:actualImageScaleType="focusCrop"
                 app:imageUrl="@{item.avatar}"
+                app:placeholderImage="@mipmap/ic_default_avatar"
                 app:placeholderImageScaleType="focusCrop"
                 app:roundAsCircle="true" />
 
@@ -147,6 +149,19 @@
             </LinearLayout>
         </LinearLayout>
 
+        <com.adgvcxz.adgble.view.TagsViewGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            app:horizontal_spacing="8dp"
+            app:inner_horizontal_spacing="16dp"
+            app:inner_vertical_spacing="4dp"
+            app:tagClickListener="@{item.onTagClickListener}"
+            app:tags="@{item.tags}"
+            app:vertical_spacing="8dp" />
 
     </LinearLayout>
 </layout>

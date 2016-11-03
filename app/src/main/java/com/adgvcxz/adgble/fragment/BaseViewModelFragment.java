@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adgvcxz.adgble.adapter.OnFragmentViewModelListener;
-import com.adgvcxz.adgble.model.BaseFragmentViewModel;
 
 /**
  * zhaowei
@@ -21,7 +20,6 @@ public class BaseViewModelFragment extends BaseFragment {
 
     public static final String LayoutId = "LayoutId";
     public static final String BindingVariable = "BindingVariable";
-    public static final String ViewModel = "ViewModel";
 
     private OnFragmentViewModelListener model;
 

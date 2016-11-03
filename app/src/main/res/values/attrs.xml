@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TagsViewGroup">
+        <attr name="horizontal_spacing" format="dimension" />
+        <attr name="vertical_spacing" format="dimension" />
+        <attr name="inner_horizontal_spacing" format="dimension" />
+        <attr name="inner_vertical_spacing" format="dimension" />
+    </declare-styleable>
+
+</resources>
