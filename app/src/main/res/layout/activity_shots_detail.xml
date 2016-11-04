@@ -25,7 +25,6 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipChildren="false"
             android:orientation="vertical"
             app:adapter="@{model.adapter}"
             app:colorPrimaryTheme="@{ThemeUtil.theme}"
@@ -40,13 +39,16 @@
             app:onScrollListener="@{model.statusListener}"
             app:topMarginSelector="@{model.topMarginSelector}" />
 
-        <FrameLayout
+        <android.support.v7.widget.CardView
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_toolbar_height"
             android:clipChildren="false"
             android:translationY="@{-model.translationY}"
             app:appTheme="@{ThemeUtil.theme}"
+            app:cardCornerRadius="0dp"
+            app:cardColorTheme="@{ThemeUtil.theme}"
+            app:elevation="@{model.elevation}"
             app:osVersion="@{Build.VERSION.SDK_INT}">
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -54,10 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@{model.translationY * 3 / 5}"
-                android:elevation="@{model.elevation}"
                 android:translationY="@{model.translationY * 3 / 5}"
                 app:actualImageScaleType="focusCrop"
-                app:cardColorTheme="@{ThemeUtil.theme}"
                 app:imageUrl="@{model.shotItemViewModel.image}"
                 app:osVersionMarginTop="@{Build.VERSION.SDK_INT}"
                 app:thumbnail="@{model.shotItemViewModel.thumbnail}" />
@@ -67,6 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:translationY="@{model.translationY}"
+                app:backPaletteUrl="@{model.shotItemViewModel.thumbnail}"
+                app:navigationOnClickListener="@{model.onBackClickListener}"
                 app:osVersionMarginTop="@{Build.VERSION.SDK_INT}"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -79,6 +81,6 @@
                 app:colorPrimaryStatusBg="@{ThemeUtil.theme}"
                 app:statusBarHeight="@{Build.VERSION.SDK_INT}" />
 
-        </FrameLayout>
+        </android.support.v7.widget.CardView>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

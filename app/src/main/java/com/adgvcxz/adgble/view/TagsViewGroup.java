@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -79,10 +80,13 @@ public class TagsViewGroup extends ViewGroup {
         Observable.fromIterable(tags).scan(0, (integer, s) -> {
             FrameLayout layout = new FrameLayout(getContext());
             TextView tv = new TextView(getContext());
+            TypedValue outValue = new TypedValue();
+            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
             tv.setTextColor(ContextCompat.getColor(getContext(), R.color.color_accent));
             tv.setTextSize(15);
             tv.setPadding(innerHorizontalSpacing, innerVerticalSpacing, innerHorizontalSpacing, innerVerticalSpacing);
             tv.setText(s);
+            tv.setBackgroundResource(outValue.resourceId);
             if (listener != null) {
                 tv.setOnClickListener(view -> listener.onClick(tv, integer, s));
             }

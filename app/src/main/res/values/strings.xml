@@ -20,6 +20,7 @@
     <string name="like">Like</string>
     <string name="reply">Reply</string>
     <string name="copy">Copy</string>
+    <string name="click_here_to_sign_in">Click here to sign in</string>
     <string-array name="shots_sorts">
         <item>Popular</item>
         <item>Recent</item>

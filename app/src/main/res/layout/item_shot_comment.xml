@@ -34,7 +34,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     app:actualImageScaleType="focusCrop"
-                    app:imageUrl="@{item.avatar}"
+                    app:imageUrl="@{item.user.avatar}"
                     app:placeholderImage="@mipmap/ic_default_avatar"
                     app:placeholderImageScaleType="focusCrop"
                     app:roundAsCircle="true" />
@@ -48,7 +48,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{item.username}"
+                        android:text="@{item.user.username}"
                         android:textSize="17sp"
                         app:textPrimaryColor="@{ThemeUtil.theme}" />
 

@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.api.RetrofitSingleton;
@@ -39,6 +40,7 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel<BaseObservable> 
 
     public final MutliItemViewSelector itemView = MutliItemViewSelector.newInstance((position, item) -> position == 0 ? headerItemView : commentItemView);
     public int animPosition = -1;
+    public Activity activity;
 
     public final OnRecyclerViewItemClickListener clickListener = (recyclerView, position, v) -> {
         Observable.just(position).map(items::get).ofType(CommentViewModel.class)
@@ -77,15 +79,10 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel<BaseObservable> 
         }
     };
 
-    public void hideLikeLayout() {
-        CommentViewModel model = (CommentViewModel) items.get(animPosition);
-        if (model.anim.get() == ViewBindingConfig.AnimShow) {
-            animPosition = -1;
-            model.anim.set(ViewBindingConfig.AnimHide);
-        }
-    }
+    public View.OnClickListener onBackClickListener = view -> activity.onBackPressed();
 
     public ShotsDetailViewModel(Activity activity, ShotItemViewModel model) {
+        this.activity = activity;
         int topMargin = activity.getResources().getDimensionPixelSize(R.dimen.detail_toolbar_height);
         final int margin = topMargin;
         shotItemViewModel = model;
@@ -105,6 +102,14 @@ public class ShotsDetailViewModel extends BaseRecyclerViewModel<BaseObservable> 
         items.add(shotItemViewModel);
         resetStart = items.size();
         loadData();
+    }
+
+    public void hideLikeLayout() {
+        CommentViewModel model = (CommentViewModel) items.get(animPosition);
+        if (model.anim.get() == ViewBindingConfig.AnimShow) {
+            animPosition = -1;
+            model.anim.set(ViewBindingConfig.AnimHide);
+        }
     }
 
     @Override

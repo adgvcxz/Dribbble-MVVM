@@ -35,8 +35,7 @@ import io.reactivex.Observable;
 public class ShotItemViewModel extends BaseObservable implements Parcelable {
 
     public final ObservableLong id;
-    public final ObservableString avatar;
-    public final ObservableString username;
+    public ObservableField<UserViewModel> user;
     public final ObservableString title;
     public final ObservableString description;
     public final ObservableField<Date> createdAt;
@@ -56,9 +55,8 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
 
     public ShotItemViewModel(Shot shot, int left, int right) {
         id = new ObservableLong(shot.id);
-        avatar = new ObservableString(shot.user.avatarUrl);
-        username = new ObservableString(shot.user.username);
         title = new ObservableString(shot.title);
+        user = new ObservableField<>(new UserViewModel(shot.user));
         description = new ObservableString(shot.description);
         createdAt = new ObservableField<>(shot.createdAt);
         likesCount = new ObservableInt(shot.likesCount);
@@ -78,7 +76,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
             .subscribe(activity -> {
                 ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, Util.UserAvatar);
                 Intent intent = new Intent(activity, UserInfoActivity.class);
-                intent.putExtra(Util.DATA, ShotItemViewModel.this);
+                intent.putExtra(Util.DATA, this.user.get());
                 ActivityCompat.startActivity(activity, intent, opts.toBundle());
             });
 
@@ -101,8 +99,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
         List<String> tags = new ArrayList<>();
         tags.addAll(this.tags);
         parcel.writeParcelable(id, flags);
-        parcel.writeParcelable(avatar, flags);
-        parcel.writeParcelable(username, flags);
+        parcel.writeParcelable(user.get(), flags);
         parcel.writeParcelable(title, flags);
         parcel.writeParcelable(description, flags);
         parcel.writeLong(createdAt.get() == null ? -1 : createdAt.get().getTime());
@@ -133,8 +130,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
 
     private ShotItemViewModel(Parcel parcel) {
         id = parcel.readParcelable(ObservableLong.class.getClassLoader());
-        avatar = parcel.readParcelable(ObservableString.class.getClassLoader());
-        username = parcel.readParcelable(ObservableString.class.getClassLoader());
+        user = new ObservableField<>(parcel.readParcelable(UserViewModel.class.getClassLoader()));
         title = parcel.readParcelable(ObservableString.class.getClassLoader());
         description = parcel.readParcelable(ObservableString.class.getClassLoader());
         long tmpUpdatedAt = parcel.readLong();

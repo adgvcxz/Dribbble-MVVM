@@ -39,7 +39,7 @@
                     android:layout_height="52dp"
                     android:onClick="@{item.onClickAvatar}"
                     app:actualImageScaleType="focusCrop"
-                    app:imageUrl="@{item.avatar}"
+                    app:imageUrl="@{item.user.avatar}"
                     app:placeholderImage="@mipmap/ic_default_avatar"
                     app:placeholderImageScaleType="focusCrop"
                     app:roundAsCircle="true" />
@@ -71,7 +71,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:maxLines="1"
-                            android:text="@{item.username}"
+                            android:text="@{item.user.username}"
                             android:textSize="16sp"
                             app:textPrimaryColor="@{ThemeUtil.theme}" />
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.adgvcxz.adgble.util.ThemeUtil"/>
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
         <variable
             name="model"
@@ -12,8 +14,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="48dp"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"
+            android:paddingLeft="32dp"
+            android:paddingTop="88dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:actualImageScaleType="focusCrop"
+                app:placeholderImage="@mipmap/ic_default_avatar"
+                app:placeholderImageScaleType="focusCrop"
+                app:roundAsCircle="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/app_name"
+                android:textSize="16sp"
+                app:textPrimaryColor="@{ThemeUtil.theme}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/click_here_to_sign_in"
+                android:textSize="12sp"
+                app:textSecondColor="@{ThemeUtil.theme}" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@{ThemeUtil.theme}" />
 
         <TextView
             android:layout_width="match_parent"
@@ -21,7 +61,8 @@
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
             android:onClick="@{model.onClickSetting}"
-            android:text="@{ThemeUtil.theme == ThemeUtil.Day ? @string/night_theme : @string/day_theme}" />
+            android:text="@{ThemeUtil.theme == ThemeUtil.Day ? @string/night_theme : @string/day_theme}"
+            app:textPrimaryColor="@{ThemeUtil.theme}" />
 
     </LinearLayout>
 </layout>

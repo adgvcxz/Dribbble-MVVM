@@ -7,31 +7,53 @@
 
         <variable
             name="model"
-            type="com.adgvcxz.adgble.model.ShotItemViewModel" />
+            type="com.adgvcxz.adgble.model.UserViewModel" />
+
+        <import type="com.adgvcxz.adgble.util.ThemeUtil" />
 
     </data>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <RelativeLayout
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:background="@color/card_bg_dark"
-            app:actualImageScaleType="focusCrop"
-            app:imageUrl="@{model.avatar}"
-            app:placeholderImage="@mipmap/ic_default_avatar"
-            app:placeholderImageScaleType="focusCrop" />
+            android:layout_height="420dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/card_bg_dark"
+                app:actualImageScaleType="focusCrop"
+                app:imageUrl="@{model.avatar}"
+                app:placeholderImage="@mipmap/ic_default_avatar"
+                app:placeholderImageScaleType="focusCrop" />
+
+            <com.github.mmin18.widget.RealtimeBlurView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:realtimeBlurRadius="20dp"
+                app:realtimeOverlayColor="#9000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="196dp"
+                android:text="@{model.username}"
+                android:textSize="20sp"
+                app:textPrimaryColor="@{ThemeUtil.theme}" />
+        </RelativeLayout>
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/avatar"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="96dp"
             app:actualImageScaleType="focusCrop"
             app:imageUrl="@{model.avatar}"
             app:placeholderImage="@mipmap/ic_default_avatar"

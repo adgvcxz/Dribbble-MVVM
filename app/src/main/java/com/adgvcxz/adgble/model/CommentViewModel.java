@@ -22,9 +22,7 @@ import java.util.Date;
 
 public class CommentViewModel extends BaseObservable {
 
-    public final ObservableLong userId;
-    public final ObservableString username;
-    public final ObservableString avatar;
+    public final ObservableField<UserViewModel> user;
     public final ObservableString body;
     public final ObservableInt likesCount;
     public final ObservableField<Date> createdAt;
@@ -32,9 +30,7 @@ public class CommentViewModel extends BaseObservable {
     public final Point point;
 
     public CommentViewModel(Comment comment) {
-        userId = new ObservableLong(comment.user.id);
-        username = new ObservableString(comment.user.username);
-        avatar = new ObservableString(comment.user.avatarUrl);
+        user = new ObservableField<>(new UserViewModel(comment.user));
         body = new ObservableString(comment.body);
         likesCount = new ObservableInt(comment.likesCount);
         createdAt = new ObservableField<>(comment.createdAt);

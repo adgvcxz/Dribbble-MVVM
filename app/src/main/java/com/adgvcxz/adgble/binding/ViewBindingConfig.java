@@ -11,6 +11,7 @@ import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -91,6 +92,13 @@ public class ViewBindingConfig {
     public static void setElevation(View view, int elevation) {
         Observable.just(elevation).filter(integer -> Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT).subscribe(integer -> {
             ViewCompat.setElevation(view, elevation);
+        });
+    }
+
+    @BindingAdapter({"elevation"})
+    public static void setCardViewElevation(CardView view, int elevation) {
+        Observable.just(elevation).filter(integer -> Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT).subscribe(integer -> {
+            view.setCardElevation(elevation);
         });
     }
 

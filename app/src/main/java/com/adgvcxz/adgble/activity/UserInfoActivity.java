@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
@@ -15,6 +16,7 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.adgvcxz.adgble.R;
@@ -36,16 +38,21 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_info);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setSharedElementEnterTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
             getWindow().setSharedElementReturnTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
             ViewCompat.setTransitionName(binding.avatar, Util.UserAvatar);
             setupEnterAnimation();
+            binding.view.setAlpha(0f);
         }
         binding.setModel(getIntent().getParcelableExtra(Util.DATA));
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setupEnterAnimation() {
         Transition transition = TransitionInflater.from(this)
                 .inflateTransition(R.transition.arc_motion);
@@ -59,6 +66,7 @@ public class UserInfoActivity extends BaseActivity {
             @Override
             public void onTransitionEnd(Transition transition) {
                 transition.removeListener(this);
+                binding.view.setAlpha(1f);
                 animateRevealShow();
             }
 
@@ -127,7 +135,7 @@ public class UserInfoActivity extends BaseActivity {
 
         // 设置圆形显示动画
         Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, startRadius, finalRadius);
-        anim.setDuration(1000);
+        anim.setDuration(400);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -142,7 +150,6 @@ public class UserInfoActivity extends BaseActivity {
                 view.setBackgroundColor(ContextCompat.getColor(context, color));
             }
         });
-
         anim.start();
     }
 
