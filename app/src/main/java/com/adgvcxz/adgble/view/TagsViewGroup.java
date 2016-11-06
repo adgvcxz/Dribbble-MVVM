@@ -2,6 +2,8 @@ package com.adgvcxz.adgble.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.databinding.BindingMethod;
+import android.databinding.BindingMethods;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
@@ -27,12 +29,14 @@ import io.reactivex.Observable;
  * Created by zhaowei on 2016/11/2.
  */
 
+@BindingMethods(@BindingMethod(type = TagsViewGroup.class, attribute = "onClickTag", method = "setOnTagClickListener"))
 public class TagsViewGroup extends ViewGroup {
 
     private int horizontalSpacing = 0;
     private int verticalSpacing = 0;
     private int innerHorizontalSpacing = 0;
     private int innerVerticalSpacing = 0;
+    private OnTagClickListener onTagClickListener;
 
     public TagsViewGroup(Context context) {
         this(context, null);
@@ -75,7 +79,7 @@ public class TagsViewGroup extends ViewGroup {
         }
     }
 
-    public void setTags(List<String> tags, OnTagClickListener listener) {
+    public void setTags(List<String> tags) {
         removeAllViews();
         Observable.fromIterable(tags).scan(0, (integer, s) -> {
             FrameLayout layout = new FrameLayout(getContext());
@@ -87,9 +91,11 @@ public class TagsViewGroup extends ViewGroup {
             tv.setPadding(innerHorizontalSpacing, innerVerticalSpacing, innerHorizontalSpacing, innerVerticalSpacing);
             tv.setText(s);
             tv.setBackgroundResource(outValue.resourceId);
-            if (listener != null) {
-                tv.setOnClickListener(view -> listener.onClick(tv, integer, s));
-            }
+            tv.setOnClickListener(view -> {
+                if (onTagClickListener != null) {
+                    onTagClickListener.onClickTag(tv, integer, s);
+                }
+            });
             ThemeBindingConfig.setCardColorTheme(layout, ThemeUtil.theme.get());
             ViewCompat.setElevation(layout, Util.dpToPx(getContext(), 6));
             layout.addView(tv);
@@ -98,6 +104,14 @@ public class TagsViewGroup extends ViewGroup {
         }).subscribe(integer -> {
             requestLayout();
         });
+    }
+
+    public OnTagClickListener getOnTagClickListener() {
+        return onTagClickListener;
+    }
+
+    public void setOnTagClickListener(OnTagClickListener onTagClickListener) {
+        this.onTagClickListener = onTagClickListener;
     }
 
     @Override
@@ -153,6 +167,6 @@ public class TagsViewGroup extends ViewGroup {
     }
 
     public interface OnTagClickListener {
-        void onClick(View view, int position, String tag);
+        void onClickTag(View view, int position, String tag);
     }
 }

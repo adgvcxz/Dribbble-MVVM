@@ -121,6 +121,8 @@
                     style="@style/itemShotLike"
                     android:drawableLeft="@mipmap/ic_shot_like_normal"
                     android:text="@{@string/n_likes(item.likesCount)}"
+                    android:onClick="@{(v) -> item.like(v)}"
+                    android:background="?attr/selectableItemBackground"
                     app:textSecondColor="@{ThemeUtil.theme}" />
 
                 <TextView
@@ -145,6 +147,8 @@
                     style="@style/itemShotLike"
                     android:drawableLeft="@mipmap/ic_shot_share"
                     android:text="@string/share"
+                    android:onClick="@{(v) -> item.share(v)}"
+                    android:background="?attr/selectableItemBackground"
                     app:textSecondColor="@{ThemeUtil.theme}" />
             </LinearLayout>
         </LinearLayout>
@@ -159,7 +163,7 @@
             app:horizontal_spacing="8dp"
             app:inner_horizontal_spacing="16dp"
             app:inner_vertical_spacing="4dp"
-            app:tagClickListener="@{item.onTagClickListener}"
+            app:onTagClickListener="@{(view, position, tag) -> item.onClickTag(view, position, tag)}"
             app:tags="@{item.tags}"
             app:vertical_spacing="8dp" />
 

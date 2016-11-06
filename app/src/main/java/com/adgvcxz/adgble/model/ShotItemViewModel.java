@@ -19,7 +19,6 @@ import com.adgvcxz.adgble.content.Image;
 import com.adgvcxz.adgble.content.Shot;
 import com.adgvcxz.adgble.util.ObservableString;
 import com.adgvcxz.adgble.util.Util;
-import com.adgvcxz.adgble.view.TagsViewGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +45,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
     public final ObservableInt bucketsCount;
     public final ObservableInt viewsCount;
     public final ObservableArrayList<String> tags;
+    public final ObservableString url;
     public final ObservableInt marginLeft;
     public final ObservableInt marginRight;
 
@@ -65,6 +65,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
         viewsCount = new ObservableInt(shot.viewsCount);
         tags = new ObservableArrayList<>();
         tags.addAll(shot.tags);
+        url = new ObservableString(shot.htmlUrl);
         marginLeft = new ObservableInt(left);
         marginRight = new ObservableInt(right);
         Image image = shot.images;
@@ -72,6 +73,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
         thumbnail = new ObservableString(image.teaser);
     }
 
+    //=============================Extension==========================
     public View.OnClickListener onClickAvatar = view -> Observable.just(view.getContext()).ofType(Activity.class)
             .subscribe(activity -> {
                 ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, Util.UserAvatar);
@@ -81,12 +83,22 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
             });
 
 
-    public TagsViewGroup.OnTagClickListener onTagClickListener = new TagsViewGroup.OnTagClickListener() {
-        @Override
-        public void onClick(View view, int position, String tag) {
-            Toast.makeText(view.getContext(), tag, Toast.LENGTH_SHORT).show();
-        }
-    };
+    public void onClickTag(View view, int position, String tag) {
+        Toast.makeText(view.getContext(), tag, Toast.LENGTH_SHORT).show();
+    }
+
+    public void share(View view) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, url.get());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        view.getContext().startActivity(intent);
+    }
+
+    public void like(View view) {
+        //TODO
+        Toast.makeText(view.getContext(), "Likes", Toast.LENGTH_SHORT).show();
+    }
 
     //=========================Parcelable========================
     @Override
@@ -108,6 +120,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
         parcel.writeParcelable(bucketsCount, flags);
         parcel.writeParcelable(viewsCount, flags);
         parcel.writeList(tags);
+        parcel.writeParcelable(url, flags);
         parcel.writeParcelable(marginLeft, flags);
         parcel.writeParcelable(marginRight, flags);
         parcel.writeParcelable(image, flags);
@@ -142,6 +155,7 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
         ArrayList<String> tags = parcel.readArrayList(String.class.getClassLoader());
         this.tags = new ObservableArrayList<>();
         this.tags.addAll(tags);
+        url = parcel.readParcelable(ObservableString.class.getClassLoader());
         marginLeft = parcel.readParcelable(ObservableInt.class.getClassLoader());
         marginRight = parcel.readParcelable(ObservableInt.class.getClassLoader());
         image = parcel.readParcelable(ObservableString.class.getClassLoader());

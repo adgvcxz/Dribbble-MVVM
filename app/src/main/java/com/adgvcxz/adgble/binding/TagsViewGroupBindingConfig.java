@@ -1,6 +1,7 @@
 package com.adgvcxz.adgble.binding;
 
 import android.databinding.BindingAdapter;
+import android.view.View;
 
 import com.adgvcxz.adgble.view.TagsViewGroup;
 
@@ -13,9 +14,9 @@ import java.util.List;
 
 public class TagsViewGroupBindingConfig {
 
-    @BindingAdapter({"tags", "tagClickListener"})
-    public static void setTags(TagsViewGroup tagsViewGroup, List<String> tags, TagsViewGroup.OnTagClickListener listener) {
-        tagsViewGroup.setTags(tags, listener);
+    @BindingAdapter({"tags"})
+    public static void setTags(TagsViewGroup tagsViewGroup, List<String> tags) {
+        tagsViewGroup.setTags(tags);
     }
 
 }
