@@ -9,3 +9,4 @@
 .externalNativeBuild
 .apk
 *.apk
+/gradle.properties
