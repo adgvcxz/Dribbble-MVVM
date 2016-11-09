@@ -15,6 +15,7 @@ Dribbble Android MVVM
 ![](https://github.com/adgvcxz/Adgble/blob/master/img/gif2.gif)
 
 ![](https://github.com/adgvcxz/Adgble/blob/master/img/gif3.gif)
+![](https://github.com/adgvcxz/Adgble/blob/master/img/gif4.gif)
 
 
 

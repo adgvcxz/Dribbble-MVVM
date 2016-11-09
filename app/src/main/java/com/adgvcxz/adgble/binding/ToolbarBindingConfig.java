@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.adgvcxz.adgble.R;
@@ -60,9 +61,9 @@ public class ToolbarBindingConfig {
                     drawable.setColorFilter(integer, PorterDuff.Mode.SRC_ATOP);
                     return drawable;
                 }).map(drawable -> {
-                    toolbar.setNavigationIcon(drawable);
+                    toolbar.post(() -> toolbar.setNavigationIcon(drawable));
                     return toolbar.getContext();
-                }).subscribeOn(AndroidSchedulers.mainThread()).delay(300, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+                }).delay(300, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(context -> {
                     ViewCompat.animate(toolbar).alpha(1f).setDuration(200).start();
                     toolbar.setNavigationOnClickListener(listener);
