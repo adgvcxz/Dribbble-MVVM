@@ -3,31 +3,30 @@ package com.adgvcxz.adgble.fragment;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adgvcxz.adgble.adapter.OnFragmentViewModelListener;
+import com.adgvcxz.adgble.model.BaseFragmentViewModel;
+import com.android.databinding.library.baseAdapters.BR;
 
 /**
  * zhaowei
  * Created by zhaowei on 2016/10/20.
  */
 
-public class BaseViewModelFragment extends BaseFragment {
+public class BaseViewModelFragment<T extends BaseFragmentViewModel, B extends ViewDataBinding> extends BaseFragment {
 
-    public static final String LayoutId = "LayoutId";
-    public static final String BindingVariable = "BindingVariable";
+    public static final String Model = "Model";
 
-    private OnFragmentViewModelListener model;
+    T model;
+    B binding;
 
-    public static BaseViewModelFragment newInstance(int bindingVariable, @LayoutRes int layoutId) {
+    public static BaseViewModelFragment newInstance(BaseFragmentViewModel model) {
         BaseViewModelFragment fragment = new BaseViewModelFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(LayoutId, layoutId);
-        bundle.putInt(BindingVariable, bindingVariable);
+        bundle.putParcelable(Model, model);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -35,22 +34,18 @@ public class BaseViewModelFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        int layoutId = getArguments().getInt(LayoutId);
-        int bindingVariable = getArguments().getInt(BindingVariable);
-        ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, container, false);
+        model = getArguments().getParcelable(Model);
         if (model != null) {
-            binding.setVariable(bindingVariable, model);
-            model.onCreateView();
+            binding = DataBindingUtil.inflate(inflater, model.layoutId(), container, false);
+            binding.setVariable(BR.model, model);
+            model.onCreateView(binding.getRoot());
         }
         return binding.getRoot();
     }
 
-    public OnFragmentViewModelListener getModel() {
-        return model;
-    }
-
-    public BaseViewModelFragment setModel(OnFragmentViewModelListener model) {
-        this.model = model;
-        return this;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        model.onDestroyView();
     }
 }

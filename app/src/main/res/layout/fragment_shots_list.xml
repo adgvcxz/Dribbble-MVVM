@@ -17,26 +17,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:colorPrimaryTheme="@{ThemeUtil.theme}"
-        app:onRefreshListener="@{model.onRefreshListener}"
-        app:refreshing="@{model.refreshing}"
-        app:topMargin="@{model.topMargin}">
+        app:onRefreshListener="@{model.recyclerViewModel.onRefreshListener}"
+        app:refreshing="@{model.recyclerViewModel.refreshing}"
+        app:topMargin="@{model.recyclerViewModel.topMargin}">
 
         <android.support.v7.widget.RecyclerView
             android:id="@id/shotsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:adapter="@{model.adapter}"
+            app:adapter="@{model.recyclerViewModel.adapter}"
             app:colorPrimaryTheme="@{ThemeUtil.theme}"
-            app:isLoadAll="@{model.isLoadAll}"
-            app:itemView="@{model.itemView}"
-            app:items="@{model.items}"
-            app:layoutManager="@{model.layoutManager}"
-            app:loadMore="@{model.loadMore}"
-            app:onClickLoadMore="@{model.onLoadMoreClickListener}"
-            app:onItemClickListener="@{model.clickListener}"
-            app:onScrollListener="@{model.onScrollListener}"
-            app:topMarginSelector="@{model.topMarginSelector}" />
+            app:isLoadAll="@{model.recyclerViewModel.isLoadAll}"
+            app:itemView="@{model.recyclerViewModel.itemView}"
+            app:items="@{model.recyclerViewModel.items}"
+            app:layoutManager="@{model.recyclerViewModel.layoutManager}"
+            app:loadMore="@{model.recyclerViewModel.loadMore}"
+            app:onClickLoadMore="@{model.recyclerViewModel.onLoadMoreClickListener}"
+            app:onItemClickListener="@{model.recyclerViewModel.clickListener}"
+            app:onScrollListener="@{model.recyclerViewModel.onScrollListener}"
+            app:topMarginSelector="@{model.recyclerViewModel.topMarginSelector}" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </layout>

@@ -20,8 +20,8 @@ import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.OvershootInterpolator;
 
 import com.adgvcxz.adgble.R;
-import com.adgvcxz.adgble.adapter.OnFragmentViewModelListener;
 import com.adgvcxz.adgble.fragment.BaseViewModelFragment;
+import com.adgvcxz.adgble.model.BaseFragmentViewModel;
 import com.adgvcxz.adgble.util.ThemeUtil;
 import com.adgvcxz.adgble.util.Util;
 import com.android.databinding.library.baseAdapters.BR;
@@ -114,9 +114,9 @@ public class ViewBindingConfig {
     }
 
     @BindingAdapter({"fragment"})
-    public static void addFragment(ViewGroup viewGroup, OnFragmentViewModelListener model) {
+    public static void addFragment(ViewGroup viewGroup, BaseFragmentViewModel model) {
         Observable.just(viewGroup.getContext()).ofType(FragmentActivity.class).subscribe(fragmentActivity -> {
-            BaseViewModelFragment fragment = BaseViewModelFragment.newInstance(BR.model, model.getLayoutId()).setModel(model);
+            BaseViewModelFragment fragment = BaseViewModelFragment.newInstance(model);
             fragmentActivity.getSupportFragmentManager().beginTransaction().replace(viewGroup.getId(), fragment).commit();
         });
     }

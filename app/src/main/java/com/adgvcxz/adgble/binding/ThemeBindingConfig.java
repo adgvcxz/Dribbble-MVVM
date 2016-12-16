@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Build;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -130,7 +131,12 @@ public class ThemeBindingConfig {
     @BindingAdapter({"colorPrimaryStatusBg"})
     public static void colorPrimaryStatusBg(View view, int theme) {
         int color = ContextCompat.getColor(view.getContext(), ThemeUtil.sColorPrimaryDark.get(theme));
-        view.setBackgroundColor(color);
+        if (view instanceof CollapsingToolbarLayout) {
+            CollapsingToolbarLayout layout = (CollapsingToolbarLayout) view;
+            layout.setStatusBarScrimColor(color);
+        } else {
+            view.setBackgroundColor(color);
+        }
     }
 
     @BindingAdapter({"cardColorTheme"})

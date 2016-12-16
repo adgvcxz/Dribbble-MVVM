@@ -76,10 +76,11 @@ public class ShotItemViewModel extends BaseObservable implements Parcelable {
     //=============================Extension==========================
     public View.OnClickListener onClickAvatar = view -> Observable.just(view.getContext()).ofType(Activity.class)
             .subscribe(activity -> {
-                ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, Util.UserAvatar);
+//                ActivityOptionsCompat opts = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, Util.UserAvatar);
                 Intent intent = new Intent(activity, UserInfoActivity.class);
                 intent.putExtra(Util.DATA, this.user.get());
-                ActivityCompat.startActivity(activity, intent, opts.toBundle());
+//                ActivityCompat.startActivity(activity, intent, opts.toBundle());
+                activity.startActivity(intent);
             });
 
 

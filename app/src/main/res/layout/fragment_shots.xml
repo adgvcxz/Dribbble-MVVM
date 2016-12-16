@@ -20,12 +20,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/include_tab_toolbar"
-            app:title="@{title}"
-            app:model="@{model.shotsToolbarViewModel}"/>
-
-
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
@@ -34,6 +28,13 @@
             app:itemView="@{model.itemView}"
             app:items="@{model.items}"
             app:pageTitles="@{model.pageTitles}" />
+
+
+        <include
+            layout="@layout/include_tab_toolbar"
+            app:title="@{title}"
+            app:model="@{model.shotsToolbarViewModel}"/>
+
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -1,7 +1,5 @@
 package com.adgvcxz.adgble.model;
 
-import android.content.Context;
-
 import com.adgvcxz.adgble.R;
 import com.adgvcxz.adgble.adapter.TopMarginSelector;
 
@@ -12,8 +10,8 @@ import com.adgvcxz.adgble.adapter.TopMarginSelector;
 
 public class RecentShotsViewModel extends ShotsListViewModel {
 
-    public RecentShotsViewModel(Context context, TopMarginSelector selector) {
-        super(context, selector);
+    public RecentShotsViewModel(TopMarginSelector selector) {
+        super(selector);
     }
 
     @Override
@@ -22,7 +20,7 @@ public class RecentShotsViewModel extends ShotsListViewModel {
     }
 
     @Override
-    public int getLayoutId() {
+    public int layoutId() {
         return R.layout.fragment_shots_list;
     }
 }

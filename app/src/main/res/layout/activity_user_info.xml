@@ -14,50 +14,63 @@
     </data>
 
 
-    <RelativeLayout
+    <com.adgvcxz.adgble.view.TouchUpCoordinatorLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-        <RelativeLayout
-            android:id="@+id/view"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="420dp">
+            android:layout_height="320dp"
+            android:fitsSystemWindows="true">
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/card_bg_dark"
-                app:actualImageScaleType="focusCrop"
-                app:imageUrl="@{model.avatar}"
-                app:placeholderImage="@mipmap/ic_default_avatar"
-                app:placeholderImageScaleType="focusCrop" />
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                app:colorPrimaryStatusBg="@{ThemeUtil.theme}"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.github.mmin18.widget.RealtimeBlurView
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/card_bg_dark"
+                    app:actualImageScaleType="focusCrop"
+                    app:imageUrl="@{model.avatar}"
+                    app:placeholderImage="@mipmap/ic_default_avatar"
+                    app:placeholderImageScaleType="focusCrop" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:realtimeBlurRadius="20dp"
-                app:realtimeOverlayColor="#9000" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="196dp"
-                android:text="@{model.username}"
-                android:textSize="20sp"
-                app:textPrimaryColor="@{ThemeUtil.theme}" />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="96dp"
-            app:actualImageScaleType="focusCrop"
-            app:imageUrl="@{model.avatar}"
-            app:placeholderImage="@mipmap/ic_default_avatar"
-            app:placeholderImageScaleType="focusCrop"
-            app:roundAsCircle="true" />
-    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:background="@color/color_accent" />
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </com.adgvcxz.adgble.view.TouchUpCoordinatorLayout>
 </layout>

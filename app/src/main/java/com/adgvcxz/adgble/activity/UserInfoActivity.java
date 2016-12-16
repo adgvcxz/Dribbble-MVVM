@@ -37,17 +37,17 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_info);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setSharedElementEnterTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
-            getWindow().setSharedElementReturnTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
-            ViewCompat.setTransitionName(binding.avatar, Util.UserAvatar);
-            setupEnterAnimation();
-            binding.view.setAlpha(0f);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            getWindow().setSharedElementEnterTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
+//            getWindow().setSharedElementReturnTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
+////            ViewCompat.setTransitionName(binding.avatar, Util.UserAvatar);
+//            setupEnterAnimation();
+//            binding.view.setAlpha(0f);
+//        }
         binding.setModel(getIntent().getParcelableExtra(Util.DATA));
     }
 
@@ -65,8 +65,8 @@ public class UserInfoActivity extends BaseActivity {
             @Override
             public void onTransitionEnd(Transition transition) {
                 transition.removeListener(this);
-                binding.view.setAlpha(1f);
-                animateRevealShow();
+//                binding.view.setAlpha(1f);
+//                animateRevealShow();
             }
 
             @Override
@@ -87,9 +87,9 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     private void animateRevealShow() {
-        animateRevealShow(
-                this, binding.view,
-                binding.avatar.getWidth() / 2, R.color.color_accent);
+//        animateRevealShow(
+//                this, binding.view,
+//                binding.avatar.getWidth() / 2, R.color.color_accent);
     }
 
 

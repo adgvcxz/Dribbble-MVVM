@@ -35,57 +35,57 @@ public class ShotsViewModel extends BaseViewModel implements Toolbar.OnMenuItemC
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
         normalMargin = (int) styledAttributes.getDimension(0, 0) * 2;
         cardTopMargin = normalMargin + context.getResources().getDimensionPixelSize(R.dimen.item_shots_padding);
-        items.add(new PopularShotsViewModel(context, (view, position) -> position == 0 ? normalMargin : 0));
-        items.add(new RecentShotsViewModel(context, (view, position) -> position == 0 ? normalMargin : 0));
+        items.add(new PopularShotsViewModel((view, position) -> position == 0 ? normalMargin : 0));
+        items.add(new RecentShotsViewModel((view, position) -> position == 0 ? normalMargin : 0));
         styledAttributes.recycle();
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         ShotsListViewModel model = items.get(shotsToolbarViewModel.position.get());
-        int res = model.itemView.layoutRes();
+        int res = model.recyclerViewModel.itemView.layoutRes();
         switch (menuItem.getItemId()) {
             case R.id.fm_shots_large:
                 if (res != R.layout.item_shot_large_without_info) {
-                    model.itemView.changeLayoutRes(R.layout.item_shot_large_without_info);
-                    model.topMarginSelector.set((view, position) -> position == 0 ? normalMargin : 0);
+                    model.recyclerViewModel.itemView.changeLayoutRes(R.layout.item_shot_large_without_info);
+                    model.recyclerViewModel.topMarginSelector.set((view, position) -> position == 0 ? normalMargin : 0);
                     if (res == R.layout.item_shot_small_without_info || res == R.layout.item_shot_small_with_info) {
-                        model.layoutManager.set(LayoutManager.linear());
+                        model.recyclerViewModel.layoutManager.set(LayoutManager.linear());
                     } else {
-                        model.adapter.notifyDataSetChanged();
+                        model.recyclerViewModel.adapter.notifyDataSetChanged();
                     }
                 }
                 break;
             case R.id.fm_shots_small:
                 if (res != R.layout.item_shot_small_without_info) {
-                    model.itemView.changeLayoutRes(R.layout.item_shot_small_without_info);
-                    model.topMarginSelector.set((view, position) -> position == 0 ? normalMargin : 0);
+                    model.recyclerViewModel.itemView.changeLayoutRes(R.layout.item_shot_small_without_info);
+                    model.recyclerViewModel.topMarginSelector.set((view, position) -> position == 0 ? normalMargin : 0);
                     if (res == R.layout.item_shot_large_without_info || res == R.layout.item_shot_large_with_info) {
-                        model.layoutManager.set(LayoutManager.gridLoadMore2());
+                        model.recyclerViewModel.layoutManager.set(LayoutManager.gridLoadMore2());
                     } else {
-                        model.adapter.notifyDataSetChanged();
+                        model.recyclerViewModel.adapter.notifyDataSetChanged();
                     }
                 }
                 break;
             case R.id.fm_shots_large_info:
                 if (res != R.layout.item_shot_large_with_info) {
-                    model.itemView.changeLayoutRes(R.layout.item_shot_large_with_info);
-                    model.topMarginSelector.set((view, position) -> position == 0 ? cardTopMargin : 0);
+                    model.recyclerViewModel.itemView.changeLayoutRes(R.layout.item_shot_large_with_info);
+                    model.recyclerViewModel.topMarginSelector.set((view, position) -> position == 0 ? cardTopMargin : 0);
                     if (res == R.layout.item_shot_small_without_info || res == R.layout.item_shot_small_with_info) {
-                        model.layoutManager.set(LayoutManager.linear());
+                        model.recyclerViewModel.layoutManager.set(LayoutManager.linear());
                     } else {
-                        model.adapter.notifyDataSetChanged();
+                        model.recyclerViewModel.adapter.notifyDataSetChanged();
                     }
                 }
                 break;
             case R.id.fm_shots_small_info:
                 if (res != R.layout.item_shot_small_with_info) {
-                    model.itemView.changeLayoutRes(R.layout.item_shot_small_with_info);
-                    model.topMarginSelector.set((view, position) -> position == 0 || position == 1 ? cardTopMargin : 0);
+                    model.recyclerViewModel.itemView.changeLayoutRes(R.layout.item_shot_small_with_info);
+                    model.recyclerViewModel.topMarginSelector.set((view, position) -> position == 0 || position == 1 ? cardTopMargin : 0);
                     if (res == R.layout.item_shot_large_without_info || res == R.layout.item_shot_large_with_info) {
-                        model.layoutManager.set(LayoutManager.gridLoadMore2());
+                        model.recyclerViewModel.layoutManager.set(LayoutManager.gridLoadMore2());
                     } else {
-                        model.adapter.notifyDataSetChanged();
+                        model.recyclerViewModel.adapter.notifyDataSetChanged();
                     }
                 }
                 break;

@@ -1,6 +1,8 @@
 package com.adgvcxz.adgble.model;
 
 import android.os.Parcelable;
+import android.support.annotation.LayoutRes;
+import android.view.View;
 
 /**
  * zhaowei
@@ -9,6 +11,15 @@ import android.os.Parcelable;
 
 public abstract class BaseFragmentViewModel extends BaseViewModel implements Parcelable {
 
-    public abstract void onCreateView();
+    public void onCreateView(View view) {
+
+    }
+
+    public void onDestroyView() {
+
+    }
+
+    @LayoutRes
+    public abstract int layoutId();
 
 }

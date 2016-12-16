@@ -1,7 +1,5 @@
 package com.adgvcxz.adgble.binding;
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,7 @@ import com.adgvcxz.adgble.R;
 
 public class LayoutManager {
 
-    protected LayoutManager(){
+    protected LayoutManager() {
 
     }
 
