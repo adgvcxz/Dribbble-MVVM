@@ -9,7 +9,7 @@ Dribbble Android MVVM
 
 双向绑定等
 
-#####用来学习Databinding相关知识 没有继续维护了 更多关于Databidning和MVVM可以看我的最新项目: [DiyCode](https://github.com/adgvcxz/Diycode)
+#####用来学习Databinding相关知识 没有继续维护了 更多关于Databidning和MVVM可以看我的最新项目(用[Kotlin](https://kotlinlang.org/)写的): [DiyCode](https://github.com/adgvcxz/Diycode)
 
 ## Preview
 
